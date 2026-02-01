@@ -16,12 +16,20 @@ read
 # 1. Partition the disk
 echo "📦 Creating partitions..."
 sgdisk --zap-all "$DISK"
-sgdisk -n 1:0:+1G -t 1:ef00 -c 1:"EFI" "$DISK"
-sgdisk -n 2:0:+8G -t 2:8200 -c 2:"Swap" "$DISK"
-sgdisk -n 3:0:+102G -t 3:0700 -c 3:"Windows-C" "$DISK"
-sgdisk -n 4:0:+101G -t 4:0700 -c 4:"Windows-D" "$DISK"
-sgdisk -n 5:0:+100G -t 5:0700 -c 5:"Windows-E" "$DISK"
-sgdisk -n 6:0:0 -t 6:8300 -c 6:"NixOS" "$DISK"
+
+# EFI partition – 1 GB
+sgdisk -n 1:0:+1000M   -t 1:ef00 -c 1:"EFI"        "$DISK"
+
+# Swap – 8 GB
+sgdisk -n 2:0:+8000M   -t 2:8200 -c 2:"Swap"       "$DISK"
+
+# Windows partitions
+sgdisk -n 3:0:+102000M -t 3:0700 -c 3:"Windows-C" "$DISK"
+sgdisk -n 4:0:+101000M -t 4:0700 -c 4:"Windows-D" "$DISK"
+sgdisk -n 5:0:+100000M -t 5:0700 -c 5:"Windows-E" "$DISK"
+
+# NixOS – ~199.9 GB (safe to fit GPT metadata)
+sgdisk -n 6:0:+199900M -t 6:8300 -c 6:"NixOS"     "$DISK"
 
 sleep 2
 partprobe "$DISK"
