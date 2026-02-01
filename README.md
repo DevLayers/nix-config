@@ -4,6 +4,13 @@ This repository contains NixOS and nix-darwin configurations for my machines, ma
 
 It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), [nix-darwin](https://github.com/LnL7/nix-darwin), and various other community contributions for a seamless experience across NixOS and macOS.
 
+## Security Notes
+
+- **SSH Configuration**: SSH server runs on **port 30** (non-standard port for security)
+  - Connect with: `ssh -p 30 user@host`
+  - Fail2ban enabled for brute-force protection
+  - Modern crypto only (Ed25519, ChaCha20-Poly1305)
+
 ## Showcase
 
 ### Hyprland/Niri

@@ -28,6 +28,12 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Agenix for secrets management
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -37,10 +43,15 @@
       darwin,
       home-manager,
       nixpkgs,
+      agenix,
       ...
     }@inputs:
     let
       inherit (self) outputs;
+      inherit (nixpkgs) lib;
+
+      # Production-grade library helpers
+      customLib = import ./lib { inherit lib; };
 
       # Define user configurations
       users = {
@@ -71,8 +82,12 @@
             inherit inputs outputs hostname;
             userConfig = users.${username};
             nixosModules = "${self}/modules/nixos";
+            lib = lib.extend (final: prev: customLib);
           };
-          modules = [ ./hosts/${hostname} ];
+          modules = [
+            ./hosts/${hostname}
+            agenix.nixosModules.default
+          ];
         };
 
       # Function for nix-darwin system configuration
@@ -105,6 +120,9 @@
         };
     in
     {
+      # Export custom library helpers
+      lib = customLib;
+
       nixosConfigurations = {
         energy = mkNixosConfiguration "energy" "nabokikh";
       };
@@ -121,5 +139,8 @@
       };
 
       overlays = import ./overlays { inherit inputs; };
+
+      # Development templates
+      templates = import ./templates;
     };
 }

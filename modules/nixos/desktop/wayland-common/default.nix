@@ -4,7 +4,8 @@
   services.displayManager.gdm.enable = true;
 
   # Enable Power management support
-  services.power-profiles-daemon.enable = true;
+  # Disabled: using auto-cpufreq instead for better automatic CPU management
+  # services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
   # Enable security services

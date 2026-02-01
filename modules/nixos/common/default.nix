@@ -8,6 +8,19 @@
   ...
 }:
 {
+  # Import production-grade enhancements
+  imports = [
+    ./activation.nix # System activation scripts (generation diffs)
+    ../hardware      # CPU/GPU detection & optimization, laptop power management
+    ../security      # World-class security hardening
+    ../networking    # Hardened networking + privacy enhancements
+    ../services      # Performance & stability services
+    ../nix           # Nix daemon optimization
+    ../fs            # Filesystem (BTRFS) configuration
+    ../programs      # Development programs (direnv with nix-direnv)
+    ../secrets       # Agenix secrets management
+  ];
+
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
@@ -103,10 +116,31 @@
   };
 
   # Enable Wayland support in Chromium and Electron based applications
-  # Set cursor size
+  # Set cursor size and professional environment defaults
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XCURSOR_SIZE = "24";
+  };
+
+  # Professional environment variables
+  environment.variables = {
+    # SSH
+    SSH_AUTH_SOCK = "/run/user/\${UID}/keyring/ssh";
+
+    # Terminal emulator
+    TERMINAL = "foot";
+
+    # Editors - used by git, crontab, visudo, etc.
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    SUDO_EDITOR = "nvim";
+
+    # Pager configuration for man pages, systemd, etc.
+    MANPAGER = "nvim -c 'set ft=man bt=nowrite noswapfile nobk shada=\"NONE\" ro noma' +Man! -o -";
+    SYSTEMD_PAGERSECURE = "true";
+    PAGER = "less -FR";
+    LESS = "--RAW-CONTROL-CHARS --wheel-lines=5 --LONG-PROMPT --no-vbell --wordwrap";
+    SYSTEMD_LESS = "--RAW-CONTROL-CHARS --wheel-lines=5 --LONG-PROMPT --no-vbell --wordwrap --quit-if-one-screen --chop-long-lines --no-init";
   };
 
   # PATH configuration
