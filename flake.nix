@@ -142,6 +142,6 @@ users = {
       overlays = import ./overlays { inherit inputs; };
 
       # Development templates
-      templates = import ./templates;
+      templates = (import ./templates {}).flake.templates;
     };
 }

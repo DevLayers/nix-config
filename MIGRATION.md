@@ -65,9 +65,23 @@ This configuration combines AlexNabokikh's clean architecture with production-gr
 
 ## 🚀 Quick Start
 
-### Enable Security Hardening
+### Security & Performance - Already Enabled! ✅
 
-Add to your host configuration (`hosts/yourhost/default.nix`):
+**Good news**: All production-grade security hardening, networking, and performance modules are **automatically enabled** when you import the common module (which is already done in your host configs).
+
+Your `hosts/energy/default.nix` imports `"${nixosModules}/common"` which automatically includes:
+- ✅ All security hardening (kernel, auditd, network privacy, PAM, sudo, AppArmor)
+- ✅ Hardened SSH and firewall  
+- ✅ Nix daemon optimization
+- ✅ BTRFS support
+- ✅ All performance services
+
+**No additional imports needed!** Everything mentioned in MIGRATION.md is already active.
+
+<details>
+<summary><b>Advanced: Manual Module Import (if not using common)</b></summary>
+
+If you're creating a minimal config without the common module, you can manually import:
 
 ```nix
 {
@@ -79,6 +93,7 @@ Add to your host configuration (`hosts/yourhost/default.nix`):
   ];
 }
 ```
+</details>
 
 ### Use Library Helpers
 
@@ -115,19 +130,29 @@ nix flake show
 
 ## 📝 Available Templates
 
+**Programming Languages:**
 - `rust` - Cargo project with devShell
 - `python` - Poetry project
 - `go` - Go module project
+- `node` - Node.js/npm project
+- `java` - Java/Maven project
+- `php` - PHP/Composer project
+- `c` - C/Make project
+
+**DevOps & Infrastructure:**
 - `terraform` - Terraform with providers
 - `kubernetes` - K8s with kubectl, helm, k9s
 - `devops` - Full DevOps toolchain
 - `cloud` - Cloud provider CLIs
 - `cicd` - CI/CD tools
-- `ml` - Machine learning environment
-- `node` - Node.js/npm project
-- `java` - Java/Maven project
-- `php` - PHP/Composer project
-- `c` - C/Make project
+
+**Machine Learning (7 specialized templates):**
+- `torch-basics` - PyTorch ML project
+- `cpp-starter-kit` - C++ development with CMake
+- `js-webapp-basics` - JavaScript/TypeScript web app
+- `langchain-basics` - LangChain LLM application
+- `pybind11-starter-kit` - Python C++ bindings
+- `maturin-basics` - Rust Python package (PyO3)
 
 ## 🔐 Security Modules
 
@@ -181,12 +206,22 @@ services.openssh.ports = [ 22 ];  # Override default port 30
 
 ## 🎨 Theming
 
-This config uses Catppuccin theming via the global flake input. Apply to your system:
+This config uses Catppuccin theming via the global flake input. The theme is already configured in home-manager:
 
 ```nix
-catppuccin.enable = true;
-catppuccin.flavor = "mocha";  # or "latte", "frappe", "macchiato"
+# Already set in modules/home-manager/common/default.nix
+catppuccin = {
+  flavor = "macchiato";  # or "latte", "frappe", "mocha"
+  accent = "lavender";   # or "blue", "green", "peach", etc.
+};
 ```
+
+Individual programs enable Catppuccin automatically:
+- ✅ bat (`catppuccin.bat.enable = true`)
+- ✅ git delta (`catppuccin.delta.enable = true`)  
+- ✅ starship (`catppuccin.starship.enable = true`)
+- ✅ k9s (`catppuccin.k9s.enable = true`)
+- ✅ tmux (via theme configuration)
 
 ## 📚 Documentation
 
