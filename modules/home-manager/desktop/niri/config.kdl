@@ -199,7 +199,7 @@ binds {
     Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
 
     // Application launcher
-    Mod+A hotkey-overlay-title="Open Albert Apps" { spawn "albert" "show" "apps "; }
+    Mod+D hotkey-overlay-title="Open Albert Apps" { spawn "albert" "show" "apps "; }
     Ctrl+Space hotkey-overlay-title="Toggle Albert" { spawn "albert" "toggle"; }
 
     // Clipboard history
