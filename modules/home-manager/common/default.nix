@@ -26,6 +26,7 @@
     ../programs/starship
     ../programs/telegram
     ../programs/tmux
+    ../programs/zoxide
     ../programs/zsh
     ../scripts
   ];
