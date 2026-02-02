@@ -190,6 +190,7 @@
               warningThreshold = 30;
             }
             {
+              displayMode = "onhover";
               id = "SessionMenu";
             }
             {
