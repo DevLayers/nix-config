@@ -36,6 +36,11 @@ in {
       type = attrsOf (submodule ({config, ...}: {
         options = {
           enable = mkEnableOption "table";
+          objects = mkOption {
+            default = [];
+            description = "Generated nftables objects (chains, sets, etc.)";
+            type = listOf str;
+          };
           filter = mkOption {
             default = {};
             description = "Filter table chains";
