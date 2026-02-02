@@ -54,25 +54,26 @@
       customLib = import ./lib { inherit lib; };
 
       # Define user configurations
-      users = {
-        "alexander.nabokikh" = {
-          inherit (users.nabokikh)
-            avatar
-            email
-            fullName
-            gitKey
-            ;
-          name = "alexander.nabokikh";
-        };
-        nabokikh = {
-          avatar = ./files/avatar;
-          wallpaper = ./files/wallpaper.jpg;
-          email = "alexander.nabokikh@olx.pl";
-          fullName = "Alexander Nabokikh";
-          gitKey = "C5810093";
-          name = "nabokikh";
-        };
-      };
+users = {
+  "sarw.u" = {
+    inherit (users.sarw)
+      avatar
+      email
+      fullName
+      gitKey
+      ;
+    name = "sarw.u";
+  };
+
+  sarw = {
+    avatar = ./files/avatar/face.png;
+    email = "sarrwar16@gmail.com";
+    fullName = "SARWAR";
+    gitKey = "0x2226229F5F5AB870";
+    name = "sarw";
+  };
+};
+
 
       # Function for NixOS system configuration
       mkNixosConfiguration =
@@ -124,18 +125,18 @@
       lib = customLib;
 
       nixosConfigurations = {
-        energy = mkNixosConfiguration "energy" "nabokikh";
+        energy = mkNixosConfiguration "energy" "sarw";
       };
 
       darwinConfigurations = {
-        "PL-OLX-KCGXHGK3PY" = mkDarwinConfiguration "PL-OLX-KCGXHGK3PY" "alexander.nabokikh";
+        "PL-OLX-KCGXHGK3PY" = mkDarwinConfiguration "PL-OLX-KCGXHGK3PY" "sarw.u";
       };
 
       homeConfigurations = {
-        "alexander.nabokikh@PL-OLX-KCGXHGK3PY" =
-          mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
+        "sarw.u@PL-OLX-KCGXHGK3PY" =
+          mkHomeConfiguration "aarch64-darwin" "sarw.u"
             "PL-OLX-KCGXHGK3PY";
-        "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
+        "sarw@energy" = mkHomeConfiguration "x86_64-linux" "sarw" "energy";
       };
 
       overlays = import ./overlays { inherit inputs; };

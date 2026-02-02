@@ -8,62 +8,73 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "vmd"
+    "nvme"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_usb_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
-    };
+  boot.initrd.luks.devices."enc".device =
+    "/dev/disk/by-uuid/336722f6-ac06-45ca-a291-1cd78f35548c";
 
-  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/c2e64ae3-330d-44de-a74c-49af559f2e6a";
+  fileSystems."/" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    options = [ "subvol=root" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/var/log" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      neededForBoot = true;
-      options = [ "subvol=log" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/persist" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    neededForBoot = true;
+    options = [ "subvol=persist" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/persist" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      neededForBoot = true;
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/var/log" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    neededForBoot = true;
+    options = [ "subvol=log" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/snapshots" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-      neededForBoot = true;
-      options = [ "subvol=snapshots" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/snapshots" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    neededForBoot = true;
+    options = [ "subvol=snapshots" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/AE4A-6B9A";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/59D5-28C2";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/3c35c12b-ccf7-45dd-b57e-406a66975ecb"; }
-    ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/5d0b9a9e-bb2b-4189-be05-49b231acad3b"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+
