@@ -217,6 +217,7 @@ binds {
     Mod+C { center-window; }
 
     // Move focus with Mod + vim keys / arrows
+    // Note: H/L focus columns, J/K focus workspaces (different from standard vim behavior)
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
@@ -226,7 +227,8 @@ binds {
     Mod+K     { focus-workspace-up; }
     Mod+L     { focus-column-right; }
 
-    // Move windows with Mod + Shift + vim keys / arrows
+    // Move windows/workspaces with Mod + Shift + vim keys / arrows
+    // Note: H/L move columns, J/K move column to workspace, arrows move workspaces
     Mod+Shift+Left  { move-column-left; }
     Mod+Shift+Down  { move-workspace-down; }
     Mod+Shift+Up    { move-workspace-up; }
@@ -236,14 +238,15 @@ binds {
     Mod+Shift+K     { move-column-to-workspace-up; }
     Mod+Shift+L     { move-column-right; }
 
-    // Switch workspaces with Mod + [0-5]
+    // Switch workspaces with Mod + [1-5]
+    // Uses named workspaces instead of numbered ones for better organization
     Mod+1 { focus-workspace "code"; }
     Mod+2 { focus-workspace "browser"; }
     Mod+3 { focus-workspace "test"; }
     Mod+4 { focus-workspace "music"; }
     Mod+5 { focus-workspace "slack"; }
 
-    // Move active column to a workspace with Mod + Shift + [0-5]
+    // Move active column to a workspace with Mod + Shift + [1-5]
     Mod+Shift+1 { move-column-to-workspace "code"; }
     Mod+Shift+2 { move-column-to-workspace "browser"; }
     Mod+Shift+3 { move-column-to-workspace "test"; }
