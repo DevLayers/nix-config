@@ -4,12 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkRuleset mkOption mkInputChain mkOutputChain mkForwardChain mkPrerouteChain mkPostrouteChain mkEnableOption;
+  inherit (lib) mkIf mkRuleset mkOption mkInputChain mkOutputChain mkForwardChain mkPrerouteChain mkPostrouteChain mkEnableOption topoSort;
   inherit (lib.types) attrsOf submodule listOf str;
   inherit (lib.strings) optionalString concatMapStringsSep concatStringsSep;
   inherit (lib.attrsets) attrNames filterAttrs mapAttrsToList;
   inherit (lib.lists) concatLists;
-  inherit (builtins) length;
+  inherit (builtins) length head;
 
   sys = config.modules.system;
   cfg = config.networking.nftables;
@@ -88,7 +88,6 @@ in {
               name,
               data,
             }: let
-              inherit (lib) topoSort;
               protocol =
                 if data.protocol == null
                 then ""
@@ -105,12 +104,12 @@ in {
                 else
                   (
                     if length data.value == 1
-                    then builtins.head values
+                    then head values
                     else "{ ${concatStringsSep ", " values} }"
                   );
             in ''
               ${protocol} ${field} ${value} ${policy} comment ${name}
-            '') ((lib.topoSort chain).result or (throw "Cycle in DAG"));
+            '') ((topoSort chain).result or (throw "Cycle in DAG"));
 
           buildChain = chainType: chain:
             mapAttrsToList (chainName: chainDag: ''
