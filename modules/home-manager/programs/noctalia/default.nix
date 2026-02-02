@@ -51,6 +51,10 @@
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
+        power = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
       };
       version = 1;
     };
@@ -114,11 +118,6 @@
               useCustomFont = false;
               usePrimaryColor = false;
             }
-            {
-              hideWhenZero = false;
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-            }
           ];
           left = [
             {
@@ -134,6 +133,14 @@
               showApplications = false;
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
+            }
+            {
+              id = "plugin:screen-recorder";
+            }
+            {
+              hideWhenZero = false;
+              id = "NotificationHistory";
+              showUnreadBadge = true;
             }
           ];
           right = [
@@ -173,21 +180,8 @@
               warningThreshold = 30;
             }
             {
-              defaultSettings = {
-                audioCodec = "opus";
-                audioSource = "default_output";
-                colorRange = "limited";
-                copyToClipboard = false;
-                directory = "";
-                filenamePattern = "recording_yyyyMMdd_HHmmss";
-                frameRate = "60";
-                hideInactive = true;
-                quality = "very_high";
-                showCursor = true;
-                videoCodec = "h264";
-                videoSource = "portal";
-              };
-              id = "plugin:screen-recorder";
+              defaultSettings = {};
+              id = "plugin:power";
             }
             {
               id = "plugin:privacy-indicator";
@@ -202,18 +196,9 @@
       };
       calendar = {
         cards = [
-          {
-            enabled = true;
-            id = "calendar-header-card";
-          }
-          {
-            enabled = true;
-            id = "calendar-month-card";
-          }
-          {
-            enabled = false;
-            id = "weather-card";
-          }
+          { enabled = true; id = "calendar-header-card"; }
+          { enabled = true; id = "calendar-month-card"; }
+          { enabled = false; id = "weather-card"; }
         ];
       };
       colorSchemes = {
@@ -227,52 +212,24 @@
       };
       controlCenter = {
         cards = [
-          {
-            enabled = true;
-            id = "profile-card";
-          }
-          {
-            enabled = true;
-            id = "shortcuts-card";
-          }
-          {
-            enabled = false;
-            id = "audio-card";
-          }
-          {
-            enabled = true;
-            id = "brightness-card";
-          }
-          {
-            enabled = false;
-            id = "weather-card";
-          }
-          {
-            enabled = false;
-            id = "media-sysmon-card";
-          }
+          { enabled = true; id = "profile-card"; }
+          { enabled = true; id = "shortcuts-card"; }
+          { enabled = false; id = "audio-card"; }
+          { enabled = true; id = "brightness-card"; }
+          { enabled = false; id = "weather-card"; }
+          { enabled = false; id = "media-sysmon-card"; }
         ];
         diskPath = "/";
         position = "close_to_bar_button";
         shortcuts = {
           left = [
-            {
-              id = "Network";
-            }
-            {
-              id = "Bluetooth";
-            }
-            {
-              id = "Notifications";
-            }
+            { id = "Network"; }
+            { id = "Bluetooth"; }
+            { id = "Notifications"; }
           ];
           right = [
-            {
-              id = "PowerProfile";
-            }
-            {
-              id = "NightLight";
-            }
+            { id = "PowerProfile"; }
+            { id = "NightLight"; }
             {
               defaultSettings = {
                 audioCodec = "opus";
@@ -293,11 +250,7 @@
           ];
         };
       };
-      desktopWidgets = {
-        enabled = false;
-        gridSnap = false;
-        monitorWidgets = [ ];
-      };
+      desktopWidgets = { enabled = false; gridSnap = false; monitorWidgets = [ ]; };
       dock = {
         animationSpeed = 1;
         backgroundOpacity = 1;
@@ -390,11 +343,7 @@
         normalUrgencyDuration = 7;
         overlayLayer = true;
         respectExpireTimeout = false;
-        saveToHistory = {
-          critical = true;
-          low = true;
-          normal = true;
-        };
+        saveToHistory = { critical = true; low = true; normal = true; };
         sounds = {
           criticalSoundFile = "";
           enabled = false;
@@ -409,11 +358,7 @@
         autoHideMs = 2000;
         backgroundOpacity = 1;
         enabled = true;
-        enabledTypes = [
-          0
-          1
-          2
-        ];
+        enabledTypes = [ 0 1 2 ];
         location = "top_right";
         monitors = [ ];
         overlayLayer = true;
@@ -425,30 +370,12 @@
         largeButtonsStyle = false;
         position = "center";
         powerOptions = [
-          {
-            action = "lock";
-            enabled = true;
-          }
-          {
-            action = "suspend";
-            enabled = true;
-          }
-          {
-            action = "hibernate";
-            enabled = true;
-          }
-          {
-            action = "reboot";
-            enabled = true;
-          }
-          {
-            action = "logout";
-            enabled = true;
-          }
-          {
-            action = "shutdown";
-            enabled = true;
-          }
+          { action = "lock"; enabled = true; }
+          { action = "suspend"; enabled = true; }
+          { action = "hibernate"; enabled = true; }
+          { action = "reboot"; enabled = true; }
+          { action = "logout"; enabled = true; }
+          { action = "shutdown"; enabled = true; }
         ];
         showHeader = true;
         showNumberLabels = true;
