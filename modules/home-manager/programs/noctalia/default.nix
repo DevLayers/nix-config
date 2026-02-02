@@ -146,28 +146,6 @@
               pinned = [ ];
             }
             {
-              hideWhenZero = false;
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-            }
-            {
-              id = "plugin:screen-recorder";
-              defaultSettings = {
-                audioCodec = "opus";
-                audioSource = "default_output";
-                colorRange = "limited";
-                copyToClipboard = false;
-                directory = "";
-                filenamePattern = "recording_yyyyMMdd_HHmmss";
-                frameRate = "60";
-                hideInactive = true;
-                quality = "very_high";
-                showCursor = true;
-                videoCodec = "h264";
-                videoSource = "portal";
-              };
-            }
-            {
               displayMode = "forceOpen";
               id = "KeyboardLayout";
               showIcon = true;
@@ -195,7 +173,24 @@
               warningThreshold = 30;
             }
             {
-              id = "sessionMenu";
+              defaultSettings = {
+                audioCodec = "opus";
+                audioSource = "default_output";
+                colorRange = "limited";
+                copyToClipboard = false;
+                directory = "";
+                filenamePattern = "recording_yyyyMMdd_HHmmss";
+                frameRate = "60";
+                hideInactive = true;
+                quality = "very_high";
+                showCursor = true;
+                videoCodec = "h264";
+                videoSource = "portal";
+              };
+              id = "plugin:screen-recorder";
+            }
+            {
+              id = "plugin:privacy-indicator";
             }
           ];
         };
