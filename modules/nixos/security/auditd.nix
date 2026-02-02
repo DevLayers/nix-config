@@ -14,6 +14,7 @@
         failureMode = "printk";
         rules = [
           "-a exit,always -F arch=b64 -S execve"
+          "-a exit,always -F arch=b32 -S execve"
         ];
       };
     };
