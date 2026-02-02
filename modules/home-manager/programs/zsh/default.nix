@@ -8,6 +8,24 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    
+    # Enable auto-suggestions from history
+    autosuggestion.enable = true;
+    
+    # Enable syntax highlighting
+    syntaxHighlighting.enable = true;
+    
+    # Performance: Enable completion caching
+    completionInit = ''
+      autoload -Uz compinit
+      # Only regenerate compdump once a day for better performance
+      if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+        compinit
+      else
+        compinit -C
+      fi
+    '';
+
     shellAliases = {
       ff = "fastfetch";
       open = "xdg-open";
@@ -65,9 +83,15 @@
       la = "eza -abhl --icons --group-directories-first"; # all list
       lt = "eza --tree --level=2 --icons"; # tree
     };
-    initContent = ''
-      # kubectl auto-complete
-      source <(kubectl completion zsh)
+    
+    initExtra = ''
+      # Lazy-load kubectl completion for better startup performance
+      # Only loads when kubectl is first used
+      kubectl() {
+        unfunction kubectl
+        source <(command kubectl completion zsh)
+        kubectl "$@"
+      }
 
       # bindings
       bindkey -e
@@ -75,7 +99,7 @@
       bindkey '^[[1;5C' forward-word
       bindkey '^[[1;5D' backward-word
 
-      # open commands in $EDITOR with C-e
+      # open commands in $EDITOR with C-v
       autoload -z edit-command-line
       zle -N edit-command-line
       bindkey "^v" edit-command-line
