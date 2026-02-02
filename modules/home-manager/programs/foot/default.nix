@@ -12,7 +12,7 @@
           title = "foot";
           locked-title = "no";
           term = "xterm-256color";
-          font = "MesloLGS Nerd Font:size=12";
+          font = "MesloLGS Nerd Font:size=11";
           dpi-aware = "yes";
           # Slight negative offset to improve vertical centering of glyphs with MesloLGS Nerd Font
           # Adjust this value if using a different font
