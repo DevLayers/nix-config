@@ -90,7 +90,7 @@
       });
     };
 
-  mkChain = _: description:
+  mkChain = description:
     mkOption {
       inherit description;
       default = {};
