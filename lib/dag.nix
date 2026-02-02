@@ -68,30 +68,38 @@ let
       }
     ) entries;
 
-    # Helper function for DFS
-    visit = visited: stack: name: let
-      entry = entriesWithExpandedBefore.${name};
-      deps = entry.after;
-      newVisited = visited // { ${name} = true; };
+    # Helper function for DFS with cycle detection
+    # visited: set of fully processed nodes (black)
+    # visiting: set of nodes currently being processed (gray)
+    visit = visited: visiting: stack: name: 
+      if visiting.${name} or false
+      then throw "Cycle in DAG detected involving node: ${name}"
+      else if visited.${name} or false
+      then { inherit visited visiting stack; }
+      else let
+        entry = entriesWithExpandedBefore.${name};
+        deps = entry.after;
+        newVisiting = visiting // { ${name} = true; };
 
-      # Visit dependencies first
-      visitDeps = foldl' (acc: dep:
-        if hasAttr dep entriesWithExpandedBefore && !(acc.visited.${dep} or false)
-        then visit acc.visited acc.stack dep
-        else acc
-      ) { inherit visited stack; } deps;
+        # Visit dependencies first
+        visitDeps = foldl' (acc: dep:
+          if hasAttr dep entriesWithExpandedBefore
+          then visit acc.visited acc.visiting acc.stack dep
+          else acc
+        ) { inherit visited; visiting = newVisiting; inherit stack; } deps;
 
-    in {
-      visited = visitDeps.visited // { ${name} = true; };
-      stack = visitDeps.stack ++ [name];
-    };
+      in {
+        visited = visitDeps.visited // { ${name} = true; };
+        visiting = removeAttrs visitDeps.visiting [name];
+        stack = visitDeps.stack ++ [name];
+      };
 
     # Visit all nodes
     sortResult = foldl' (acc: name:
       if acc.visited.${name} or false
       then acc
-      else visit acc.visited acc.stack name
-    ) { visited = {}; stack = []; } (attrNames entriesWithExpandedBefore);
+      else visit acc.visited acc.visiting acc.stack name
+    ) { visited = {}; visiting = {}; stack = []; } (attrNames entriesWithExpandedBefore);
     
     # Convert sorted node names to list of {name, data} pairs
     result = map (name: {
