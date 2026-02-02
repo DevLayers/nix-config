@@ -199,7 +199,7 @@ binds {
     Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
 
     // Application launcher
-    Mod+A hotkey-overlay-title="Open Albert Apps" { spawn "albert" "show" "apps "; }
+    Mod+D hotkey-overlay-title="Open Albert Apps" { spawn "albert" "show" "apps "; }
     Ctrl+Space hotkey-overlay-title="Toggle Albert" { spawn "albert" "toggle"; }
 
     // Clipboard history
@@ -209,7 +209,7 @@ binds {
     Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep -o '#.*' | wl-copy"; }
 
     // OCR
-    Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
+    Mod+O hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
 
     // Screenshot area
     Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
@@ -253,7 +253,7 @@ binds {
     Mod+M { maximize-column; }
     Mod+Shift+M { fullscreen-window; }
     Mod+W { toggle-column-tabbed-display; }
-    Mod+O repeat=false { toggle-overview; }
+    Mod+Shift+O repeat=false { toggle-overview; }  // Note: Mod+O is OCR, Mod+Shift+O is overview
 
     // Move focus with Mod + vim keys / arrows
     Mod+Left  { focus-column-left; }
