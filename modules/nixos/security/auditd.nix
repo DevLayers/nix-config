@@ -13,7 +13,7 @@
         backlogLimit = 8192;
         failureMode = "printk";
         rules = [
-          "-a exit,always -F arch=b64 -S execve"
+          "-a always,exit -F arch=b64 -S execve"
         ];
       };
     };

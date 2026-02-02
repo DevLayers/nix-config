@@ -19,7 +19,7 @@ in
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
             echo "System Changes (nvd diff):"
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            ${pkgs.nvd}/bin/nvd diff /run/current-system "$systemConfig" || true
+            PATH="${pkgs.nix}/bin:$PATH" ${pkgs.nvd}/bin/nvd diff /run/current-system "$systemConfig" || true
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           fi
         '';
