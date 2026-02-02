@@ -20,11 +20,6 @@
         options =
           {
             enable = mkEnableOption desc;
-            objects = mkOption {
-              type = listOf str;
-              description = "Objects associated with this table.";
-              default = [];
-            };
           }
           // body;
 

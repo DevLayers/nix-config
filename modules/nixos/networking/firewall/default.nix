@@ -36,11 +36,6 @@ in {
       type = attrsOf (submodule ({config, ...}: {
         options = {
           enable = mkEnableOption "table";
-          objects = mkOption {
-            type = listOf str;
-            description = "Objects associated with this table.";
-            default = [];
-          };
           filter = mkOption {
             default = {};
             description = "Filter table chains";
