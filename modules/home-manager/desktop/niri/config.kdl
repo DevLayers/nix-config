@@ -111,12 +111,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"^(Alacritty|foot)$"#
-    default-column-width { proportion 1.0; }
-    open-on-workspace "terminal"
-}
-
-window-rule {
     match app-id=r#"^org\.telegram\.desktop$"#
     default-column-width { proportion 1.0; }
     open-on-workspace "messages"
