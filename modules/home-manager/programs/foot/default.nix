@@ -14,6 +14,8 @@
           term = "xterm-256color";
           font = "MesloLGS Nerd Font:size=12";
           dpi-aware = "yes";
+          # Slight negative offset to improve vertical centering of glyphs with MesloLGS Nerd Font
+          # Adjust this value if using a different font
           vertical-letter-offset = "-0.75";
           pad = "12x21 center";
           resize-delay-ms = 100;
@@ -41,6 +43,8 @@
 
         url = {
           launch = "xdg-open \${url}";
+          # Home row letters for URL hint labels (optimized for touch typing)
+          # These letters are chosen for easy access on standard keyboard layouts
           label-letters = "sadfjklewcmpgh";
           osc8-underline = "url-mode";
         };
