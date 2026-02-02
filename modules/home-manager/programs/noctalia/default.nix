@@ -106,11 +106,6 @@
         widgets = {
           center = [
             {
-              hideWhenZero = false;
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-            }
-            {
               customFont = "";
               formatHorizontal = "HH:mm ddd, MMM dd";
               formatVertical = "HH mm - dd MM";
@@ -118,6 +113,11 @@
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
               usePrimaryColor = false;
+            }
+            {
+              hideWhenZero = false;
+              id = "NotificationHistory";
+              showUnreadBadge = true;
             }
           ];
           left = [
@@ -138,13 +138,17 @@
           ];
           right = [
             {
-              deviceNativePath = "";
-              displayMode = "onhover";
-              hideIfNotDetected = true;
-              id = "Battery";
-              showNoctaliaPerformance = false;
-              showPowerProfiles = false;
-              warningThreshold = 30;
+              blacklist = [ ];
+              colorizeIcons = false;
+              drawerEnabled = true;
+              hidePassive = false;
+              id = "Tray";
+              pinned = [ ];
+            }
+            {
+              hideWhenZero = false;
+              id = "NotificationHistory";
+              showUnreadBadge = true;
             }
             {
               id = "plugin:screen-recorder";
@@ -169,17 +173,6 @@
               showIcon = true;
             }
             {
-              blacklist = [ ];
-              colorizeIcons = false;
-              drawerEnabled = true;
-              hidePassive = false;
-              id = "Tray";
-              pinned = [ ];
-            }
-            {
-              id = "plugin:privacy-indicator";
-            }
-            {
               displayMode = "onhover";
               id = "Network";
             }
@@ -193,7 +186,16 @@
               middleClickCommand = "";
             }
             {
-              id = "PowerProfile";
+              deviceNativePath = "";
+              displayMode = "onhover";
+              hideIfNotDetected = true;
+              id = "Battery";
+              showNoctaliaPerformance = false;
+              showPowerProfiles = false;
+              warningThreshold = 30;
+            }
+            {
+              id = "sessionMenu";
             }
           ];
         };
