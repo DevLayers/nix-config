@@ -15,6 +15,12 @@
     gdm.enableGnomeKeyring = true;
   };
 
+  # Enable GVFS for virtual file system support (needed for file managers to show all partitions)
+  services.gvfs.enable = true;
+
+  # Enable udisks2 for disk management and auto-mounting (needed to detect and mount storage devices)
+  services.udisks2.enable = true;
+
   # Common packages for Wayland compositors
   environment.systemPackages = with pkgs; [
     # GNOME apps
