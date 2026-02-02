@@ -111,12 +111,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"^Alacritty$"#
-    default-column-width { proportion 1.0; }
-    open-on-workspace "terminal"
-}
-
-window-rule {
     match app-id=r#"^org\.telegram\.desktop$"#
     default-column-width { proportion 1.0; }
     open-on-workspace "messages"
@@ -197,7 +191,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Launch applications
-    Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "alacritty"; }
+    Mod+Return hotkey-overlay-title="Open Terminal" { spawn "foot"; }
+    Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "foot"; }
     Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
     Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
     Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }

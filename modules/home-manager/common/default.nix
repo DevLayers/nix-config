@@ -14,6 +14,7 @@
     ../programs/brave
     ../programs/btop
     ../programs/fastfetch
+    ../programs/foot
     ../programs/fzf
     ../programs/git
     ../programs/go
