@@ -144,6 +144,12 @@ window-rule {
     open-floating true
 }
 
+// File manager dialogs and operations
+window-rule {
+    match title=r#"^(Progress|File Operations|Copying|Moving|Properties)$"#
+    open-floating true
+}
+
 window-rule {
     match app-id="^anki$" title="^Study Deck$"
     open-floating true

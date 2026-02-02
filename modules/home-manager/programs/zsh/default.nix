@@ -84,7 +84,7 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initExtra = ''
+    initContent = ''
       # Lazy-load kubectl completion for better startup performance
       # Only loads when kubectl is first used
       kubectl() {
