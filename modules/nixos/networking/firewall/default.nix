@@ -4,7 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkRuleset;
+  inherit (lib) mkIf mkRuleset mkOption mkInputChain mkOutputChain mkForwardChain mkPrerouteChain mkPostrouteChain mkEnableOption;
+  inherit (lib.types) attrsOf submodule listOf str;
+  inherit (lib.strings) optionalString concatMapStringsSep concatStringsSep;
+  inherit (lib.attrsets) attrNames filterAttrs mapAttrsToList;
+  inherit (lib.lists) concatLists;
+  inherit (builtins) length;
 
   sys = config.modules.system;
   cfg = config.networking.nftables;
@@ -23,6 +28,124 @@
     '';
 in {
   imports = [./rules.nix];
+  
+  options = {
+    networking.nftables.rules = mkOption {
+      default = {};
+      description = "NFTables rules using DAG-based configuration";
+      type = attrsOf (submodule ({config, ...}: {
+        options = {
+          enable = mkEnableOption "table";
+          objects = mkOption {
+            type = listOf str;
+            description = "Objects associated with this table.";
+            default = [];
+          };
+          filter = mkOption {
+            default = {};
+            description = "Filter table chains";
+            type = submodule {
+              options = {
+                input = mkInputChain;
+                output = mkOutputChain;
+                forward = mkForwardChain;
+                prerouting = mkPrerouteChain;
+                postrouting = mkPostrouteChain;
+              };
+            };
+          };
+          nat = mkOption {
+            default = {};
+            description = "NAT table chains";
+            type = submodule {
+              options = {
+                input = mkInputChain;
+                output = mkOutputChain;
+                forward = mkForwardChain;
+                prerouting = mkPrerouteChain;
+                postrouting = mkPostrouteChain;
+              };
+            };
+          };
+          route = mkOption {
+            default = {};
+            description = "Route table chains";
+            type = submodule {
+              options = {
+                input = mkInputChain;
+                output = mkOutputChain;
+                forward = mkForwardChain;
+                prerouting = mkPrerouteChain;
+                postrouting = mkPostrouteChain;
+              };
+            };
+          };
+        };
+        
+        config = let
+          buildChainDag = chain:
+            concatMapStringsSep "\n" ({
+              name,
+              data,
+            }: let
+              inherit (lib) topoSort;
+              protocol =
+                if data.protocol == null
+                then ""
+                else data.protocol;
+              field =
+                if data.field == null
+                then ""
+                else data.field;
+              inherit (data) policy;
+              values = map toString data.value;
+              value =
+                if data.value == null
+                then ""
+                else
+                  (
+                    if length data.value == 1
+                    then builtins.head values
+                    else "{ ${concatStringsSep ", " values} }"
+                  );
+            in ''
+              ${protocol} ${field} ${value} ${policy} comment ${name}
+            '') ((lib.topoSort chain).result or (throw "Cycle in DAG"));
+
+          buildChain = chainType: chain:
+            mapAttrsToList (chainName: chainDag: ''
+              chain ${chainName} {
+                type ${chainType} hook ${chainName} priority 0;
+
+                ${buildChainDag chainDag}
+              }
+            '') (filterAttrs (_: g: length (attrNames g) > 0) chain);
+        in {
+          objects = let
+            chains = concatLists [
+              (
+                if config ? filter
+                then buildChain "filter" config.filter
+                else []
+              )
+              (
+                if config ? nat
+                then buildChain "nat" config.nat
+                else []
+              )
+              (
+                if config ? route
+                then buildChain "route" config.route
+                else []
+              )
+            ];
+          in
+            chains;
+        };
+      }));
+    };
+  };
+  
   config = {
     networking.nftables = {
       enable = true;
