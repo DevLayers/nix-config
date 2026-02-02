@@ -253,7 +253,7 @@ binds {
     Mod+M { maximize-column; }
     Mod+Shift+M { fullscreen-window; }
     Mod+W { toggle-column-tabbed-display; }
-    Mod+Shift+O repeat=false { toggle-overview; }
+    Mod+Shift+O repeat=false { toggle-overview; }  // Note: Mod+O is OCR, Mod+Shift+O is overview
 
     // Move focus with Mod + vim keys / arrows
     Mod+Left  { focus-column-left; }
