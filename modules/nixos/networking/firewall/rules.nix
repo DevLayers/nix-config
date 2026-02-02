@@ -64,21 +64,21 @@ in {
             policy = "accept";
           };
 
-          ssh = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
+          ssh = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
             protocol = "tcp";
             field = "dport";
             value = config.services.openssh.ports;
             policy = "accept";
           };
 
-          dns-tcp = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
+          dns-tcp = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
             protocol = "tcp";
             field = "dport";
             value = 53;
             policy = "accept";
           };
 
-          dns-udp = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
+          dns-udp = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
             protocol = "udp";
             field = "dport";
             value = 53;
