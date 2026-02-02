@@ -66,7 +66,8 @@ users = {
   };
 
   sarw = {
-    avatar = ./files/avatar/face.png;
+    avatar = ./files/avatar;
+    wallpaper = ./files/wallpaper.jpg;
     email = "sarrwar16@gmail.com";
     fullName = "SARWAR";
     gitKey = "0x2226229F5F5AB870";
