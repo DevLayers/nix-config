@@ -144,12 +144,6 @@ window-rule {
     open-floating true
 }
 
-// File manager
-window-rule {
-    match app-id=r#"^(org\.gnome\.Nautilus|nautilus)$"#
-    open-maximized true
-}
-
 // File manager dialogs and operations
 window-rule {
     match title=r#"^(Progress|File Operations|Copying|Moving|Properties)$"#

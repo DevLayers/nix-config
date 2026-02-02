@@ -36,7 +36,6 @@
         "file://${config.home.homeDirectory}/Downloads"
         "file://${config.home.homeDirectory}/Pictures"
         "file://${config.home.homeDirectory}/Videos"
-        "file:///"  # Root file system
       ];
     };
   };
