@@ -16,7 +16,7 @@
     ../networking    # Hardened networking + privacy enhancements
     ../services      # Performance & stability services
     ../nix           # Nix daemon optimization
-    ../fs            # Filesystem (BTRFS) configuration
+    ../fs.nix        # Filesystem (BTRFS) configuration
     ../programs      # Development programs (direnv with nix-direnv)
     ../secrets       # Agenix secrets management
   ];
