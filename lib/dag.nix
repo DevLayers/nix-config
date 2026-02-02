@@ -39,10 +39,12 @@ let
   };
 
   # Create a DAG entry that comes between other entries
+  # Usage: entryBetween ["item-before"] ["item-after"] data
+  # Means: item-before -> this-entry -> item-after
   entryBetween = before: after: data: {
     inherit data;
-    before = if isList before then before else [before];
-    after = if isList after then after else [after];
+    after = if isList before then before else [before];  # We come AFTER the before items
+    before = if isList after then after else [after];    # We come BEFORE the after items
   };
 
   # Create a DAG entry with no specific ordering
