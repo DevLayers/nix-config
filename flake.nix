@@ -70,7 +70,7 @@ users = {
     wallpaper = ./files/wallpaper.jpg;
     email = "sarrwar16@gmail.com";
     fullName = "SARWAR";
-    gitKey = "0x2226229F5F5AB870";
+    gitKey = "0x3EEFB052E7D186BE";
     name = "sarw";
   };
 };

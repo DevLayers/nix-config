@@ -32,7 +32,6 @@ in
         tempBat = 65;  # Target temperature on battery (°C)
         package = pkgs.undervolt;
       };
-          };
 
 
       # UPower: Battery monitoring and power actions
