@@ -41,6 +41,8 @@ let
   # Create a DAG entry that comes between other entries
   # Usage: entryBetween ["item-before"] ["item-after"] data
   # Means: item-before -> this-entry -> item-after
+  # Note: Parameters swapped from previous implementation to match semantic expectations
+  # (previously had inverted mapping causing cycles in dependent configurations)
   entryBetween = before: after: data: {
     inherit data;
     after = if isList before then before else [before];  # We come AFTER the before items
@@ -56,17 +58,27 @@ let
 
   # Topological sort implementation
   topoSort = dag: let
-    # Convert DAG to adjacency list, expanding before constraints into after constraints
+    # Convert DAG to adjacency list
     entries = mapAttrs (name: value: value) dag;
     
-    # Convert "before" constraints to "after" constraints
-    # If A has before=[B], then B should have after=[A]
+    # Build reverse mapping for before constraints (O(n²) once instead of O(n³))
+    # For each entry with before=[X], add this entry to X's list of items that should come after it
+    beforeReversed = foldl' (acc: name:
+      let
+        entry = entries.${name};
+        beforeList = entry.before or [];
+      in
+        foldl' (acc2: beforeName:
+          acc2 // {
+            ${beforeName} = (acc2.${beforeName} or []) ++ [name];
+          }
+        ) acc beforeList
+    ) {} (attrNames entries);
+    
+    # Convert "before" constraints to "after" constraints using reverse mapping
     entriesWithExpandedBefore = mapAttrs (name: entry:
       entry // {
-        after = entry.after ++ (
-          # For each entry that has this name in its "before" list, add it to our "after"
-          filter (otherName: elem name (entries.${otherName}.before or [])) (attrNames entries)
-        );
+        after = entry.after ++ (beforeReversed.${name} or []);
       }
     ) entries;
 
