@@ -28,14 +28,12 @@
         symbol = " ";
         # Performance: Only detect in relevant directories
         detect_files = ["docker-compose.yml" "docker-compose.yaml" "Dockerfile"];
-        detect_folders = [];
       };
       golang = {
         symbol = " ";
         # Performance: Only detect in Go projects
         detect_extensions = ["go"];
         detect_files = ["go.mod" "go.sum"];
-        detect_folders = [];
       };
       kubernetes = {
         disabled = false;
@@ -56,52 +54,42 @@
       helm = {
         symbol = " ";
         detect_files = ["Chart.yaml"];
-        detect_folders = [];
       };
       gradle = {
         symbol = " ";
         detect_files = ["build.gradle" "build.gradle.kts"];
-        detect_folders = [];
       };
       java = {
         symbol = " ";
         detect_extensions = ["java"];
         detect_files = ["pom.xml" "build.gradle" "build.gradle.kts"];
-        detect_folders = [];
       };
       kotlin = {
         symbol = " ";
         detect_extensions = ["kt" "kts"];
-        detect_folders = [];
       };
       lua = {
         symbol = " ";
         detect_extensions = ["lua"];
         detect_files = [".lua-version"];
-        detect_folders = [];
       };
       package = {
         symbol = " ";
-        # Performance: Limit package version detection
-        disabled = false;
       };
       php = {
         symbol = " ";
         detect_extensions = ["php"];
         detect_files = ["composer.json"];
-        detect_folders = [];
       };
       python = {
         symbol = " ";
         detect_extensions = ["py"];
         detect_files = ["requirements.txt" "pyproject.toml" "Pipfile"];
-        detect_folders = [];
       };
       rust = {
         symbol = " ";
         detect_extensions = ["rs"];
         detect_files = ["Cargo.toml"];
-        detect_folders = [];
       };
       terraform = {
         symbol = " ";
