@@ -8,19 +8,34 @@
       add_newline = false;
       
       # Performance: Reduce scan timeout for faster startup
-      scan_timeout = 10;
+      # Lower timeout means faster prompt rendering
+      scan_timeout = 5;
+      
+      # Performance: Enable async command execution for faster prompt
+      # This allows starship to show the prompt immediately while modules load in background
+      command_timeout = 500;
       
       directory = {
         style = "bold lavender";
+        # Performance: Limit directory truncation calculation
+        truncation_length = 3;
+        truncate_to_repo = true;
       };
       aws = {
         disabled = true;
       };
       docker_context = {
-        symbol = " ";
+        symbol = " ";
+        # Performance: Only detect in relevant directories
+        detect_files = ["docker-compose.yml" "docker-compose.yaml" "Dockerfile"];
+        detect_folders = [];
       };
       golang = {
-        symbol = " ";
+        symbol = " ";
+        # Performance: Only detect in Go projects
+        detect_extensions = ["go"];
+        detect_files = ["go.mod" "go.sum"];
+        detect_folders = [];
       };
       kubernetes = {
         disabled = false;
@@ -39,34 +54,59 @@
         ];
       };
       helm = {
-        symbol = " ";
+        symbol = " ";
+        detect_files = ["Chart.yaml"];
+        detect_folders = [];
       };
       gradle = {
-        symbol = " ";
+        symbol = " ";
+        detect_files = ["build.gradle" "build.gradle.kts"];
+        detect_folders = [];
       };
       java = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["java"];
+        detect_files = ["pom.xml" "build.gradle" "build.gradle.kts"];
+        detect_folders = [];
       };
       kotlin = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["kt" "kts"];
+        detect_folders = [];
       };
       lua = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["lua"];
+        detect_files = [".lua-version"];
+        detect_folders = [];
       };
       package = {
-        symbol = " ";
+        symbol = " ";
+        # Performance: Limit package version detection
+        disabled = false;
       };
       php = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["php"];
+        detect_files = ["composer.json"];
+        detect_folders = [];
       };
       python = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["py"];
+        detect_files = ["requirements.txt" "pyproject.toml" "Pipfile"];
+        detect_folders = [];
       };
       rust = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["rs"];
+        detect_files = ["Cargo.toml"];
+        detect_folders = [];
       };
       terraform = {
-        symbol = " ";
+        symbol = " ";
+        detect_extensions = ["tf" "tfvars"];
+        detect_folders = [".terraform"];
       };
       # Performance: Move kubernetes to left prompt instead of right (faster rendering)
       format = "$all$kubernetes$character";

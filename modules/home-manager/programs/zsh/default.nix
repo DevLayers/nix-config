@@ -27,6 +27,8 @@
         # The plugin has a non-standard structure that causes loading errors
         "nix-community/nix-zsh-completions"
         "z-shell/zsh-eza"
+        # Context-aware autocomplete for better directory suggestions
+        "marlonrichert/zsh-autocomplete"
       ];
       useFriendlyNames = true;
     };
@@ -90,6 +92,21 @@
     };
     
     initContent = ''
+      # ZSH Autosuggestions configuration for context-aware suggestions
+      # Use both history and completion as suggestion sources
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+      ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+      ZSH_AUTOSUGGEST_USE_ASYNC=1
+      ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+      
+      # ZSH Autocomplete configuration for better directory completion
+      # Enable context-aware completion after cd command
+      zstyle ':autocomplete:*' min-input 1
+      zstyle ':autocomplete:*' list-lines 10
+      zstyle ':autocomplete:*' recent-dirs zsh-dirs
+      # Enable fuzzy matching for better suggestions
+      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+      
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
