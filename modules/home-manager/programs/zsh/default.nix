@@ -11,7 +11,7 @@
     enableCompletion = true;
     
     # XDG compliance: Move zsh config to ~/.config/zsh
-    dotDir = "${config.xdg.configHome}/zsh";
+    dotDir = ".config/zsh";
     
     # Antidote plugin manager for better async/deferred loading
     antidote = {
@@ -22,9 +22,10 @@
         "zsh-users/zsh-syntax-highlighting"
         "zsh-users/zsh-completions"
         "zsh-users/zsh-history-substring-search"
+        # ZSH prompt
+        "romkatv/powerlevel10k"
         # Extra plugins
-        # Note: zsh-you-should-use removed due to compatibility issues with antidote
-        # The plugin has a non-standard structure that causes loading errors
+        "MichaelAquilina/zsh-you-should-use"
         "nix-community/nix-zsh-completions"
         "z-shell/zsh-eza"
       ];
@@ -89,10 +90,27 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initContent = ''
+    initExtra = ''
+      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+      # Initialization code that may require console input (password prompts, [y/n]
+      # confirmations, etc.) must go above this block; everything else may go below.
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
+      fi
+
+      # Catppuccin theme for zsh-syntax-highlighting
+      if [[ -f ~/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh ]]; then
+        source ~/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
+      fi
+
+      # Powerlevel10k configuration
+      if [[ -f ~/.config/zsh/.p10k.zsh ]]; then
+        source ~/.config/zsh/.p10k.zsh
       fi
 
       # Homebrew integration for macOS
@@ -101,6 +119,47 @@
           eval "$(/opt/homebrew/bin/brew shellenv)"
         fi
       ''}
+
+      # Improved zsh completion system
+      # Enable menu-driven completion with arrow key navigation
+      zstyle ':completion:*' menu select
+      
+      # Case-insensitive completion
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+      
+      # Use cache for completion
+      zstyle ':completion:*' use-cache on
+      zstyle ':completion:*' cache-path "$HOME/.cache/zsh/zcompcache"
+      
+      # Better directory completion
+      zstyle ':completion:*' special-dirs true
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+      
+      # Group matches and describe groups
+      zstyle ':completion:*:matches' group 'yes'
+      zstyle ':completion:*:options' description 'yes'
+      zstyle ':completion:*:options' auto-description '%d'
+      zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+      zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+      zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+      zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+      zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+      zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+      zstyle ':completion:*' group-name \'\'
+      zstyle ':completion:*' verbose yes
+      
+      # Enable approximate completions
+      zstyle ':completion:*' completer _complete _match _approximate
+      zstyle ':completion:*:match:*' original only
+      zstyle ':completion:*:approximate:*' max-errors 1 numeric
+      
+      # Increase max-errors with length of word being completed
+      zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+
+      # Configure zsh-autosuggestions
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+      ZSH_AUTOSUGGEST_USE_ASYNC=true
+      ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
       # Lazy-load kubectl completion for better startup performance
       # Only loads when kubectl is first used
