@@ -4,5 +4,5 @@
 }:
 {
   # Cursor AI code editor
-  home.packages = [ pkgs.cursor ];
+  home.packages = [ pkgs.code-cursor ];
 }
