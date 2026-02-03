@@ -11,7 +11,7 @@
     enableCompletion = true;
     
     # XDG compliance: Move zsh config to ~/.config/zsh
-    dotDir = "${config.xdg.configHome}/zsh";
+    dotDir = ".config/zsh";
     
     # Antidote plugin manager for better async/deferred loading
     antidote = {
@@ -22,9 +22,10 @@
         "zsh-users/zsh-syntax-highlighting"
         "zsh-users/zsh-completions"
         "zsh-users/zsh-history-substring-search"
+        # ZSH prompt
+        "romkatv/powerlevel10k"
         # Extra plugins
-        # Note: zsh-you-should-use removed due to compatibility issues with antidote
-        # The plugin has a non-standard structure that causes loading errors
+        "MichaelAquilina/zsh-you-should-use"
         "nix-community/nix-zsh-completions"
         "z-shell/zsh-eza"
       ];
@@ -89,10 +90,27 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initContent = ''
+    initExtra = ''
+      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+      # Initialization code that may require console input (password prompts, [y/n]
+      # confirmations, etc.) must go above this block; everything else may go below.
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
+      fi
+
+      # Catppuccin theme for zsh-syntax-highlighting
+      if [[ -f ~/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh ]]; then
+        source ~/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
+      fi
+
+      # Powerlevel10k configuration
+      if [[ -f ~/.config/zsh/.p10k.zsh ]]; then
+        source ~/.config/zsh/.p10k.zsh
       fi
 
       # Homebrew integration for macOS

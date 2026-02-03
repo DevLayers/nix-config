@@ -1,9 +1,10 @@
 { ... }:
 {
   # Starship configuration
+  # Note: Disabled in favor of powerlevel10k for zsh
   programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
+    enable = false;
+    enableZshIntegration = false;
     settings = {
       add_newline = false;
       
