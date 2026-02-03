@@ -141,10 +141,7 @@ echo "📋 Please verify /mnt/etc/nixos/hardware-configuration.nix contains:"
 echo "  - All 6 BTRFS subvolumes (root, nix, home, persist, log, snapshots)"
 echo "  - compress=zstd,noatime options on all"
 echo "  - neededForBoot = true on persist, log, snapshots"
-echo ""
-echo "=== Hardware Configuration ==="
-sudo cat /mnt/etc/nixos/hardware-configuration.nix 2>/dev/null || cat /mnt/etc/nixos/hardware-configuration.nix
-echo "=== End of Hardware Configuration ==="
+cat /mnt/etc/nixos/hardware-configuration.nix
 
 echo ""
 echo "Press Enter to continue with installation or Ctrl+C to abort..."
