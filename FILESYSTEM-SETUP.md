@@ -56,18 +56,34 @@ The system has the following filesystem types enabled in `modules/nixos/fs.nix`:
 
 ## How It Works in the File Manager
 
-1. **Root filesystem (/)**: Always visible as the main system
+### GTK Bookmarks (Nautilus/GNOME Files)
+
+The system is configured with GTK bookmarks for easy access to all partitions:
+
+**Bookmarks in Sidebar:**
+- Documents, Downloads, Pictures, Videos (User directories)
+- **Root** - Root filesystem (/)
+- **Windows C** - Windows C: drive (/mnt/windows-c)
+- **Windows D** - Windows D: drive (/mnt/windows-d)
+- **Windows E** - Windows E: drive (/mnt/windows-e)
+
+These bookmarks are configured in `modules/home-manager/misc/gtk/default.nix` and appear in the left sidebar of Nautilus (Files application) for one-click access to any partition.
+
+### Filesystem Visibility
+
+1. **Root filesystem (/)**: Always visible as the main system, now also accessible via "Root" bookmark
 2. **Other BTRFS subvolumes**: Mounted as separate directories (/nix, /home, /persist, /var/log, /snapshots)
-3. **NTFS partitions**: Appear in file manager as:
-   - `/mnt/windows-c` - Windows C: drive
-   - `/mnt/windows-d` - Windows D: drive  
-   - `/mnt/windows-e` - Windows E: drive
+3. **NTFS partitions**: Appear in file manager via bookmarks:
+   - **Windows C** → `/mnt/windows-c` - Windows C: drive
+   - **Windows D** → `/mnt/windows-d` - Windows D: drive  
+   - **Windows E** → `/mnt/windows-e` - Windows E: drive
 
 The NTFS partitions are now properly configured with:
 - ✅ Correct filesystem type (ntfs-3g)
 - ✅ Proper permissions for user access
 - ✅ Read-write access
 - ✅ Automatic mounting at boot
+- ✅ Bookmarks in file manager sidebar
 
 ## Security Features
 
