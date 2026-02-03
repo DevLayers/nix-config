@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -10,7 +11,7 @@
     enableCompletion = true;
     
     # XDG compliance: Move zsh config to ~/.config/zsh
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     
     # Antidote plugin manager for better async/deferred loading
     antidote = {
@@ -87,7 +88,7 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initExtra = ''
+    initContent = ''
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
