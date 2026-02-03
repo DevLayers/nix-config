@@ -108,7 +108,10 @@ The NTFS partitions are now properly configured with:
 If the GTK bookmarks (Root, Windows C/D/E) don't appear in Nautilus sidebar after rebuild:
 
 1. **Rebuild the system**: Run `sudo nixos-rebuild switch` to apply NixOS configuration
+   - This creates the mount point directories (`/mnt/windows-c`, etc.) via systemd tmpfiles
+   - This also mounts the Windows partitions at boot
 2. **Rebuild home-manager**: Run `home-manager switch` to apply user configuration
+   - This creates the GTK bookmarks file at `~/.config/gtk-3.0/bookmarks`
 3. **Restart Nautilus**: Close all Nautilus windows and reopen, or run `nautilus -q` to quit and restart
 4. **Check mount points exist**: Run `ls -la /mnt/` to verify windows-c, windows-d, windows-e directories exist
 5. **Check mounts are active**: Run `mount | grep windows` to verify partitions are mounted

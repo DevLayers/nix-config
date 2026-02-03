@@ -6,8 +6,8 @@
   ...
 }:
 let
-  # Common configuration for mount point directories
-  mkMountDir = path: {
+  # Creates a tmpfiles.d rule to ensure a directory exists at boot
+  mkTmpfilesRule = path: {
     ${path}.d = {
       mode = "0755";
       user = "root";
@@ -50,7 +50,7 @@ in
   # This is needed so GTK bookmarks can reference these directories
   # even before the partitions are mounted
   systemd.tmpfiles.settings."ensure-mount-dirs" = 
-    lib.mkMerge (map mkMountDir windowsMountPoints);
+    lib.mkMerge (map mkTmpfilesRule windowsMountPoints);
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
