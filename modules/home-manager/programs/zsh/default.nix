@@ -28,17 +28,6 @@
       ];
       useFriendlyNames = true;
     };
-    
-    # Performance: Enable completion caching
-    completionInit = ''
-      autoload -Uz compinit
-      # Only regenerate compdump once a day for better performance
-      if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-        compinit
-      else
-        compinit -C
-      fi
-    '';
 
     shellAliases = {
       ff = "fastfetch";
@@ -111,13 +100,10 @@
         fi
       ''}
 
-      # Lazy-load kubectl completion for better startup performance
-      # Only loads when kubectl is first used
-      kubectl() {
-        unfunction kubectl
-        source <(command kubectl completion zsh)
-        kubectl "$@"
-      }
+      # Kubectl completion
+      if command -v kubectl &> /dev/null; then
+        source <(kubectl completion zsh)
+      fi
 
       # bindings
       bindkey -e
