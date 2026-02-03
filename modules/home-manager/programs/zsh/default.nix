@@ -105,7 +105,7 @@
       zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
       zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
       zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
-      zstyle ':completion:*' group-name ''''
+      zstyle ':completion:*' group-name ""
       zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
       
       # Atuin shell history integration (if available)
