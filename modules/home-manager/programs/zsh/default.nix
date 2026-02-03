@@ -11,7 +11,7 @@
     enableCompletion = true;
     
     # XDG compliance: Move zsh config to ~/.config/zsh
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     
     # Antidote plugin manager for better async/deferred loading
     antidote = {
@@ -25,7 +25,6 @@
         # ZSH prompt
         "romkatv/powerlevel10k"
         # Extra plugins
-        "MichaelAquilina/zsh-you-should-use"
         "nix-community/nix-zsh-completions"
         "z-shell/zsh-eza"
       ];
@@ -90,7 +89,7 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initExtra = ''
+    initContent = ''
       # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
       # Initialization code that may require console input (password prompts, [y/n]
       # confirmations, etc.) must go above this block; everything else may go below.
