@@ -9,11 +9,25 @@
     enable = true;
     enableCompletion = true;
     
-    # Enable auto-suggestions from history
-    autosuggestion.enable = true;
+    # XDG compliance: Move zsh config to ~/.config/zsh
+    dotDir = ".config/zsh";
     
-    # Enable syntax highlighting
-    syntaxHighlighting.enable = true;
+    # Antidote plugin manager for better async/deferred loading
+    antidote = {
+      enable = true;
+      plugins = [
+        # ZSH utility plugins
+        "zsh-users/zsh-autosuggestions"
+        "zsh-users/zsh-syntax-highlighting"
+        "zsh-users/zsh-completions"
+        "zsh-users/zsh-history-substring-search"
+        # Extra plugins
+        "MichaelAquilina/zsh-you-should-use"  # Suggests existing aliases
+        "nix-community/nix-zsh-completions"
+        "z-shell/zsh-eza"
+      ];
+      useFriendlyNames = true;
+    };
     
     # Performance: Enable completion caching
     completionInit = ''
@@ -84,7 +98,19 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initContent = ''
+    initExtra = ''
+      # Atuin shell history integration (if available)
+      if command -v atuin &> /dev/null; then
+        eval "$(atuin init zsh)"
+      fi
+
+      # Homebrew integration for macOS
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        if [[ -f /opt/homebrew/bin/brew ]]; then
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
+      ''}
+
       # Lazy-load kubectl completion for better startup performance
       # Only loads when kubectl is first used
       kubectl() {

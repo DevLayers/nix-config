@@ -6,6 +6,10 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
+      
+      # Performance: Reduce scan timeout for faster startup
+      scan_timeout = 10;
+      
       directory = {
         style = "bold lavender";
       };
@@ -23,6 +27,10 @@
         style = "bold pink";
         symbol = "󱃾 ";
         format = "[$symbol$context( \($namespace\))]($style)";
+        # Performance: Only detect k8s context in relevant directories
+        detect_files = ["k8s" "kubernetes" "Chart.yaml" "helmfile.yaml"];
+        detect_folders = ["k8s" "kubernetes" ".kube" "helm"];
+        detect_extensions = [];
         contexts = [
           {
             context_pattern = "arn:aws:eks:(?P<var_region>.*):(?P<var_account>[0-9]{12}):cluster/(?P<var_cluster>.*)";
@@ -60,7 +68,9 @@
       terraform = {
         symbol = " ";
       };
-      right_format = "$kubernetes";
+      # Performance: Move kubernetes to left prompt instead of right (faster rendering)
+      format = "$all$kubernetes$character";
+      right_format = "";
     };
   };
 
