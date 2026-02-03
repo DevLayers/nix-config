@@ -28,17 +28,6 @@
       ];
       useFriendlyNames = true;
     };
-    
-    # Performance: Enable completion caching
-    completionInit = ''
-      autoload -Uz compinit
-      # Only regenerate compdump once a day for better performance
-      if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-        compinit
-      else
-        compinit -C
-      fi
-    '';
 
     shellAliases = {
       ff = "fastfetch";
