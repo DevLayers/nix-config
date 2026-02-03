@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -10,7 +11,7 @@
     enableCompletion = true;
     
     # XDG compliance: Move zsh config to ~/.config/zsh
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     
     # Antidote plugin manager for better async/deferred loading
     antidote = {
@@ -22,7 +23,8 @@
         "zsh-users/zsh-completions"
         "zsh-users/zsh-history-substring-search"
         # Extra plugins
-        "MichaelAquilina/zsh-you-should-use"  # Suggests existing aliases
+        # Note: zsh-you-should-use removed due to compatibility issues with antidote
+        # The plugin has a non-standard structure that causes loading errors
         "nix-community/nix-zsh-completions"
         "z-shell/zsh-eza"
       ];
@@ -87,7 +89,7 @@
       lt = "eza --tree --level=2 --icons"; # tree
     };
     
-    initExtra = ''
+    initContent = ''
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
