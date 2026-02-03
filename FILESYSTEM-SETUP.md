@@ -102,3 +102,16 @@ The NTFS partitions are now properly configured with:
 
 - **BTRFS scrub**: Runs weekly on the root filesystem
 - **fstrim**: Runs weekly (only on AC power) to optimize SSD performance
+
+## Troubleshooting Bookmarks
+
+If the GTK bookmarks (Root, Windows C/D/E) don't appear in Nautilus sidebar after rebuild:
+
+1. **Rebuild the system**: Run `sudo nixos-rebuild switch` to apply NixOS configuration
+2. **Rebuild home-manager**: Run `home-manager switch` to apply user configuration
+3. **Restart Nautilus**: Close all Nautilus windows and reopen, or run `nautilus -q` to quit and restart
+4. **Check mount points exist**: Run `ls -la /mnt/` to verify windows-c, windows-d, windows-e directories exist
+5. **Check mounts are active**: Run `mount | grep windows` to verify partitions are mounted
+6. **Check bookmarks file**: Look at `~/.config/gtk-3.0/bookmarks` to verify bookmarks are written correctly
+
+The bookmarks are automatically configured by home-manager and should appear in the left sidebar of Nautilus once the system is rebuilt and Nautilus is restarted.
