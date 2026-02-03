@@ -97,11 +97,10 @@
       ZSH_AUTOSUGGEST_USE_ASYNC=1
       ZSH_AUTOSUGGEST_MANUAL_REBIND=1
       
-      # Completion system configuration for better suggestions
-      # Enable fuzzy matching for better suggestions
+      # Enable fuzzy matching and case-insensitive completion for better suggestions
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
       
-      # Directory and path completion settings for folder suggestions
+      # Configure completion menu and tag ordering to prioritize directory suggestions
       zstyle ':completion:*' menu select
       zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
       zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
