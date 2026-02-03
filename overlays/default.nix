@@ -8,4 +8,9 @@
       config.allowUnfree = true;
     };
   };
+
+  # Add zen-browser from the flake input
+  zen-browser-overlay = final: _prev: {
+    zen-browser = inputs.zen-browser.packages.${final.system}.default;
+  };
 }
