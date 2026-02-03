@@ -28,6 +28,27 @@
   # Set hostname
   networking.hostName = hostname;
 
+  # Ensure mount point directories exist for Windows partitions
+  # This is needed so GTK bookmarks can reference these directories
+  # even before the partitions are mounted
+  systemd.tmpfiles.settings."ensure-mount-dirs" = {
+    "/mnt/windows-c".d = {
+      mode = "0755";
+      user = "root";
+      group = "root";
+    };
+    "/mnt/windows-d".d = {
+      mode = "0755";
+      user = "root";
+      group = "root";
+    };
+    "/mnt/windows-e".d = {
+      mode = "0755";
+      user = "root";
+      group = "root";
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
