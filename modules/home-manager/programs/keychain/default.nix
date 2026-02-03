@@ -9,10 +9,6 @@
     # Add your GitHub SSH key path here (e.g., "id_ed25519", "id_rsa")
     keys = [ "id_ed25519" ];
 
-    # Additional agents to manage (optional)
-    # agents = [ "ssh" "gpg" ];
-    agents = [ "ssh" ];
-
     # Inherit the environment from the keychain agent
     # This ensures SSH_AUTH_SOCK and other vars are set correctly
     enableZshIntegration = true;

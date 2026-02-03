@@ -2,6 +2,7 @@
   outputs,
   userConfig,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -76,7 +77,7 @@
       ripgrep
       terraform
     ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.isDarwin [
       anki-bin
       colima
       hidden-bar
@@ -84,7 +85,7 @@
       podman
       raycast
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [
+    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
       anki
       tesseract
       unzip
