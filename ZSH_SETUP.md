@@ -24,7 +24,6 @@ The ZSH configuration has been updated to match the setup from [SrwR16/dotfiles]
 Added the following plugins to enhance ZSH functionality:
 
 - `romkatv/powerlevel10k` - Fast and customizable prompt
-- `MichaelAquilina/zsh-you-should-use` - Reminds you to use aliases
 
 ### 3. Enhanced Autocompletion
 
