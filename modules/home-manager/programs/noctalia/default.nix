@@ -108,7 +108,7 @@
             {
               customFont = "";
               formatHorizontal = "hh:mm a ddd, MMM dd";
-              formatVertical = "hh mm a - dd MM";
+              formatVertical = "hh:mm a - dd MM";
               id = "Clock";
               tooltipFormat = "hh:mm a ddd, MMM dd";
               useCustomFont = false;
