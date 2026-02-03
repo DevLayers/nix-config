@@ -1,0 +1,480 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+@{name} = zen
+@{domain} = io.github.zen_browser.zen
+@{lib_dirs} = /nix/store/*-zen-browser-*/bin
+@{int}=[0-9]{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}
+@{XDG_CACHE_DIR}=".cache"
+@{XDG_CONFIG_DIR}=".config"
+@{XDG_DATA_DIR}=".local/share"
+@{user_config_dirs}=@{HOME}/@{XDG_CONFIG_DIR}
+@{user_cache_dirs}=@{HOME}/@{XDG_CACHE_DIR}
+@{config_dirs} = @{user_config_dirs}/zen
+@{cache_dirs} = @{user_cache_dirs}/zen
+
+@{u}=[a-zA-Z0-9_]
+@{user}=[a-zA-Z_]{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u},}{@{u…
+@{group}=@{user}
+@{MOUNTDIRS}=/media/ @{run}/media/@{user}/ /mnt/
+
+@{c}=[0-9a-zA-Z]
+@{rand}=@{c}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@…
+@{rand2}=@{c}@{c}
+@{rand4}=@{rand2}@{rand2}
+@{rand6}=@{rand4}@{rand2}
+@{rand8}=@{rand4}@{rand4}
+@{rand9}=@{rand8}@{c}
+@{rand10}=@{rand8}@{rand2}
+@{rand16}=@{rand8}@{rand8}
+
+# @{MOUNTS} is a space-separated list of all user mounted directories.
+@{MOUNTS}=@{MOUNTDIRS}/*/ @{run}/user/@{uid}/gvfs/
+@{lib}=/{,usr/}lib{,exec,32,64}
+# Common places for temporary files
+@{tmp}=/tmp/ /tmp/user/@{uid}/
+@{XDG_DOWNLOAD_DIR}+=".tb/tor-browser/Browser/Downloads"
+
+@{bin} = /{,usr/}{,s}bin
+@{XDG_SCREENSHOTS_DIR}="Pictures/Screenshots"
+@{XDG_WALLPAPERS_DIR} = "Pictures/Wallpapers/"
+@{XDG_GAMES_DIR}=".games"
+@{XDG_PROJECTS_DIR}="Projects"
+@{XDG_WORK_DIR}="Work"
+@{XDG_MAIL_DIR}="Mail" ".{m,M}ail"
+@{XDG_SYNC_DIR}="Sync"
+@{XDG_TORRENTS_DIR}="Torrents"
+# @{user_books_dirs} = @{HOME}/Books/ @{MOUNTS}/Books/
+# Other user directories
+@{user_documents_dirs}=@{HOME}/@{XDG_DOCUMENTS_DIR} @{MOUNTS}/@{XDG_DOCUMENTS_DIR}
+@{user_download_dirs}=@{HOME}/@{XDG_DOWNLOAD_DIR} @{MOUNTS}/@{XDG_DOWNLOAD_DIR}
+@{user_music_dirs}=@{HOME}/@{XDG_MUSIC_DIR} @{MOUNTS}/@{XDG_MUSIC_DIR}
+@{user_pictures_dirs}=@{HOME}/@{XDG_PICTURES_DIR} @{MOUNTS}/@{XDG_PICTURES_DIR}
+@{user_games_dirs}=@{HOME}/@{XDG_GAMES_DIR} @{MOUNTS}/@{XDG_GAMES_DIR}
+@{user_work_dirs}=@{HOME}/@{XDG_WORK_DIR} @{MOUNTS}/@{XDG_WORK_DIR}
+@{user_projects_dirs}=@{HOME}/@{XDG_PROJECTS_DIR} @{MOUNTS}/@{XDG_PROJECTS_DIR}
+@{user_sync_dirs}=@{HOME}/@{XDG_SYNC_DIR} @{MOUNTS}/*/@{XDG_SYNC_DIR}
+@{user_publicshare_dirs} = @{HOME}/Public/ @{MOUNTS}/Public/
+@{user_templates_dirs} = @{HOME}/Templates/ @{MOUNTS}/Templates/
+@{user_torrents_dirs} = @{HOME}/Torrents/ @{MOUNTS}/Torrents/
+@{user_videos_dirs} = @{HOME}/Videos/ @{MOUNTS}/Videos/
+@{user_vm_dirs} = @{HOME}/VMs/ @{MOUNTS}/VMs/
+@{user_books_dirs} = @{HOME}/Books/ @{MOUNTS}/Books/
+# @{user_share_dirs} = @{HOME}/.local/share/ @{MOUNTS}/.local/share/
+
+@{h}=[0-9a-fA-F]
+@{pci_id}=@{h}@{h}@{h}@{h}:@{h}@{h}:@{h}@{h}.@{h}
+@{pci_bus}=pci@{h}@{h}@{h}@{h}:@{h}@{h}
+@{pci}=@{pci_bus}/**/
+
+@{exec_path} = @{lib_dirs}/zen
+profile zen @{exec_path} {
+  include <abstractions/base>
+  include <abstractions/ssl_certs>
+
+#  # Audio
+#  # Most programs do not need access to audio devices, audio-client only includes
+#  # configuration files to be used by client applications.
+#
+#  /usr/share/alsa/** r,
+#  /usr/share/openal/hrtf/{,**} r,
+#  /usr/share/pipewire/client-rt.conf r,
+#  /usr/share/pipewire/client.conf r,
+#  /usr/share/sounds/{,**} r,
+#
+#  /etc/alsa/conf.d/{,**} r,
+#  /etc/asound.conf r,
+#  /etc/esound/esd.conf r,
+#  /etc/libao.conf r,
+#  /etc/openal/alsoft.conf r,
+#  /etc/pipewire/client{,-rt}.conf r,
+#  /etc/pipewire/client.conf.d/{,**} r,
+#  /etc/pulse/client.conf r,
+#  /etc/pulse/client.conf.d/{,**} r,
+#  /etc/wildmidi/wildmidi.cfg r,
+#
+#  owner @{desktop_cache_dirs}/event-sound-cache.tdb.@{hex32}.@{multiarch} rwk,  # libcanberra
+#  owner @{desktop_config_dirs}/pulse/ rw,
+#  owner @{desktop_config_dirs}/pulse/client.conf r,
+#  owner @{desktop_config_dirs}/pulse/client.conf.d/{,*.conf} r,
+#  owner @{desktop_config_dirs}/pulse/cookie rwk,
+#
+#  owner @{HOME}/.alsoftrc r,
+#  owner @{HOME}/.asoundrc r,
+#  owner @{HOME}/.esd_auth r,
+#  owner @{HOME}/.libao r,
+#  owner @{HOME}/.pulse-cookie rwk,
+#
+#  owner @{user_cache_dirs}/event-sound-cache.tdb.@{hex32}.@{multiarch} rwk,  # libcanberra
+#
+#  owner @{user_config_dirs}/pulse/ rw,
+#  owner @{user_config_dirs}/pulse/client.conf r,
+#  owner @{user_config_dirs}/pulse/client.conf.d/{,*.conf} r,
+#  owner @{user_config_dirs}/pulse/cookie rwk,
+#
+#  owner @{user_config_dirs}/pipewire/ rw,
+#  owner @{user_config_dirs}/pipewire/client.conf r,
+#
+#  owner @{user_share_dirs}/openal/hrtf/{,**} r,
+#  owner @{user_share_dirs}/sounds/__custom/index.theme r,
+#
+#  owner @{run}/user/@{uid}/pipewire-@{int} rw,
+#
+#  owner @{run}/user/@{uid}/pulse/ rw,
+#  owner @{run}/user/@{uid}/pulse/native rw,
+#
+#  @{sys}/class/sound/ r,
+#
+#        /dev/shm/ r,
+#  owner /dev/shm/pulse-shm-@{int} rw,
+
+  # Org.freedesktop.Avahi
+  dbus send bus=system path=/
+       interface=org.freedesktop.DBus.Peer
+       member=Ping
+       peer=(name=org.freedesktop.Avahi, label=avahi-daemon),
+
+  dbus send bus=system path=/
+       interface=org.freedesktop.Avahi.Server
+       member={GetAPIVersion,GetState,Service*New}
+       peer=(name=org.freedesktop.Avahi, label=avahi-daemon),
+
+  dbus send bus=system path=/Client@{int}/ServiceBrowser@{int}
+       interface=org.freedesktop.Avahi.ServiceBrowser
+       member=Free
+       peer=(name=org.freedesktop.Avahi, label=avahi-daemon),
+
+  dbus receive bus=system path=/Client@{int}/ServiceBrowser@{int}
+       interface=org.freedesktop.Avahi.ServiceBrowser
+       member={ItemNew,AllForNow,CacheExhausted}
+       peer=(name=:*, label=avahi-daemon),
+
+  # Org.freedesktop.FileManager1
+  dbus send bus=session path=/org/freedesktop/FileManager1
+       interface=org.freedesktop.DBus.Properties
+       member=GetAll
+       peer=(name=:*, label=nautilus),
+
+  dbus receive bus=session path=/org/freedesktop/FileManager1
+       interface=org.freedesktop.DBus.Properties
+       member=PropertiesChanged
+       peer=(name=:*, label=nautilus),
+
+  # Org.freedesktop.Notifications
+    dbus send bus=session path=/org/freedesktop/Notifications
+       interface=org.freedesktop.DBus.Properties
+       member=GetAll
+       peer=(name=:*, label=gjs-console),
+
+  dbus send bus=session path=/org/freedesktop/Notifications
+       interface=org.freedesktop.DBus.Properties
+       member={GetCapabilities,GetServerInformation,Notify}
+       peer=(name=:*, label=gjs-console),
+
+  dbus receive bus=session path=/org/freedesktop/Notifications
+       interface=org.freedesktop.DBus.Properties
+       member={GetAll,NotificationClosed,CloseNotification}
+       peer=(name=:*, label=gjs-console),
+
+  dbus receive bus=session path=/org/freedesktop/Notifications
+       interface=org.freedesktop.DBus.Properties
+       member=Notify
+       peer=(name=org.freedesktop.DBus, label=gjs-console),
+
+  # Org.freedesktop.ScreenSaver
+    dbus send bus=session path=/ScreenSaver
+        interface=org.freedesktop.ScreenSaver
+        member={Inhibit,UnInhibit}
+        peer=(name=org.freedesktop.ScreenSaver),
+
+  # Org.freedesktop.Secrets
+  dbus send bus=session path=/org/freedesktop/secrets{,/**}
+       interface=org.freedesktop.DBus.Properties
+       member=GetAll
+       peer=(name=:*, label=gnome-keyring-daemon),
+
+  dbus send bus=session path=/org/freedesktop/secrets
+       interface=org.freedesktop.Secret.Service
+       member={OpenSession,GetSecrets,SearchItems,ReadAlias}
+       peer=(name=:*, label=gnome-keyring-daemon),
+
+  dbus send bus=session path=/org/freedesktop/secrets/aliases/default
+       interface=org.freedesktop.Secret.Collection
+       member=CreateItem
+       peer=(name=org.freedesktop.secrets, label=gnome-keyring-daemon),
+
+  dbus receive bus=session path=/org/freedesktop/secrets/collection/login
+       interface=org.freedesktop.Secret.Collection
+       member=ItemCreated
+       peer=(name=:*, label=gnome-keyring-daemon),
+
+  dbus receive bus=session path=/org/freedesktop/secrets/collection/login
+       interface=org.freedesktop.DBus.Properties
+       member=PropertiesChanged
+       peer=(name=:*, label=gnome-keyring-daemon),
+
+   # Org.freedesktop.UPower
+   dbus send bus=system path=/org/freedesktop/UPower
+       interface=org.freedesktop.UPower
+       member=EnumerateDevices
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+
+  dbus send bus=system path=/org/freedesktop/UPower{,/**}
+       interface=org.freedesktop.DBus.Properties
+       member={Get,GetAll}
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+  dbus send bus=system path=/org/freedesktop/UPower{,/**}
+       interface=org.freedesktop.DBus.Properties
+       member={Get,GetAll}
+       peer=(name=org.freedesktop.UPower, label=upowerd),
+
+  dbus send bus=system path=/org/freedesktop/UPower
+       interface=org.freedesktop.DBus.Properties
+       member=GetDisplayDevice
+       peer=(name=org.freedesktop.UPower, label=upowerd),
+
+  dbus send bus=system path=/org/freedesktop/UPower/devices/*
+       interface=org.freedesktop.DBus.Properties
+       member={Get,GetAll}
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+
+  dbus send bus=system path=/org/freedesktop/UPower/devices/*
+       interface=org.freedesktop.DBus.Introspectable
+       member=Introspect
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+
+  dbus receive bus=system path=/org/freedesktop/UPower
+       interface=org.freedesktop.UPower
+       member=DeviceAdded
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+
+  dbus receive bus=system path=/org/freedesktop/UPower/devices/*
+       interface=org.freedesktop.DBus.Properties
+       member=PropertiesChanged
+       peer=(name="{:*,org.freedesktop.UPower}", label=upowerd),
+
+  # Org.gnome.sessionManager
+  dbus send bus=session path=/org/gnome/SessionManager
+       interface=org.gnome.SessionManager
+       member={RegisterClient,IsSessionRunning}
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus send bus=session path=/org/gnome/SessionManager
+       interface=org.gnome.SessionManager
+       member={Setenv,IsSessionRunning}
+       peer=(name=org.gnome.SessionManager, label=gnome-session-binary),
+
+  dbus receive bus=session path=/org/gnome/SessionManager
+       interface=org.gnome.SessionManager
+       member={ClientAdded,ClientRemoved,SessionRunning,InhibitorRemoved,InhibitorAdded}
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus send bus=session path=/org/gnome/SessionManager
+       interface=org.freedesktop.DBus.Properties
+       member=GetAll
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus receive bus=session path=/org/gnome/SessionManager
+       interface=org.freedesktop.DBus.Properties
+       member=PropertiesChanged
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus send bus=session path=/org/gnome/SessionManager/Client@{int}
+       interface=org.gnome.SessionManager.ClientPrivate
+       member=EndSessionResponse
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus receive bus=session path=/org/gnome/SessionManager/Client@{int}
+       interface=org.gnome.SessionManager.ClientPrivate
+       member={CancelEndSession,QueryEndSession,EndSession,Stop}
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus send bus=session path=/org/gnome/SessionManager/Client@{int}
+       interface=org.freedesktop.DBus.Properties
+       member=GetAll
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus receive bus=session path=/org/gnome/SessionManager/Client@{int}
+       interface=org.freedesktop.DBus.Properties
+       member=PropertiesChanged
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus receive bus=session path=/org/gnome/SessionManager/Presence
+       interface=org.gnome.SessionManager.Presence
+       member=StatusChanged
+       peer=(name=:*, label=gnome-session-binary),
+
+  dbus send bus=session path=/org/gnome/SessionManager
+       interface=org.freedesktop.DBus.Introspectable
+       member=Introspect
+       peer=(name=org.gnome.SessionManager, label=gnome-session-binary),
+
+   # This abstraction gives read access on all defined user directories. It should
+# only be used if access to **ALL** folders is required.
+
+#  owner @{HOME}/ r,
+#  owner @{MOUNTS}/ r,
+#
+#  owner @{HOME}/@{XDG_DESKTOP_DIR}/{,**} rk,
+#  owner @{HOME}/@{XDG_SCREENSHOTS_DIR}/{,**} rk,
+#  owner @{HOME}/@{XDG_WALLPAPERS_DIR}/{,**} rk,
+#  owner @{MOUNTS}/@{XDG_DESKTOP_DIR}/{,**} rk,
+#  owner @{MOUNTS}/@{XDG_SCREENSHOTS_DIR}/{,**} rk,
+#  owner @{MOUNTS}/@{XDG_WALLPAPERS_DIR}/{,**} rk,
+#
+#  owner @{user_books_dirs}/{,**} rk,
+#  owner @{user_documents_dirs}/{,**} rk,
+#  owner @{user_download_dirs}/{,**} rk,
+#  owner @{user_games_dirs}/{,**} rk,
+#  owner @{user_music_dirs}/{,**} rk,
+#  owner @{user_pictures_dirs}/{,**} rk,
+#  owner @{user_projects_dirs}/{,**} rk,
+#  owner @{user_publicshare_dirs}/{,**} rk,
+#  owner @{user_sync_dirs}/{,**} rk,
+#  owner @{user_templates_dirs}/{,**} rk,
+#  owner @{user_torrents_dirs}/{,**} rk,
+#  owner @{user_videos_dirs}/{,**} rk,
+#  owner @{user_vm_dirs}/{,**} rk,
+#  owner @{user_work_dirs}/{,**} rk,
+#
+#  # Common directories to download
+#  owner @{HOME}/@{XDG_DESKTOP_DIR}/ w,
+#  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ w,
+#
+#  owner @{HOME}/@{XDG_DESKTOP_DIR}/ r,
+#  owner @{HOME}/@{XDG_DESKTOP_DIR}/** rwkl,
+#
+#  owner @{user_download_dirs}/ r,
+#  owner @{user_download_dirs}/** rwkl,
+#
+#  # uim
+#  /usr/share/uim/* r,
+#
+#  /var/lib/uim/* r,
+#
+#  owner @{HOME}/.uim.d/customs/* r,
+#  owner @{HOME}/.XCompose r,
+#
+#  owner @{run}/user/@{uid}/uim/socket/uim-helper rw,
+#
+#  # Thumbnail cache read access
+#  owner @{user_cache_dirs}/thumbnails/ r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/ r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/gnome-thumbnail-factory/ r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/gnome-thumbnail-factory/*.png r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/*.png r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/*.png.@{rand6} r,
+#  owner @{user_cache_dirs}/thumbnails/{fail,*large,normal}/#@{int} r,
+
+
+
+  #aa:dbus own bus=session name=org.mpris.MediaPlayer2.chrome path=/org/mpris/MediaPlayer2
+
+  @{exec_path} mrix,
+
+  @{bin}/man  rPUx, #  For "chrome --help"
+
+  @{lib_dirs}/chrome_crashpad_handler  rPx -> chrome//&chrome-crashpad-handler,
+  @{lib_dirs}/google-@{name}  rPx,
+
+  @{lib_dirs}/nacl_helper    rix,
+  @{lib_dirs}/xdg-mime       rix, #-> xdg-mime,
+  @{lib_dirs}/xdg-settings   rix, #-> xdg-settings,
+
+  @{lib_dirs}/*.so* mr,
+  @{lib_dirs}/libwidevinecdm.so mr,
+  @{lib_dirs}/libwidevinecdmadapter.so mr,
+  @{lib_dirs}/WidevineCdm/_platform_specific/linux_*/libwidevinecdm.so mr,
+
+  # Bus Session
+  unix (bind, listen) type=stream addr="@/tmp/dbus-*",
+  unix (connect, send, receive, accept) type=stream addr="@/tmp/dbus-*",
+  unix (connect, send, receive, accept) type=stream peer=(addr="@/tmp/dbus-*"),
+
+  dbus send bus=session path=/org/freedesktop/DBus
+       interface=org.freedesktop.DBus
+       member={Hello,AddMatch,RemoveMatch,GetNameOwner,NameHasOwner,StartServiceByName}
+       peer=(name=org.freedesktop.DBus, label=dbus-session),
+
+  dbus send bus=session path=/org/freedesktop/DBus
+       interface=org.freedesktop.DBus
+       member={RequestName,ReleaseName}
+       peer=(name=org.freedesktop.DBus, label=dbus-session),
+
+  # Bus system
+  dbus send bus=system path=/org/freedesktop/DBus
+       interface=org.freedesktop.DBus
+       member={Hello,AddMatch,RemoveMatch,GetNameOwner,NameHasOwner,StartServiceByName}
+       peer=(name=org.freedesktop.DBus, label=dbus-system),
+
+  dbus send bus=system path=/org/freedesktop/DBus
+       interface=org.freedesktop.DBus
+       member={RequestName,ReleaseName}
+       peer=(name=org.freedesktop.DBus, label=dbus-system),
+
+  # userns,
+
+  capability setgid,
+  capability setuid,
+  capability sys_admin,
+  capability sys_chroot,
+  capability sys_ptrace,
+
+  network inet dgram,
+  network inet6 dgram,
+  network inet stream,
+  network inet6 stream,
+  network netlink raw,
+
+  signal (receive) peer=@{profile_name}-crashpad-handler,
+  signal (send) set=(term, kill) peer=@{profile_name}-sandbox,
+  signal (send) set=(term, kill) peer=keepassxc-proxy,
+
+  ptrace (read) peer=browserpass,
+  ptrace (read) peer=chrome-gnome-shell,
+  ptrace (read) peer=gnome-browser-connector-host,
+  ptrace (read) peer=keepassxc-proxy,
+  ptrace (read) peer=lsb_release,
+  ptrace (read) peer=plasma-browser-integration-host,
+  ptrace (read) peer=xdg-settings,
+  ptrace (trace) peer=@{profile_name},
+
+  @{lib_dirs}/{,**} r,
+  @{lib_dirs}/*.so* mr,
+  @{lib_dirs}/chrome-sandbox           rPx,
+
+  # Desktop integration
+  @{bin}/lsb_release        rPx -> lsb_release,
+  @{bin}/xdg-desktop-menu   rPx,
+  @{bin}/xdg-email          rPx,
+  @{bin}/xdg-icon-resource  rPx,
+  @{bin}/xdg-mime           rPx,
+  @{bin}/xdg-open           rPx -> child-open,
+  @{bin}/xdg-settings       rPx,
+
+  # Installing/removing extensions & applications
+  @{bin}/{,e}grep rix,
+  @{bin}/basename rix,
+  @{bin}/cat      rix,
+  @{bin}/cut      rix,
+  @{bin}/mkdir    rix,
+  @{bin}/mktemp   rix,
+  @{bin}/rm       rix,
+  @{bin}/sed      rix,
+  @{bin}/touch    rix,
+
+  # For storing passwords externally
+  @{bin}/keepassxc-proxy    rix, # as a temporary solution - see issue #128
+  @{bin}/browserpass        rPx,
+
+  # Gnome shell integration
+  @{bin}/chrome-gnome-shell            rPx,
+  @{bin}/gnome-browser-connector-host  rPx,
+
+  # Silencer
+  deny @{lib_dirs}/** w,
+  deny @{user_share_dirs}/gvfs-metadata/* r,
+}
+
+# vim:syntax=apparmor
