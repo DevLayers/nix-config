@@ -21,6 +21,7 @@
     ../programs/go
     ../programs/gpg
     ../programs/k8s
+    ../programs/keychain
     ../programs/lazygit
     ../programs/neovim
     ../programs/saml2aws
