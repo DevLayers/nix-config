@@ -13,6 +13,7 @@
     ../programs/bat
     ../programs/brave
     ../programs/btop
+    ../programs/cursor
     ../programs/fastfetch
     ../programs/foot
     ../programs/fzf
@@ -26,6 +27,8 @@
     ../programs/starship
     ../programs/telegram
     ../programs/tmux
+    ../programs/vscode
+    ../programs/zen-browser
     ../programs/zoxide
     ../programs/zsh
     ../scripts

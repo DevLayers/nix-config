@@ -107,10 +107,10 @@
           center = [
             {
               customFont = "";
-              formatHorizontal = "HH:mm ddd, MMM dd";
-              formatVertical = "HH mm - dd MM";
+              formatHorizontal = "hh:mm a ddd, MMM dd";
+              formatVertical = "hh:mm a - dd MM";
               id = "Clock";
-              tooltipFormat = "HH:mm ddd, MMM dd";
+              tooltipFormat = "hh:mm a ddd, MMM dd";
               useCustomFont = false;
               usePrimaryColor = false;
             }
@@ -361,7 +361,7 @@
         showCalendarEvents = false;
         showCalendarWeather = false;
         showWeekNumberInCalendar = true;
-        use12hourFormat = false;
+        use12hourFormat = true;
         useFahrenheit = false;
         weatherEnabled = false;
         weatherShowEffects = false;
