@@ -100,10 +100,13 @@
         fi
       ''}
 
-      # Kubectl completion
-      if command -v kubectl &> /dev/null; then
-        source <(kubectl completion zsh)
-      fi
+      # Lazy-load kubectl completion for better startup performance
+      # Only loads when kubectl is first used
+      kubectl() {
+        unfunction kubectl
+        source <(command kubectl completion zsh)
+        kubectl "$@"
+      }
 
       # bindings
       bindkey -e
