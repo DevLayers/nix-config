@@ -16,8 +16,6 @@
     # Additional keychain options
     extraFlags = [
       "--quiet"           # Less verbose output
-      "--quick"           # Quick mode - don't prompt for passphrase if key is already loaded
-      "--noask"           # Don't ask for passphrase, fail if key isn't already loaded
     ];
   };
 }
