@@ -69,6 +69,25 @@
     options = [ "fmask=0022" "dmask=0022" ];
   };
 
+  # Windows NTFS partitions
+  fileSystems."/mnt/windows-c" = {
+    device = "/dev/disk/by-label/Windows-C";
+    fsType = "ntfs-3g";
+    options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=133" ];
+  };
+
+  fileSystems."/mnt/windows-d" = {
+    device = "/dev/disk/by-label/Windows-D";
+    fsType = "ntfs-3g";
+    options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=133" ];
+  };
+
+  fileSystems."/mnt/windows-e" = {
+    device = "/dev/disk/by-label/Windows-E";
+    fsType = "ntfs-3g";
+    options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=133" ];
+  };
+
   swapDevices = [
     { device = "/dev/disk/by-uuid/5d0b9a9e-bb2b-4189-be05-49b231acad3b"; }
   ];

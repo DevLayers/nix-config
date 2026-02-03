@@ -36,6 +36,10 @@
         "file://${config.home.homeDirectory}/Downloads"
         "file://${config.home.homeDirectory}/Pictures"
         "file://${config.home.homeDirectory}/Videos"
+        "file:/// Root"
+        "file:///mnt/windows-c Windows C"
+        "file:///mnt/windows-d Windows D"
+        "file:///mnt/windows-e Windows E"
       ];
     };
   };
