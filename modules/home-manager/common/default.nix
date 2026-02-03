@@ -38,6 +38,7 @@
   nixpkgs = {
     overlays = [
       outputs.overlays.stable-packages
+      outputs.overlays.zen-browser-overlay
     ];
 
     config = {
