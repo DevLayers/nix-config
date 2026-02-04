@@ -5,6 +5,7 @@
     ./zram.nix          # ZRAM swap (90% memory compression - essential)
     ./thermald.nix      # Thermal management for Intel CPUs
     ./fwupd.nix         # Firmware updates via fwupd
+    ./udisks2.nix       # Disk management and automounting
 
     # Time synchronization - using simpler timesyncd (change to ntpd.nix if you prefer)
     ./systemd/timesyncd.nix  # systemd-timesyncd (lightweight, sufficient for most)

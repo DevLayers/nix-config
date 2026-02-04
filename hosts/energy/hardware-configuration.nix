@@ -69,24 +69,28 @@
     options = [ "fmask=0022" "dmask=0022" ];
   };
 
-  # Windows partitions - auto-mount with user access
-  fileSystems."/mnt/windows-c" = {
-    device = "/dev/disk/by-partuuid/508b2268-cfc5-4e07-b7db-473693a80f6e";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
-  };
+  # Windows partitions - Managed by udisks2 for on-demand mounting
+  # They will appear in Nautilus "Other Locations" with mount/unmount buttons
+  # and size information. Uncomment below to auto-mount at boot instead:
+  #
+  # fileSystems."/mnt/windows-c" = {
+  #   device = "/dev/disk/by-partuuid/508b2268-cfc5-4e07-b7db-473693a80f6e";
+  #   fsType = "ntfs-3g";
+  #   options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
+  # };
+  #
+  # fileSystems."/mnt/windows-d" = {
+  #   device = "/dev/disk/by-partuuid/727dd306-3aec-419b-844d-7a8bd5500c9c";
+  #   fsType = "ntfs-3g";
+  #   options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
+  # };
+  #
+  # fileSystems."/mnt/windows-e" = {
+  #   device = "/dev/disk/by-partuuid/3d91ad77-a81a-466f-b224-3cc2def241c4";
+  #   fsType = "ntfs-3g";
+  #   options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
+  # };
 
-  fileSystems."/mnt/windows-d" = {
-    device = "/dev/disk/by-partuuid/727dd306-3aec-419b-844d-7a8bd5500c9c";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
-  };
-
-  fileSystems."/mnt/windows-e" = {
-    device = "/dev/disk/by-partuuid/3d91ad77-a81a-466f-b224-3cc2def241c4";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000" "gid=100" "umask=0022" "nofail" "x-systemd.device-timeout=10" ];
-  };
 
   swapDevices = [
     { device = "/dev/disk/by-uuid/5d0b9a9e-bb2b-4189-be05-49b231acad3b"; }
