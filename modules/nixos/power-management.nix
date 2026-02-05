@@ -5,11 +5,13 @@
 }: {
   config = {
     # Systemd login manager settings
-    services.logind = {
-      lidSwitch = "suspend";
-      lidSwitchDocked = "ignore";
-      lidSwitchExternalPower = "suspend";
-      powerKey = "poweroff";
+    services.logind.settings = {
+      Login = {
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchDocked = "ignore";
+        HandleLidSwitchExternalPower = "suspend";
+        HandlePowerKey = "poweroff";
+      };
     };
 
     # Power management
