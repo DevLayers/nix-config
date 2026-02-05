@@ -3,6 +3,7 @@
   imports = [
     "${nhModules}/common"
     "${nhModules}/desktop/niri"
+    "${nhModules}/programs/keychain"
   ];
 
   # Enable home-manager
