@@ -10,6 +10,7 @@
     "${nixosModules}/common"
     "${nixosModules}/desktop/niri"
     "${nixosModules}/programs/steam"
+    "${nixosModules}/power-management.nix"
   ];
 
   # Hardware device configuration (CPU/GPU detection)
