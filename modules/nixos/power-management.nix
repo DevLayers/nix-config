@@ -12,11 +12,7 @@
       powerKey = "poweroff";
 
       # Automatically suspend after idle timeout
-      extraConfig = ''
-        IdleAction=suspend
-        IdleActionSec=15min
-        HandleLidSwitch=suspend
-      '';
+      extraConfig = lib.mkForce "";
     };
 
     # Power management
