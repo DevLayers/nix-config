@@ -34,6 +34,7 @@
     totem # Video player
 
     # Wayland utilities
+    brightnessctl
     gpu-screen-recorder
     grim
     libnotify
