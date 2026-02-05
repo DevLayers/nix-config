@@ -21,9 +21,9 @@
           on-timeout = "noctalia-shell ipc call lockScreen lock";
         }
         {
-          timeout = 330; # 5.5 minutes - turn off screen backlight
-          on-timeout = "pidof Hyprland >/dev/null && hyprctl dispatch dpms off || niri msg action power-off-monitors";
-          on-resume = "pidof Hyprland >/dev/null && hyprctl dispatch dpms on || niri msg action power-on-monitors";
+          timeout = 330; # 5.5 minutes - turn off keyboard backlight and display
+          on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0 && (pidof Hyprland >/dev/null && hyprctl dispatch dpms off || niri msg action power-off-monitors)";
+          on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight && (pidof Hyprland >/dev/null && hyprctl dispatch dpms on || niri msg action power-on-monitors)";
         }
       ];
     };
