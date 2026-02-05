@@ -10,9 +10,6 @@
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "suspend";
       powerKey = "poweroff";
-
-      # Automatically suspend after idle timeout
-      extraConfig = lib.mkForce "";
     };
 
     # Power management
