@@ -107,10 +107,10 @@
           center = [
             {
               customFont = "";
-              formatHorizontal = "hh:mm a ddd, MMM dd";
-              formatVertical = "hh:mm a - dd MM";
+              formatHorizontal = "hh:mm AP ddd, MMM dd";
+              formatVertical = "hh:mm AP - dd MM";
               id = "Clock";
-              tooltipFormat = "hh:mm a ddd, MMM dd";
+              tooltipFormat = "hh:mm AP ddd, MMM dd";
               useCustomFont = false;
               usePrimaryColor = false;
             }

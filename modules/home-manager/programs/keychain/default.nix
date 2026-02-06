@@ -15,7 +15,14 @@
 
     # Additional keychain options
     extraFlags = [
-      "--quiet"           # Less verbose output
+      "--quiet"              # Less verbose output
+      "--absolute"           # Use absolute paths
+      "--dir" "$HOME/.keychain"  # Keychain directory
     ];
+  };
+
+  # Set SSH_ASKPASS to use GNOME Keyring's askpass
+  home.sessionVariables = {
+    SSH_ASKPASS = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
   };
 }

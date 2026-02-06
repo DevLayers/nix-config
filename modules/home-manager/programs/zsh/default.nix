@@ -9,10 +9,10 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    
+
     # XDG compliance: Move zsh config to ~/.config/zsh
     dotDir = "${config.xdg.configHome}/zsh";
-    
+
     # Antidote plugin manager for better async/deferred loading
     antidote = {
       enable = true;
@@ -72,8 +72,6 @@
       kdsec = "kubectl describe secret";
       kdelsec = "kubectl delete secret";
 
-      lg = "lazygit";
-
       pt = "podman-tui";
 
       repo = "cd $HOME/Documents/repositories";
@@ -88,7 +86,7 @@
       la = "eza -abhl --icons --group-directories-first"; # all list
       lt = "eza --tree --level=2 --icons"; # tree
     };
-    
+
     initContent = ''
       # ZSH Autosuggestions configuration for gray suggestions while typing
       # Strategies: history (from command history) + completion (includes folder/file paths)
@@ -96,10 +94,10 @@
       ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
       ZSH_AUTOSUGGEST_USE_ASYNC=1
       ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-      
+
       # Enable fuzzy matching and case-insensitive completion for better suggestions
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-      
+
       # Configure completion menu and tag ordering to prioritize directory suggestions
       zstyle ':completion:*' menu select
       zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -107,7 +105,7 @@
       zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
       zstyle ':completion:*' group-name ""
       zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
-      
+
       # Atuin shell history integration (if available)
       if command -v atuin &> /dev/null; then
         eval "$(atuin init zsh)"
