@@ -50,7 +50,7 @@ nix develop
 | `devops`               | **Comprehensive DevOps toolkit** | kubectl, terraform, ansible, k9s, helm, vault, prometheus      |
 | `kubernetes`           | Kubernetes development           | kubectl, helm, k9s, kustomize, stern, telepresence             |
 | `terraform`            | Infrastructure as Code           | terraform, opentofu, tfsec, tflint, cloud CLIs                 |
-| `cloud`                | Multi-cloud development          | AWS, GCP, Azure, DigitalOcean, Hetzner CLIs                    |
+| `cloud`                | AWS cloud development            | AWS CLI, eksctl, aws-vault, AWS SAM                            |
 | `cicd`                 | CI/CD pipelines                  | GitHub Actions, GitLab CI, trivy, hadolint                     |
 | `monitoring`           | **Observability stack**          | prometheus, grafana, loki, jaeger, opentelemetry               |
 | `gitops`               | **GitOps workflows**             | argocd, fluxcd, kustomize, sops, kubeseal                      |

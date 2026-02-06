@@ -25,7 +25,7 @@ This learning path is designed to take you from beginner to job-ready DevOps Eng
 - Infrastructure as Code (Terraform, Ansible)
 - Container Orchestration (Kubernetes)
 - CI/CD Pipelines (GitHub Actions, GitLab CI)
-- Cloud Platforms (AWS, GCP, Azure)
+- Cloud Platforms (AWS - primary focus)
 - Observability (Prometheus, Grafana, Loki)
 - GitOps (ArgoCD, FluxCD)
 - Security & Compliance
@@ -57,7 +57,7 @@ nix flake init -t github:DevLayers/nix-config#terraform
 **Topics:**
 
 - Terraform basics (providers, resources, state)
-- AWS/GCP/Azure fundamentals
+- AWS fundamentals (VPC, EC2, EKS, RDS, S3, IAM)
 - Infrastructure provisioning
 - State management
 
@@ -111,9 +111,9 @@ nix flake init -t github:DevLayers/nix-config#cloud
 **Topics:**
 
 - AWS: EC2, S3, RDS, IAM, VPC, Lambda
-- GCP: Compute Engine, Cloud Storage, Cloud SQL
-- Azure: VMs, Storage Accounts, Azure SQL
-- Multi-cloud strategies
+- AWS: EC2, EKS, RDS, S3, VPC, Lambda, CloudFormation, Route53
+- AWS Advanced: ECS, Fargate, DynamoDB, ElastiCache, CloudWatch, CloudTrail
+- Multi-region AWS strategies
 
 **Hands-on Project:**
 
@@ -649,7 +649,7 @@ nix flake init -t github:DevLayers/nix-config#devops
 
 Build a complete DevOps platform that includes:
 
-1. **Infrastructure**: Multi-cloud deployment (AWS + GCP)
+1. **Infrastructure**: Multi-region AWS deployment (us-east-1, us-west-2, eu-west-1)
 2. **Application**: Microservices architecture (3+ services)
 3. **CI/CD**: Fully automated pipeline with quality gates
 4. **Orchestration**: Kubernetes cluster with GitOps
@@ -712,7 +712,7 @@ nix develop
 | `devops`               | Comprehensive DevOps toolkit | kubectl, terraform, ansible, k9s, helm      |
 | `terraform`            | Infrastructure as Code       | terraform, tfsec, tflint, cloud CLIs        |
 | `kubernetes`           | Container orchestration      | kubectl, helm, k9s, kustomize, stern        |
-| `cloud`                | Multi-cloud development      | AWS, GCP, Azure, DigitalOcean CLIs          |
+| `cloud`                | AWS cloud development        | AWS CLI, eksctl, aws-vault, AWS SAM         |
 | `cicd`                 | CI/CD pipelines              | act, gitlab-runner, trivy, hadolint         |
 | `monitoring`           | Observability                | prometheus, grafana, loki, jaeger           |
 | `gitops`               | GitOps workflows             | argocd, fluxcd, kustomize, sops             |
@@ -749,17 +749,17 @@ nix flake init -t github:DevLayers/nix-config#devops
 5. Set up CI/CD pipeline
 6. Implement monitoring
 
-### Project 2: Multi-Cloud Kubernetes
+### Project 2: Multi-Region AWS Kubernetes
 
 **Technologies:** Kubernetes, GitOps, Monitoring
 
 **Steps:**
 
-1. Create K8s clusters on AWS (EKS) and GCP (GKE)
+1. Create K8s clusters on AWS EKS in multiple regions (us-east-1, us-west-2, eu-west-1)
 2. Implement GitOps with ArgoCD
-3. Deploy microservices to both clusters
-4. Set up cross-cluster service mesh
-5. Implement unified monitoring
+3. Deploy microservices to all regional clusters
+4. Set up Route53 for geo-routing and failover
+5. Implement unified monitoring across regions
 
 ### Project 3: Internal Developer Platform
 
@@ -813,7 +813,7 @@ nix flake init -t github:DevLayers/nix-config#devops
 
 - ✅ Platform engineering
 - ✅ Architecture design
-- ✅ Multi-cloud strategies
+- ✅ Multi-region AWS strategies
 - ✅ SRE practices (SLOs, error budgets)
 - ✅ Team leadership
 - ✅ Incident management
@@ -861,13 +861,14 @@ nix flake init -t github:DevLayers/nix-config#devops
 2. **Certified Kubernetes Administrator (CKA)**
 3. **Certified Kubernetes Application Developer (CKAD)**
 4. **HashiCorp Certified: Terraform Associate**
-5. **Google Professional Cloud Architect**
+5. **AWS Certified Solutions Architect - Associate**
+6. **AWS Certified DevOps Engineer - Professional**
 
 ### Practice Platforms
 
 - **Killercoda:** Free Kubernetes/Linux labs
 - **AWS Free Tier:** Practice with real cloud resources
-- **GCP Free Tier:** Google Cloud practice
+- **AWS Free Tier:** 12 months free tier for hands-on practice
 - **Kind/Minikube:** Local Kubernetes clusters
 - **GitHub Actions:** Free CI/CD for public repos
 
