@@ -1,0 +1,34 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Database dumps
+*.sql
+*.dump
+backups/
+
+# Performance data
+*.out
+*.dat
+
+# Logs
+*.log
+logs/
+incident-logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+tmp/
+temp/

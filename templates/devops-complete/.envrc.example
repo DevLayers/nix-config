@@ -1,0 +1,16 @@
+# Copy this to .envrc and run: direnv allow
+
+# Use nix flake for development
+use flake
+
+# Or use specific environment:
+# use flake .#k8s-only
+# use flake .#infra-only
+# use flake .#minimal
+
+# Project-specific environment variables
+# export AWS_PROFILE=myprofile
+# export AWS_REGION=us-east-1
+# export KUBECONFIG=$PWD/kubeconfig
+# export TF_WORKSPACE=production
+# export VAULT_ADDR=https://vault.example.com

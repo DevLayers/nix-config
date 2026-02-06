@@ -1,0 +1,28 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Platform templates
+platform-templates/
+service-catalog/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+tmp/
+temp/

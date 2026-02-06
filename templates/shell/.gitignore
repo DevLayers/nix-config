@@ -1,0 +1,28 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Shell artifacts
+*.bats
+test-results/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+tmp/
+temp/

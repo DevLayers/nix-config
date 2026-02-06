@@ -1,0 +1,59 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Kubernetes
+*.kubeconfig
+.kube/
+
+# Secrets
+*.pem
+*.key
+*.cert
+secrets/
+.env
+.env.local
+
+# Cloud
+.aws/
+.azure/
+.gcloud/
+
+# Monitoring
+data/
+grafana.db
+prometheus-data/
+loki-data/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+tmp/
+temp/

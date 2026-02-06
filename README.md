@@ -259,9 +259,82 @@ nix flake update
 - **`services/hypridle` (Hyprland/Niri):** Hyprland's idle daemon for automatic screen locking and power management.
 - **`services/kanshi` (Hyprland/Niri):** Dynamic display output configuration.
 
+## Development Templates
+
+This repository includes ready-to-use Nix flake templates for various programming languages and DevOps workflows. See [templates/README.md](./templates/README.md) for the complete list and [templates/DEVOPS-LEARNING-PATH.md](./templates/DEVOPS-LEARNING-PATH.md) for a comprehensive DevOps learning roadmap.
+
+### Quick Template Usage
+
+```bash
+# Start a Kubernetes project
+nix flake init -t github:DevLayers/nix-config#kubernetes
+
+# Start a complete DevOps project (all tools at once)
+nix flake init -t github:DevLayers/nix-config#devops-complete
+
+# Start a Python project
+nix flake init -t github:DevLayers/nix-config#python
+
+# Enter the environment
+nix develop
+```
+
+### Available Template Categories
+
+- **Programming Languages**: Python, Rust, Go, Node.js, TypeScript, Java, C/C++, PHP, .NET, Shell
+- **DevOps**: Complete DevOps stack, Kubernetes, Terraform, Cloud (AWS/GCP/Azure), CI/CD
+- **Specialized**: Monitoring, GitOps, SRE, Security Operations, Platform Engineering
+- **Machine Learning**: PyTorch, LangChain, Pybind11, Maturin
+
+## Testing Templates
+
+Validate all templates work correctly:
+
+```bash
+./scripts/test-templates.sh
+```
+
+Test a specific template:
+
+```bash
+nix flake check github:DevLayers/nix-config#devops-complete
+```
+
+## Creating New Templates
+
+Use the template generator script:
+
+```bash
+./scripts/create-template.sh my-template
+```
+
+This creates a skeleton template with:
+
+- `flake.nix` with boilerplate
+- `.gitignore` with common patterns
+- `README.md` with documentation structure
+- `.envrc.example` for direnv integration
+
+Then:
+
+1. Edit the generated `flake.nix` to add your tools
+2. Update `README.md` with usage examples
+3. Add entry to `templates/default.nix`
+4. Test with `./scripts/test-templates.sh`
+
 ## Contributing
 
 Contributions are welcome! If you have improvements or suggestions, please open an issue or submit a pull request.
+
+### For Template Contributions
+
+1. Create new template using `./scripts/create-template.sh <name>`
+2. Add tools and configuration to `flake.nix`
+3. Update `README.md` with examples
+4. Add `.gitignore` for template-specific files
+5. Add entry to `templates/default.nix`
+6. Test with `./scripts/test-templates.sh`
+7. Submit PR
 
 ## License
 

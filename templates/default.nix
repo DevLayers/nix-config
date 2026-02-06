@@ -74,6 +74,11 @@ _: {
       description = "Comprehensive DevOps environment with kubectl, terraform, ansible, cloud CLIs, and monitoring tools";
     };
 
+    devops-complete = {
+      path = ./devops-complete;
+      description = "Complete all-in-one DevOps environment with everything (K8s, Terraform, Cloud, Monitoring, GitOps, Security) - Use this for daily work";
+    };
+
     kubernetes = {
       path = ./kubernetes;
       description = "Kubernetes development environment with kubectl, helm, k9s, and cluster management tools";

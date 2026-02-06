@@ -1,0 +1,41 @@
+# Nix
+result
+result-*
+.direnv
+.envrc
+
+# Security reports
+security-reports/
+scan-results/
+*.sarif
+*.json
+
+# Secrets
+*.pem
+*.key
+*.cert
+secrets/
+.env
+.env.local
+
+# Vault
+.vault-token
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+tmp/
+temp/
