@@ -22,36 +22,46 @@
             # AWS
             awscli2
             aws-vault
-            
+
             # Google Cloud
             google-cloud-sdk
-            
+
             # Azure
             azure-cli
-            
+
             # DigitalOcean
             doctl
-            
+
             # Hetzner
             hcloud
-            
+
+            # Oracle Cloud
+            oci-cli
+
+            # Linode/Akamai
+            linode-cli
+
+            # Scaleway
+            scaleway-cli
+
             # Multi-Cloud Tools
             pulumi
             terraform
-            
+            crossplane-cli       # K8s-based cloud control
+
             # Kubernetes (cloud-native)
             kubectl
             kubernetes-helm
-            
+
             # Storage & Backup
             rclone
             restic
-            
+
             # Utilities
             jq
             yq-go
             fzf
-            
+
             # Network Tools
             curl
             httpie
@@ -91,18 +101,18 @@
             echo "  • GCP credentials:    gcloud auth login"
             echo "  • Azure credentials:  az login"
             echo ""
-            
+
             export PROJECT_ROOT=$PWD
-            
+
             # Check for cloud credentials
             if [ -f "$HOME/.aws/credentials" ]; then
               echo "✅ AWS credentials found"
             fi
-            
+
             if gcloud auth list --filter=status:ACTIVE 2>/dev/null | grep -q ACTIVE; then
               echo "✅ GCP credentials found"
             fi
-            
+
             if az account show &>/dev/null; then
               echo "✅ Azure credentials found"
             fi

@@ -23,35 +23,43 @@
             terraform
             terraform-docs
             terraform-ls
-            
+
             # OpenTofu (Terraform fork)
             opentofu
-            
+
             # Linting & Security
             tflint
             tfsec
             checkov
             terrascan
-            
+
             # Cloud Providers
             awscli2
             google-cloud-sdk
             azure-cli
-            
+
             # Utilities
             jq
             yq-go
             graphviz  # For terraform graph
-            
+
             # Terragrunt
             terragrunt
-            
+
             # Packer
             packer
-            
+
             # Ansible
             ansible
             ansible-lint
+
+            # Advanced Terraform Tools
+            infracost            # Cost estimation
+            terraform-rover      # Terraform visualizer
+            driftctl             # Infrastructure drift detection
+
+            # Version Management
+            tfswitch             # Terraform version manager
           ];
 
           shellHook = ''
@@ -80,13 +88,13 @@
             echo "  • terraform-docs md .    - Generate documentation"
             echo "  • terraform graph | dot -Tpng > graph.png  - Visualize dependencies"
             echo ""
-            
+
             # Create .terraform.lock.hcl if it doesn't exist
             if [ ! -f ".terraform.lock.hcl" ] && [ -f "main.tf" ]; then
               echo "💡 Tip: Run 'terraform init' to initialize this Terraform project"
             fi
             echo ""
-            
+
             export PROJECT_ROOT=$PWD
             export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
             mkdir -p "$TF_PLUGIN_CACHE_DIR"

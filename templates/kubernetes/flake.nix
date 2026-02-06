@@ -23,44 +23,56 @@
             kubectl
             kubernetes-helm
             k9s
-            
+
             # Context & Namespace Management
             kubectx
             kubens
-            
+
             # Local K8s Clusters
             kind
             minikube
-            
+
             # Manifest Tools
             kustomize
             kubeconform
-            
+
             # Debugging & Logs
             stern
-            
+
             # Package Management
             helmfile
-            
+
             # Security
             kubeseal
             kubescape
-            
+
             # GitOps
             argocd
             fluxcd
-            
+
             # Service Mesh
             istioctl
             linkerd
-            
+            cilium-cli
+
+            # Advanced K8s Tools
+            telepresence         # Local K8s development
+            skaffold             # K8s development workflow
+            tilt                 # Local K8s dev automation
+            devspace             # K8s development
+            kdash                # K8s TUI alternative
+            popeye               # K8s cluster sanitizer
+            kube-score           # Manifest validation
+            velero               # Backup and restore
+
             # Utilities
             jq
             yq-go
             fzf
-            
+
             # YAML linting
             yamllint
+            kubeconform          # K8s manifest validation
           ];
 
           shellHook = ''
@@ -81,7 +93,7 @@
             echo "  • stern <pod-pattern>    - Tail multiple pod logs"
             echo "  • kind create cluster    - Create local cluster"
             echo ""
-            
+
             # Check current context
             if kubectl cluster-info &>/dev/null; then
               CURRENT_CONTEXT=$(kubectl config current-context)
@@ -94,7 +106,7 @@
               echo "   Run 'kind create cluster' to create a local cluster"
             fi
             echo ""
-            
+
             export PROJECT_ROOT=$PWD
             export KUBECONFIG=''${KUBECONFIG:-$HOME/.kube/config}
           '';

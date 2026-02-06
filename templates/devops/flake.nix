@@ -22,79 +22,79 @@
             # ============================================
             # TIER 1: Critical DevOps Tools
             # ============================================
-            
+
             # Kubernetes Essentials
             kubectl              # Kubernetes CLI
             kubernetes-helm      # Helm package manager
             k9s                  # Terminal UI for K8s
             kubectx              # Switch between K8s contexts
             kubens               # Switch between K8s namespaces
-            
+
             # Cloud Provider CLIs
             awscli2              # AWS CLI v2
             google-cloud-sdk     # GCP CLI (gcloud)
             azure-cli            # Azure CLI
-            
+
             # Infrastructure as Code
             terraform            # Terraform
             opentofu             # OpenTofu (Terraform fork)
             ansible              # Configuration management
             packer               # Image builder
-            
+
             # CI/CD
             gitlab-runner        # GitLab CI runner
             act                  # Run GitHub Actions locally
-            
+
             # ============================================
             # TIER 2: Highly Recommended
             # ============================================
-            
+
             # Container Tools
             podman-compose       # Docker Compose for Podman
             dive                 # Analyze Docker images
             hadolint             # Dockerfile linter
             skopeo               # Container image operations
-            
+
             # Kubernetes Extras
             kind                 # Kubernetes in Docker
             kustomize            # K8s config customization
             stern                # Multi-pod log tailing
             kubeseal             # Sealed Secrets
-            
+
             # API & Data Tools
             httpie               # User-friendly HTTP client
             jq                   # JSON processor
             yq-go                # YAML processor
             fx                   # JSON viewer
-            
+
             # Performance & Load Testing
             k6                   # Modern load testing
             vegeta               # HTTP load testing
-            
+
             # Security & Scanning
             trivy                # Container vulnerability scanner
             checkov              # IaC security scanner
             tfsec                # Terraform security scanner
-            
+
             # Backup & Storage
             restic               # Modern backup tool
             rclone               # Cloud storage sync
-            
+
             # Network Tools
             mtr                  # Network diagnostics
             tcpdump              # Packet analyzer
             netcat               # TCP/UDP utility
-            
+
             # Monitoring & Observability
             prometheus           # Metrics collection
             grafana              # Metrics visualization
             promtool             # Prometheus tooling
-            
+
             # Git & Version Control
             git                  # Version control
             gh                   # GitHub CLI
             glab                 # GitLab CLI
-            
+
             # Shell & Productivity
             direnv               # Environment switcher
             tmux                 # Terminal multiplexer
@@ -102,6 +102,39 @@
             ripgrep              # Fast grep
             bat                  # Cat with syntax highlighting
             eza                  # Modern ls
+
+            # ============================================
+            # TIER 3: Advanced & Specialized
+            # ============================================
+
+            # Kubernetes Advanced
+            velero               # K8s backup & restore
+            cilium-cli           # Cilium CNI management
+            kube-score           # Manifest validation
+            popeye               # K8s cluster sanitizer
+
+            # HashiCorp Suite
+            vault                # Secrets management
+            consul               # Service mesh & discovery
+            nomad                # Container orchestration
+            boundary             # Secure remote access
+            waypoint             # Application deployment
+
+            # Policy & Security
+            opa                  # Open Policy Agent
+            conftest             # Policy testing
+            cosign               # Container signing
+
+            # GitOps
+            argocd               # GitOps continuous delivery
+            fluxcd               # GitOps toolkit
+
+            # Observability
+            opentelemetry-collector  # OpenTelemetry
+            loki                 # Log aggregation
+
+            # Infrastructure Cost
+            infracost            # Cloud cost estimates
           ];
 
           shellHook = ''

@@ -93,5 +93,49 @@ _: {
       path = ./cloud;
       description = "Multi-cloud development environment with AWS, GCP, Azure, and DigitalOcean CLIs";
     };
+
+    monitoring = {
+      path = ./monitoring;
+      description = "Observability stack with Prometheus, Grafana, Loki, Jaeger, and OpenTelemetry";
+    };
+
+    gitops = {
+      path = ./gitops;
+      description = "GitOps workflow with ArgoCD, FluxCD, Kustomize, and secrets management";
+    };
+
+    sre = {
+      path = ./sre;
+      description = "SRE toolkit with database tools, backup/restore, performance testing, and incident response";
+    };
+
+    secops = {
+      path = ./secops;
+      description = "Security operations with vulnerability scanning, SAST/DAST, secrets management, and compliance tools";
+    };
+
+    platform-engineering = {
+      path = ./platform-engineering;
+      description = "Platform engineering with Crossplane, service mesh, developer portals, and self-service infrastructure";
+    };
+
+    # ========================================
+    # ADDITIONAL LANGUAGE TEMPLATES
+    # ========================================
+
+    typescript = {
+      path = ./typescript;
+      description = "TypeScript development with Node.js, Deno, Bun, and modern tooling";
+    };
+
+    shell = {
+      path = ./shell;
+      description = "Shell scripting environment with Bash/Zsh, shellcheck, shfmt, and bats testing";
+    };
+
+    dotnet = {
+      path = ./dotnet;
+      description = "Development environment for .NET/C#/F# with .NET SDK";
+    };
   };
 }

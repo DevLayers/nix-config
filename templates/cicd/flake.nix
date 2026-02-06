@@ -22,39 +22,48 @@
             # GitHub Actions
             act                   # Run GitHub Actions locally
             gh                    # GitHub CLI
-            
+
             # GitLab CI
             gitlab-runner         # GitLab CI runner
             glab                  # GitLab CLI
-            
+
             # Container Building
             buildah               # Build OCI containers
             skopeo                # Container operations
-            
+
             # Linting & Quality
             yamllint              # YAML linter
             actionlint            # GitHub Actions linter
             hadolint              # Dockerfile linter
             shellcheck            # Shell script linter
-            
+
             # Security Scanning
             trivy                 # Container vulnerability scanner
             grype                 # Container vulnerability scanner
             syft                  # SBOM generator
-            
+
             # Testing & Validation
             bats                  # Bash testing framework
             k6                    # Load testing
-            
+
             # Secrets Management
             sops                  # Secrets encryption
             age                   # Encryption tool
-            
+
+            # Container Signing & Supply Chain
+            cosign                # Container signing
+            crane                 # Container registry tool
+
+            # Additional CI/CD Platforms
+            drone-cli             # Drone CI
+            circleci-cli          # CircleCI local testing
+
             # Utilities
             jq
             yq-go
             git
             curl
+            gnumake               # Make build tool
           ];
 
           shellHook = ''
@@ -86,19 +95,19 @@
             echo "  • yamllint .             - Lint YAML files"
             echo "  • shellcheck script.sh   - Lint shell scripts"
             echo ""
-            
+
             export PROJECT_ROOT=$PWD
-            
+
             # Check for common CI files
             if [ -d ".github/workflows" ]; then
               echo "✅ Found GitHub Actions workflows"
               echo "   Run 'act -l' to list available workflows"
             fi
-            
+
             if [ -f ".gitlab-ci.yml" ]; then
               echo "✅ Found GitLab CI configuration"
             fi
-            
+
             if [ -f "Jenkinsfile" ]; then
               echo "✅ Found Jenkinsfile"
             fi
