@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
@@ -9,7 +9,7 @@
     keyMode = "vi";
     mouse = true;
     sensibleOnTop = false;
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
 
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
@@ -65,7 +65,7 @@
     tmux = {
       enable = true;
       extraConfig = ''
-        set -g @catppuccin_flavor "macchiato"
+        set -g @catppuccin_flavor "${config.catppuccin.flavor}"
         set -g @catppuccin_status_background "none"
 
         set -g @catppuccin_window_current_number_color "#{@thm_peach}"

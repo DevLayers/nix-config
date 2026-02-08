@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   # Neovim text editor configuration
   programs.neovim = {
@@ -7,7 +11,7 @@
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
-    withRuby = true;
+    withRuby = false;
 
     extraPackages = with pkgs; [
       black
@@ -41,5 +45,10 @@
       source = ./lazyvim;
       recursive = true;
     };
+  };
+
+  # Set global catppuccin theme via env var
+  home.sessionVariables = {
+    CATPPUCCIN_FLAVOR = config.catppuccin.flavor;
   };
 }

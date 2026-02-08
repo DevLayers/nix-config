@@ -1,6 +1,6 @@
 {
-  outputs,
   userConfig,
+  lib,
   pkgs,
   lib,
   ...
@@ -36,26 +36,17 @@
     ../scripts
   ];
 
-  # Nixpkgs configuration
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.stable-packages
-      outputs.overlays.zen-browser-overlay
-    ];
-
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
 
   # Home-Manager configuration for the user's home environment
   home = {
     username = userConfig.name;
     homeDirectory =
-      if pkgs.stdenv.isDarwin then "/Users/${userConfig.name}" else "/home/${userConfig.name}";
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        "/Users/${userConfig.name}"
+      else
+        "/home/${userConfig.name}";
   };
 
   # Ensure common packages are installed
@@ -77,7 +68,11 @@
       ripgrep
       terraform
     ]
+<<<<<<< HEAD
     ++ lib.optionals pkgs.stdenv.isDarwin [
+=======
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+>>>>>>> upstream/master
       anki-bin
       colima
       hidden-bar
@@ -85,7 +80,11 @@
       podman
       raycast
     ]
+<<<<<<< HEAD
     ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+=======
+    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+>>>>>>> upstream/master
       anki
       tesseract
       unzip

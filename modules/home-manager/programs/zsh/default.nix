@@ -33,7 +33,7 @@
 
     shellAliases = {
       ff = "fastfetch";
-      open = "xdg-open";
+      open = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "xdg-open";
 
       # git
       gaa = "git add --all";

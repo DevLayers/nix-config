@@ -3,7 +3,6 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Home manager
     home-manager = {
@@ -15,7 +14,10 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     # Global catppuccin theme
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Noctalia Shell
     noctalia = {
@@ -63,6 +65,11 @@
       # Production-grade library helpers
       customLib = import ./lib { inherit lib; };
 
+      # Nixpkgs configuration
+      nixpkgsConfig = {
+        allowUnfree = true;
+      };
+
       # Define user configurations
 users = {
   "sarw.u" = {
@@ -97,8 +104,10 @@ users = {
             lib = lib.extend (final: prev: customLib);
           };
           modules = [
+            { nixpkgs.config = nixpkgsConfig; }
             ./hosts/${hostname}
             agenix.nixosModules.default
+
           ];
         };
 
@@ -112,14 +121,20 @@ users = {
             userConfig = users.${username};
             darwinModules = "${self}/modules/darwin";
           };
-          modules = [ ./hosts/${hostname} ];
+          modules = [
+            { nixpkgs.config = nixpkgsConfig; }
+            ./hosts/${hostname}
+          ];
         };
 
       # Function for Home Manager configuration
       mkHomeConfiguration =
         system: username: hostname:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+          };
           extraSpecialArgs = {
             inherit inputs outputs;
             userConfig = users.${username};
@@ -150,9 +165,12 @@ users = {
         "sarw@energy" = mkHomeConfiguration "x86_64-linux" "sarw" "energy";
       };
 
+<<<<<<< HEAD
       overlays = import ./overlays { inherit inputs; };
 
       # Development templates
       templates = (import ./templates {}).flake.templates;
+=======
+>>>>>>> upstream/master
     };
 }

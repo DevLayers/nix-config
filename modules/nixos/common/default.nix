@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   lib,
   config,
   userConfig,
@@ -8,7 +7,7 @@
   ...
 }:
 {
-  # Import production-grade enhancements
+    # Import production-grade enhancements
   imports = [
     ./activation.nix # System activation scripts (generation diffs)
     ../hardware      # CPU/GPU detection & optimization, laptop power management
@@ -21,16 +20,6 @@
     ../secrets       # Agenix secrets management
   ];
 
-  # Nixpkgs configuration
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.stable-packages
-    ];
-
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   # Register flake inputs for nix commands
   nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
@@ -52,7 +41,7 @@
 
   # Boot settings
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [
@@ -106,15 +95,8 @@ i18n.extraLocaleSettings = {
     powerOnBoot = false;
   };
 
-  # Input settings
-  services.libinput.enable = true;
-
-  # xserver settings
-  services.xserver = {
-    xkb.layout = "pl";
-    xkb.variant = "";
-    excludePackages = with pkgs; [ xterm ];
-  };
+  # Exclude xterm from default packages
+  services.xserver.excludePackages = with pkgs; [ xterm ];
 
   # Enable Wayland support in Chromium and Electron based applications
   # Set cursor size and professional environment defaults
@@ -169,6 +151,7 @@ i18n.extraLocaleSettings = {
     description = userConfig.fullName;
     extraGroups = [
       "networkmanager"
+      "video"
       "wheel"
     ];
     isNormalUser = true;
@@ -176,7 +159,7 @@ i18n.extraLocaleSettings = {
   };
 
   # Set User's avatar
-  system.activationScripts.script.text = ''
+  system.activationScripts.setUserAvatar.text = ''
     mkdir -p /var/lib/AccountsService/{icons,users}
     cp ${userConfig.avatar} /var/lib/AccountsService/icons/${userConfig.name}
 
@@ -198,7 +181,6 @@ i18n.extraLocaleSettings = {
     gcc # needed for tree-sitter
     gnumake
     killall
-    mesa
   ];
 
   # Common container config
@@ -219,7 +201,4 @@ i18n.extraLocaleSettings = {
     nerd-fonts.meslo-lg
     roboto
   ];
-
-  # OpenSSH daemon
-  services.openssh.enable = true;
 }

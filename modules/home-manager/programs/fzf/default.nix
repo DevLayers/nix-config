@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  copyCmd = if pkgs.stdenv.isDarwin then "pbcopy" else "wl-copy";
+  copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
 in
 {
   # Install fzf via home-manager module
@@ -8,7 +8,7 @@ in
     enable = true;
     enableZshIntegration = true;
 
-    defaultCommand = "find .";
+    defaultCommand = "fd --type f --hidden --follow --exclude .git";
     defaultOptions = [
       "--bind '?:toggle-preview'"
       "--bind 'ctrl-a:select-all'"
@@ -19,7 +19,7 @@ in
       "--info=inline"
       "--layout=reverse"
       "--multi"
-      "--preview '([[ -f {}  ]] && (bat --color=always --style=numbers,changes {} || cat {})) || ([[ -d {}  ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+      "--preview '([[ -f {} ]] && (bat --color=always --style=numbers,changes {} || cat {})) || ([[ -d {} ]] && (ls -la --color=always {})) || echo {} 2> /dev/null | head -200'"
       "--preview-window=:hidden"
       "--prompt='~ ' --pointer='▶' --marker='✓'"
     ];

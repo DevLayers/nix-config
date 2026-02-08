@@ -1,28 +1,15 @@
 {
-  outputs,
   pkgs,
   userConfig,
   ...
 }:
 {
-  # Nixpkgs configuration
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.stable-packages
-    ];
-
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   # Nix settings
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
     };
     optimise.automatic = true;
-    package = pkgs.nix;
   };
 
   # User configuration
@@ -77,7 +64,7 @@
             };
             "61" = {
               # Set 'Option + Space' for selecting the next input source
-              enabled = 1;
+              enabled = true;
               value = {
                 parameters = [
                   32
