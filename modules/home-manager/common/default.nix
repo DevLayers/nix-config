@@ -2,7 +2,6 @@
   userConfig,
   lib,
   pkgs,
-  lib,
   ...
 }:
 {

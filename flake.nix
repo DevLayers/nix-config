@@ -134,6 +134,11 @@ users = {
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
+            overlays = [
+              (final: prev: {
+                zen-browser = inputs.zen-browser.packages.${system}.default;
+              })
+            ];
           };
           extraSpecialArgs = {
             inherit inputs outputs;
