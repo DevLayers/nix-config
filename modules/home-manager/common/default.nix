@@ -68,11 +68,7 @@
       ripgrep
       terraform
     ]
-<<<<<<< HEAD
-    ++ lib.optionals pkgs.stdenv.isDarwin [
-=======
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
->>>>>>> upstream/master
       anki-bin
       colima
       hidden-bar
@@ -80,11 +76,7 @@
       podman
       raycast
     ]
-<<<<<<< HEAD
-    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
-=======
     ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
->>>>>>> upstream/master
       anki
       tesseract
       unzip

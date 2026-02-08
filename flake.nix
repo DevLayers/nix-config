@@ -165,12 +165,8 @@ users = {
         "sarw@energy" = mkHomeConfiguration "x86_64-linux" "sarw" "energy";
       };
 
-<<<<<<< HEAD
-      overlays = import ./overlays { inherit inputs; };
 
       # Development templates
       templates = (import ./templates {}).flake.templates;
-=======
->>>>>>> upstream/master
     };
 }
