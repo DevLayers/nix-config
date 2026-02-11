@@ -144,6 +144,55 @@ i18n.extraLocaleSettings = {
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+
+    # Bluetooth codec configuration
+    wireplumber.extraConfig.bluetoothEnhancements = {
+      "monitor.bluez.properties" = {
+        # Enable all supported Bluetooth codecs
+        "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" "ldac" "aptx" "aptx_hd" ];
+
+        # Enable high-quality SBC-XQ codec
+        "bluez5.enable-sbc-xq" = true;
+
+        # Enable mSBC for better call quality (wideband speech)
+        "bluez5.enable-msbc" = true;
+
+        # Enable hardware volume controls
+        "bluez5.enable-hw-volume" = true;
+
+        # Enable all Bluetooth roles
+        "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" "a2dp_sink" "a2dp_source" ];
+      };
+    };
+
+    # Bluetooth device rules for optimal codec settings
+    wireplumber.extraConfig.bluetoothRules = {
+      "monitor.bluez.rules" = [
+        {
+          matches = [
+            {
+              # Match all Bluetooth devices
+              "device.name" = "~bluez_card.*";
+            }
+          ];
+          actions = {
+            update-props = {
+              # Auto-connect profiles
+              "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" "hfp_ag" "hsp_ag" "a2dp_source" ];
+
+              # Hardware volume control for all profiles
+              "bluez5.hw-volume" = [ "hfp_hf" "hsp_hs" "a2dp_sink" "hfp_ag" "hsp_ag" "a2dp_source" ];
+
+              # LDAC quality: auto, hq (990kbps), sq (660kbps), mq (330kbps)
+              "bluez5.a2dp.ldac.quality" = "auto";
+
+              # AAC bitrate mode: 0 = CBR, 1-5 = VBR quality levels
+              "bluez5.a2dp.aac.bitratemode" = 0;
+            };
+          };
+        }
+      ];
+    };
   };
 
   # User configuration
@@ -181,6 +230,8 @@ i18n.extraLocaleSettings = {
     gcc # needed for tree-sitter
     gnumake
     killall
+    # Bluetooth codecs for PipeWire
+    ldacbt # LDAC Bluetooth codec
   ];
 
   # Common container config
