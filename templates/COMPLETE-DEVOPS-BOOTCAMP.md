@@ -35,11 +35,17 @@ By the end of this bootcamp, you will have:
 
 ### Time Commitment
 
-- **Total Duration**: 8 weeks (2 months intensive)
-- **Hours per Day**: 12-13 hours (full-time commitment)
-- **Total Hours**: ~700 hours (same depth, faster pace)
-- **Schedule**: Daily intensive learning (no days off)
-- **Best for**: Full-time students, career switchers, dedicated learners
+- **Intensive Track (what this schedule describes)**  
+  - **Total Duration**: 8 weeks (2 months intensive)  
+  - **Hours per Day**: 10–13 hours (full-time commitment)  
+  - **Total Hours**: ~600–750 hours (same depth, faster pace)  
+  - **Schedule**: Daily intensive learning (with at least one lighter/review day per week)  
+  - **Best for**: Full-time students, career switchers, dedicated learners
+
+- **Standard Track (recommended if you can’t sustain 10h+)**  
+  - **Total Duration**: ~12–16 weeks  
+  - **Hours per Day**: 4–6 hours  
+  - **Same content, slower pace** – follow the same phases, but treat each “week” in this doc as ~1.5–2 calendar weeks.
 
 ### Success Metrics
 
@@ -112,7 +118,7 @@ other cloud providers later, but AWS is the industry standard.
 ### The Templates You'll Use
 
 ```bash
-# Core templates for this bootcamp:
+# Core templates for this bootcamp (AWS-focused):
 devops-complete     # All-in-one DevOps environment
 kubernetes          # Container orchestration
 terraform           # Infrastructure as Code
@@ -123,6 +129,9 @@ gitops              # GitOps workflows
 sre                 # Site Reliability Engineering
 secops              # Security operations
 ```
+
+> **Cloud focus:** This bootcamp intentionally focuses on **AWS** as the primary cloud.  
+> Multi-cloud (GCP, Azure, etc.) is a great **phase‑2** topic once you’re fully comfortable with AWS.
 
 ### Setup Your First Environment
 
@@ -138,13 +147,15 @@ nix develop
 
 ## 🚀 Phase 1: Foundation (Weeks 1-3)
 
-**Goal**: Master core DevOps tools and build your first projects
-**Duration**: 3 weeks (252 hours total)
+**Goal**: Master core DevOps tools and build your first projects  
+**Duration (Intensive Track)**: 3 weeks (≈ 3 × 70–90 hours)  
 **Pace**: Fast and intensive
+
+> **Core vs Stretch:** For each phase, prioritize the **Core Objectives** first. Treat **Stretch Goals** as optional extras if you have time/energy left in the day.
 
 ---
 
-### Week 1, Days 1-2: Infrastructure as Code Fundamentals
+### Week 1, Days 1-2: Infrastructure as Code Fundamentals (Core)
 
 **Learning Objectives:**
 
@@ -171,7 +182,7 @@ nix develop
 - Terraform Documentation
 - YouTube: "Terraform in 100 Seconds" by Fireship
 
-#### 🛠️ Project 1.1: AWS VPC with Terraform (20 hours - Days 1-2)
+#### 🛠️ Project 1.1: AWS VPC with Terraform (Core, ~20 hours - Days 1-2)
 
 **Create a production-ready VPC infrastructure**
 
@@ -255,7 +266,7 @@ module "web_servers" {
 }
 ```
 
-**Tasks:**
+**Tasks (Core):**
 
 1. ✅ Create VPC with 3 availability zones
 2. ✅ Set up public and private subnets
@@ -293,7 +304,13 @@ terraform-docs markdown . > README.md
 terraform destroy
 ```
 
-**Success Criteria:**
+**Stretch Ideas (Optional):**
+
+- Add a small bastion host and test SSH access via SSM Session Manager.
+- Add basic CloudWatch metrics/alarms for your EC2 instances.
+- Add an extra private subnet tier for future databases.
+
+**Success Criteria (for Core):**
 
 - ✅ Infrastructure deploys successfully
 - ✅ No security issues from tfsec
@@ -2276,7 +2293,7 @@ A: Reference your runbooks and incident response process
 
 ---
 
-## 📊 Daily Routine (Intensive - 12-13 hours/day)
+## 📊 Daily Routine (Intensive – 10–13 hours/day)
 
 ### Daily Schedule (Every Day):
 
@@ -2292,7 +2309,7 @@ A: Reference your runbooks and incident response process
 9:00 PM - 10:00 PM   Review progress, commit code, plan tomorrow
 10:00 PM - 11:00 PM  Optional: Reading, community engagement, or rest
 
-Total: 12-13 productive hours
+Total: 10–13 productive hours
 Breaks: 2 hours
 Sleep: 7 hours minimum (CRITICAL for retention!)
 ```
@@ -2311,7 +2328,7 @@ Note: This is INTENSIVE. Take short breaks every 90 minutes!
 
 ## 📈 Progress Tracking
 
-### Weekly Checklist:
+### Weekly Checklist (Use This Instead of Just Tracking Hours):
 
 ```markdown
 ## Week X - [Date]

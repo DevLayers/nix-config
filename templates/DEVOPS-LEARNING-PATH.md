@@ -18,7 +18,9 @@ A comprehensive 12-week roadmap to becoming a DevOps Engineer using this Nix-bas
 
 ## Overview
 
-This learning path is designed to take you from beginner to job-ready DevOps Engineer in 12 weeks. Each week focuses on specific skills and technologies, with hands-on projects using the templates in this repository.
+This learning path is designed to take you from beginner to job-ready DevOps Engineer in 12–16 weeks, depending on how many hours per day you can commit. Each week focuses on specific skills and technologies, with hands-on projects using the templates in this repository.
+
+> **Cloud focus:** This path intentionally focuses on **AWS** as the primary cloud. Multi-cloud (GCP, Azure, etc.) is a great **next step** once you’re comfortable with AWS.
 
 **What You'll Learn:**
 
@@ -41,6 +43,8 @@ This learning path is designed to take you from beginner to job-ready DevOps Eng
 ## Learning Path
 
 ### Phase 1: Foundations (Weeks 1-3)
+
+> **Core vs Stretch:** For each week, treat the “Hands-on Project” and core topics as **must-do**. Extra tools or side-projects are **stretch** and can be done later if you have time.
 
 #### Week 1: Infrastructure as Code with Terraform
 

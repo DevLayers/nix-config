@@ -1,20 +1,22 @@
 # 8-Week Intensive DevOps Bootcamp Schedule 🚀
 
-**For learners with 12-13 hours daily availability**
+**For learners with 10–13 hours daily availability**
 
 ---
 
 ## ⏱️ Time Breakdown
 
-**Total Duration:** 8 weeks
-**Daily Commitment:** 12-13 hours
-**Weekly Hours:** 84-91 hours
-**Total Hours:** ~700 hours
+**Total Duration (Intensive Track):** 8 weeks  
+**Daily Commitment:** 10–13 hours  
+**Weekly Hours:** ~70–90 hours  
+**Total Hours:** ~600–700 hours
+
+> **Standard Track option:** If you prefer 4–6 hours/day, treat each “week” in this schedule as ~1.5–2 calendar weeks (total 12–16 weeks) and follow the same order of projects.
 
 **Compare to 6-month plan:**
 
 - 6 months × 4 weeks × 25 hours = 600 hours
-- 8 weeks intensive = 700 hours = **MORE thorough!**
+- 8 weeks intensive ≈ 600–700 hours = **Slightly more total time, much higher weekly focus**
 
 ---
 
