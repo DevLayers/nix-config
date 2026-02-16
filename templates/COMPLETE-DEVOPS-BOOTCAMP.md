@@ -1252,27 +1252,25 @@ month2-week1-multiregion/
 
 **Tasks:**
 
-1. ✅ Create EKS cluster on AWS
-2. ✅ Create GKE cluster on GCP
-3. ✅ Create AKS cluster on Azure
-4. ✅ Use Terraform workspaces
-5. ✅ Deploy same app to all clusters
-6. ✅ Implement cost monitoring
-7. ✅ Set up cross-cloud networking
-8. ✅ Configure DNS with Route53/Cloud DNS
-9. ✅ Implement disaster recovery
-10. ✅ Cost comparison analysis
+1. ✅ Create EKS clusters in 3 AWS regions (us-east-1, us-west-2, eu-west-1)
+2. ✅ Use Terraform modules/workspaces to manage regional differences
+3. ✅ Deploy the same application to all regions
+4. ✅ Implement cost monitoring per region
+5. ✅ Set up cross-region networking (VPC peering / Transit Gateway)
+6. ✅ Configure DNS with Route53 geo-routing and failover
+7. ✅ Implement regional disaster recovery scenarios
+8. ✅ Perform latency and cost comparison analysis between regions
 
 **Success Criteria:**
 
-- ✅ App running on all 3 clouds
+- ✅ App running in all 3 AWS regions
 - ✅ Infrastructure as code
-- ✅ Cost under $50/month
-- ✅ Documented comparison
+- ✅ Cost under $50/month across regions
+- ✅ Documented regional comparison
 
 #### 📝 Deliverable
 
-Blog: "Multi-Cloud Kubernetes: AWS vs GCP vs Azure Comparison"
+Blog: "Multi-Region Kubernetes on AWS: us-east-1 vs us-west-2 vs eu-west-1"
 
 ---
 

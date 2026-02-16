@@ -117,29 +117,21 @@ nix flake init -t github:DevLayers/nix-config#cloud
 
 **Hands-on Project:**
 
-1. Deploy applications on all three cloud providers
-2. Set up cross-cloud data replication
-3. Implement IAM/access controls
-4. Configure cloud monitoring
+1. Deploy a sample application stack on AWS (EC2, RDS, S3)
+2. Implement backups and basic disaster recovery within AWS
+3. Configure IAM roles and least-privilege access
+4. Set up AWS-native monitoring and logging (CloudWatch, CloudTrail)
 
 **Daily Tasks:**
 
 ```bash
-# AWS
+# AWS (primary focus)
 aws configure
 aws s3 mb s3://my-bucket
 aws ec2 run-instances --image-id ami-xxx --instance-type t2.micro
 aws lambda create-function --function-name my-func
-
-# GCP
-gcloud init
-gcloud compute instances create my-vm
-gcloud storage buckets create gs://my-bucket
-
-# Azure
-az login
-az vm create --resource-group myRG --name myVM
-az storage account create --name mystorageacct
+aws rds create-db-instance --db-instance-identifier mydb --db-instance-class db.t3.micro --engine postgres
+aws cloudwatch describe-alarms
 ```
 
 ---

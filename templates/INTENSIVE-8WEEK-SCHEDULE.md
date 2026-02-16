@@ -213,7 +213,7 @@ Deliverable: ✅ GitOps Workflow + Blog Post
 
 - ✅ 4 more projects completed (total: 8)
 - ✅ 4 more blog posts (total: 8)
-- ✅ Monitoring + Multi-Cloud + GitOps mastered
+- ✅ Monitoring + AWS + GitOps mastered
 - ✅ 208 hours total invested
 
 ---
