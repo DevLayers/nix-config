@@ -18,12 +18,9 @@ All-in-one DevOps environment with every tool you need for daily work. This temp
 - **Ansible** - Configuration management
 - **Packer** - Image building
 
-### Cloud Providers
+### Cloud Provider
 
 - **AWS** - AWS CLI v2
-- **GCP** - Google Cloud SDK
-- **Azure** - Azure CLI
-- **DigitalOcean** - doctl
 
 ### GitOps
 
@@ -99,7 +96,7 @@ nix develop .#k8s-only
 
 ### `infra-only` - Infrastructure Focus
 
-Terraform, Ansible, Packer, and all cloud CLIs.
+Terraform, Ansible, Packer, and AWS CLI.
 
 ```bash
 nix develop .#infra-only
@@ -199,20 +196,13 @@ promtool query instant http://localhost:9090 'up'
 logcli query '{app="myapp"}' --since=1h
 ```
 
-### Cloud Operations
+### AWS Operations
 
 ```bash
-# AWS
 aws s3 ls
 aws ec2 describe-instances
-
-# GCP
-gcloud compute instances list
-gcloud container clusters list
-
-# Azure
-az vm list
-az aks list
+aws rds describe-db-instances
+aws eks list-clusters
 ```
 
 ## Helper Commands

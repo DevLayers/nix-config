@@ -30,8 +30,6 @@ secrets/
 
 # Cloud
 .aws/
-.azure/
-.gcloud/
 
 # Monitoring
 data/

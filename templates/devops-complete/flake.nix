@@ -46,12 +46,9 @@
             packer
 
             # ═══════════════════════════════════════════════════════
-            # CLOUD PROVIDERS
+            # CLOUD PROVIDER (AWS-FOCUSED)
             # ═══════════════════════════════════════════════════════
             awscli2
-            google-cloud-sdk
-            azure-cli
-            doctl              # DigitalOcean
 
             # ═══════════════════════════════════════════════════════
             # GITOPS
@@ -130,10 +127,8 @@
             echo "  • Terraform:  $(terraform version -json 2>/dev/null | jq -r .terraform_version || echo 'N/A')"
             echo "  • Ansible:    $(ansible --version 2>/dev/null | head -n1 | cut -d' ' -f2 || echo 'N/A')"
             echo ""
-            echo "☁️  Cloud Providers:"
+            echo "☁️  Cloud Provider:"
             echo "  • AWS CLI:    $(aws --version 2>&1 | cut -d' ' -f1 | cut -d'/' -f2 || echo 'N/A')"
-            echo "  • GCloud:     $(gcloud version 2>/dev/null | grep 'Google Cloud SDK' | cut -d' ' -f4 || echo 'N/A')"
-            echo "  • Azure CLI:  $(az version 2>/dev/null | jq -r '."azure-cli"' || echo 'N/A')"
             echo ""
             echo "🔄 GitOps:"
             echo "  • ArgoCD:     $(argocd version --client --short 2>/dev/null | awk '{print $2}' || echo 'N/A')"
@@ -178,7 +173,6 @@
               echo "Kubernetes Namespace: $(kubectl config view --minify -o jsonpath='{..namespace}' 2>/dev/null || echo 'default')"
               echo "Terraform Workspace:  $(terraform workspace show 2>/dev/null || echo 'None')"
               echo "AWS Profile:          ''${AWS_PROFILE:-default}"
-              echo "GCP Project:          $(gcloud config get-value project 2>/dev/null || echo 'None')"
               echo "════════════════════════════════════════════════"
             }
 
@@ -232,8 +226,6 @@
             ansible
             packer
             awscli2
-            google-cloud-sdk
-            azure-cli
             jq
             yq-go
           ];
@@ -243,7 +235,7 @@
             echo "║        🏗️  Infrastructure-Only Environment 🏗️              ║"
             echo "╚══════════════════════════════════════════════════════════════╝"
             echo ""
-            echo "Tools: terraform, ansible, packer, cloud CLIs"
+            echo "Tools: terraform, ansible, packer, AWS CLI"
             echo ""
             alias tf="terraform"
 
