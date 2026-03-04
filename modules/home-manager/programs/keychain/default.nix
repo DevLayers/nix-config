@@ -11,7 +11,8 @@
 
     # Inherit the environment from the keychain agent
     # This ensures SSH_AUTH_SOCK and other vars are set correctly
-    enableZshIntegration = true;
+    # NOTE: Disabled to prevent blocking shell startup. Using custom async loading instead.
+    enableZshIntegration = false;
 
     # Additional keychain options
     extraFlags = [

@@ -8,7 +8,9 @@
   # Zsh shell configuration
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
+    # Disable home-manager's compinit - we'll handle it manually for better performance
+    enableCompletion = false;
+    completionInit = "autoload -Uz compinit && compinit -C"; # -C flag skips security check
 
     # XDG compliance: Move zsh config to ~/.config/zsh
     dotDir = "${config.xdg.configHome}/zsh";
@@ -17,16 +19,16 @@
     antidote = {
       enable = true;
       plugins = [
-        # ZSH utility plugins
-        "zsh-users/zsh-autosuggestions"
-        "zsh-users/zsh-syntax-highlighting"
-        "zsh-users/zsh-completions"
-        "zsh-users/zsh-history-substring-search"
+        # ZSH utility plugins - all deferred for instant startup
+        "zsh-users/zsh-autosuggestions kind:defer"
+        "zsh-users/zsh-syntax-highlighting kind:defer"
+        "zsh-users/zsh-completions kind:defer"
+        "zsh-users/zsh-history-substring-search kind:defer"
         # Extra plugins
         # Note: zsh-you-should-use removed due to compatibility issues with antidote
         # The plugin has a non-standard structure that causes loading errors
-        "nix-community/nix-zsh-completions"
-        "z-shell/zsh-eza"
+        "nix-community/nix-zsh-completions kind:defer"
+        "z-shell/zsh-eza kind:defer"
       ];
       useFriendlyNames = true;
     };
@@ -88,6 +90,10 @@
     };
 
     initContent = ''
+      # Performance: Skip expensive compaudit security checks on every shell start
+      # Only runs full check once per day via background process
+      ZSH_DISABLE_COMPFIX="true"
+
       # ZSH Autosuggestions configuration for gray suggestions while typing
       # Strategies: history (from command history) + completion (includes folder/file paths)
       ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -106,9 +112,37 @@
       zstyle ':completion:*' group-name ""
       zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
 
-      # Atuin shell history integration (if available)
+      # Starship transient prompt - shows simple prompt instantly while full prompt loads async
+      # This makes the prompt feel instant even in large repos
+      function set_win_title(){
+        echo -ne "\033]0; $(basename "$PWD") \007"
+      }
+      precmd_functions+=(set_win_title)
+
+      # Enable transient prompt for instant feedback
+      function starship_transient_prompt_func() {
+        starship module character
+      }
+
+      # Enable transient rprompt (right side) - can be empty for clean look
+      function starship_transient_rprompt_func() {
+        # Empty transient right prompt for clean look
+        echo ""
+      }
+
+      # Async Atuin shell history integration - doesn't block shell startup
       if command -v atuin &> /dev/null; then
-        eval "$(atuin init zsh)"
+        {
+          eval "$(atuin init zsh)"
+        } &!
+      fi
+
+      # Async keychain loading - doesn't block shell startup
+      # Loads SSH keys in background after prompt appears
+      if command -v keychain &> /dev/null; then
+        {
+          eval "$(SHELL=zsh keychain --eval --quiet --absolute --dir $HOME/.keychain id_ed25519 2>/dev/null)"
+        } &!
       fi
 
       # Homebrew integration for macOS

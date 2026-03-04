@@ -6,21 +6,42 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      
-      # Performance: Reduce scan timeout for faster startup
-      # Lower timeout means faster prompt rendering
-      scan_timeout = 5;
-      
-      # Performance: Enable async command execution for faster prompt
+
+      # Performance: Increase scan timeout to prevent timeout warnings
+      # Default is 30ms. Set higher for large repos or slow filesystems.
+      # If you see timeout warnings, increase this value.
+      scan_timeout = 30;
+
+      # Performance: Command timeout for external commands (git, etc.)
       # This allows starship to show the prompt immediately while modules load in background
-      command_timeout = 500;
-      
+      command_timeout = 1000;
+
+      # Continuation prompt for multi-line commands
+      continuation_prompt = "[∙](bold yellow) ";
+
       directory = {
         style = "bold lavender";
         # Performance: Limit directory truncation calculation
         truncation_length = 3;
         truncate_to_repo = true;
       };
+
+      # Performance: Optimize git_status for faster rendering
+      git_status = {
+        # Faster git status with minimal features
+        ahead = "⇡\${count}";
+        behind = "⇣\${count}";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        untracked = "?\${count}";
+        stashed = "󰜦 ";
+        modified = "!\${count}";
+        staged = "+\${count}";
+        renamed = "»\${count}";
+        deleted = "✘\${count}";
+        # Disable expensive operations
+        ignore_submodules = true;
+      };
+
       aws = {
         disabled = true;
       };
