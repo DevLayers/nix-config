@@ -18,8 +18,8 @@
       };
     };
     iconTheme = {
-      name = "Tela-circle-dark";
-      package = pkgs.tela-circle-icon-theme;
+      name = "Yaru-red";
+      package = pkgs.yaru-theme;
     };
     cursorTheme = {
       name = "Yaru";
