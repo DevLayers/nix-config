@@ -330,8 +330,8 @@ in
       };
       general = {
         allowPanelsOnScreenWithoutBar = true;
-        animationDisabled = true;
-        animationSpeed = 1;
+        animationDisabled = false;
+        animationSpeed = 4;
         avatarImage = userConfig.avatar;
         boxRadiusRatio = 1;
         compactLockScreen = true;
