@@ -130,11 +130,9 @@
         echo ""
       }
 
-      # Async Atuin shell history integration - doesn't block shell startup
+      # Atuin shell history integration - load synchronously to preserve keybindings
       if command -v atuin &> /dev/null; then
-        {
-          eval "$(atuin init zsh)"
-        } &!
+        eval "$(atuin init zsh)"
       fi
 
       # Async keychain loading - doesn't block shell startup
