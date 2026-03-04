@@ -205,6 +205,7 @@ binds {
     // Launch applications
     Mod+Return hotkey-overlay-title="Open Terminal" { spawn "foot"; }
     Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "foot"; }
+    Mod+B hotkey-overlay-title="Toggle Bar" { spawn-sh "noctalia-shell ipc call bar toggle"; }
     Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
     Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
     Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }
