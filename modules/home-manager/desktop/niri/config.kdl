@@ -59,7 +59,7 @@ layout {
     focus-ring {
         width 1
         active-gradient from="#F52A65" to="#E0AF68" angle=-45
-        inactive-gradient from="#E9E9ED" to="#15161E" angle=-45
+        inactive-color "#494d64"
     }
 
     border {
