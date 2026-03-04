@@ -81,7 +81,13 @@ layout {
 
 // Animations settings
 animations {
-    off
+    window-movement {
+        duration-ms 200
+        curve "ease-out-cubic"
+    }
+    workspace-switch {
+        duration-ms 200
+    }
 }
 
 // Workspaces
