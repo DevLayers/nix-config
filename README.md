@@ -1,5 +1,12 @@
 # NixOS and nix-darwin Configurations for My Machines
 
+[![Built with Nix](https://img.shields.io/badge/Built_with-Nix-5277C3.svg?logo=nixos&logoColor=white)](https://nixos.org)
+[![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white)](https://nixos.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![macOS](https://img.shields.io/badge/macOS-nix--darwin-000000.svg?logo=apple&logoColor=white)](https://github.com/LnL7/nix-darwin)
+[![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-00ADD8?logo=wayland&logoColor=white)](https://hyprland.org)
+[![Home Manager](https://img.shields.io/badge/Home-Manager-orange.svg)](https://github.com/nix-community/home-manager)
+
 This repository contains NixOS and nix-darwin configurations for my machines, managed through [Nix Flakes](https://nixos.wiki/wiki/Flakes).
 
 It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), [nix-darwin](https://github.com/LnL7/nix-darwin), and various other community contributions for a seamless experience across NixOS and macOS.
@@ -23,6 +30,55 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ## Structure
 
+```mermaid
+graph TB
+    subgraph "Repository Root"
+        F[flake.nix]
+        FL[flake.lock]
+    end
+
+    subgraph "Configuration Layers"
+        H[hosts/]
+        HM[home/]
+        M[modules/]
+        FILES[files/]
+    end
+
+    subgraph "Platform-Specific Modules"
+        NIXOS[modules/nixos/]
+        DARWIN[modules/darwin/]
+        HMM[modules/home-manager/]
+    end
+
+    subgraph "Machines"
+        E[energy - NixOS]
+        P[PL-OLX-KCGXHGK3PY - Darwin]
+    end
+
+    F --> H
+    F --> HM
+    F --> M
+    H --> E
+    H --> P
+    M --> NIXOS
+    M --> DARWIN
+    M --> HMM
+    HM --> E
+    HM --> P
+    E -.uses.-> NIXOS
+    E -.uses.-> HMM
+    P -.uses.-> DARWIN
+    P -.uses.-> HMM
+    FILES -.resources.-> HM
+
+    style F fill:#5277C3,color:#fff
+    style E fill:#7EBAE4,color:#000
+    style P fill:#000,color:#fff
+    style NIXOS fill:#7EBAE4,color:#000
+    style DARWIN fill:#000,color:#fff
+    style HMM fill:#FFA500,color:#000
+```
+
 - `flake.nix`: The flake itself, defining inputs and outputs for NixOS, nix-darwin, and Home Manager configurations.
 - `hosts/`: NixOS and nix-darwin configurations for each machine (`energy`, `PL-OLX-KCGXHGK3PY`).
 - `home/`: Home Manager configurations for each user on each machine.
@@ -35,6 +91,43 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ### Key Inputs
 
+```mermaid
+graph LR
+    subgraph "Core Inputs"
+        NP[nixpkgs<br/>unstable]
+        HM[home-manager]
+    end
+
+    subgraph "Platform Support"
+        D[nix-darwin<br/>macOS]
+        HW[nixos-hardware]
+    end
+
+    subgraph "Theming & Desktop"
+        CAT[catppuccin]
+        NOC[noctalia-shell]
+        ZEN[zen-browser]
+    end
+
+    subgraph "Security"
+        AGE[agenix<br/>secrets]
+    end
+
+    NP --> HM
+    NP --> D
+    NP --> CAT
+    NP --> NOC
+    NP --> AGE
+    NP --> ZEN
+    HM --> ZEN
+
+    style NP fill:#5277C3,color:#fff
+    style HM fill:#FFA500,color:#000
+    style D fill:#000,color:#fff
+    style CAT fill:#F5C2E7,color:#000
+    style NOC fill:#89DCEB,color:#000
+```
+
 - **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages.
 - **home-manager**: Manages user-specific configurations.
 - **darwin**: Enables nix-darwin for macOS system configuration.
@@ -43,6 +136,41 @@ It is structured to easily accommodate multiple machines and user configurations
 - **noctalia**: Provides Noctalia Shell, a modern desktop shell for Hyprland and Niri.
 
 ## Usage
+
+### Configuration Workflow
+
+```mermaid
+flowchart TD
+    START([New Machine Setup]) --> USER{New User?}
+    USER -->|Yes| ADDUSER[Add user to flake.nix]
+    USER -->|No| MACHINE[Add machine config]
+    ADDUSER --> MACHINE
+
+    MACHINE --> PLATFORM{Platform?}
+    PLATFORM -->|NixOS| NIXOS[Create hosts/machine/<br/>default.nix]
+    PLATFORM -->|macOS| DARWIN[Create hosts/machine/<br/>default.nix]
+
+    NIXOS --> HWCONF[Generate hardware-configuration.nix]
+    DARWIN --> HOMECONF
+    HWCONF --> HOMECONF[Create home/user/machine/<br/>default.nix]
+
+    HOMECONF --> GITADD[git add .]
+    GITADD --> BUILD{Platform?}
+
+    BUILD -->|NixOS| NBUILD[nixos-rebuild switch<br/>--flake .#machine]
+    BUILD -->|macOS| DBUILD[darwin-rebuild switch<br/>--flake .#machine]
+
+    NBUILD --> HMBUILD[home-manager switch<br/>--flake .#user@machine]
+    DBUILD --> HMBUILD
+
+    HMBUILD --> END([Configuration Active])
+
+    style START fill:#89DCEB,color:#000
+    style END fill:#A6E3A1,color:#000
+    style NIXOS fill:#7EBAE4,color:#000
+    style DARWIN fill:#000,color:#fff
+    style HMBUILD fill:#FFA500,color:#000
+```
 
 ### Adding a New Machine with a New User
 
