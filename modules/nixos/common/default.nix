@@ -251,5 +251,9 @@ i18n.extraLocaleSettings = {
     nerd-fonts.jetbrains-mono
     nerd-fonts.meslo-lg
     roboto
+    # Bangla/Bengali font support
+    noto-fonts
+    noto-fonts-color-emoji
+    lohit-fonts.bengali
   ];
 }
