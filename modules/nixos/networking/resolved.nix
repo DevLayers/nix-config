@@ -1,25 +1,34 @@
 {
-  services = {
-    resolved = {
-      enable = true;
+  services.resolved = {
+    enable = true;
 
-      # <https://wiki.archlinux.org/title/Systemd-resolved#DNS_over_TLS>
-      # apparently upstream (systemd) recommends this to be false
-      # `allow-downgrade` is vulnerable to downgrade attacks
-      settings = {
-        Resolve = {
-          # this is necessary to get tailscale picking up your headscale instance
-          # and allows you to ping connected hosts by hostname
-          Domains = ["~."];
+    settings = {
+      Resolve = {
+        # Primary Quad9 servers
+        DNS = [
+          "9.9.9.9"          # Quad9 IPv4
+          "149.112.112.112"  # Quad9 secondary IPv4
+          "2620:fe::fe"      # Quad9 IPv6
+          "2620:fe::9"       # Quad9 secondary IPv6
+        ];
 
-          DNSSEC = "false";
+        # Fallback DNS (Cloudflare)
+        FallbackDNS = [
+          "1.1.1.1"
+          "1.0.0.1"
+          "2606:4700:4700::1111"
+          "2606:4700:4700::1001"
+        ];
 
-          DNSOverTLS = "yes"; # or allow-downgrade
+        # Global resolution
+        Domains = ["~."];
 
-          # Fallback dns servers will be used if the primary dns servers are not reachable
-          # Here we are using quad9 as the fallback dns server
-          FallbackDNS = ["9.9.9.9"];
-        };
+        # Security
+        DNSSEC = "allow-downgrade";
+        DNSOverTLS = "yes";
+
+        # Optional: enable caching for faster repeated lookups
+        Cache = "yes";
       };
     };
   };

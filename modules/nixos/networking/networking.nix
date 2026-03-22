@@ -1,18 +1,17 @@
-{config, ...}: {
+{ config, ... }: {
   networking = {
     hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
+
     useDHCP = false;
     useNetworkd = true;
     usePredictableInterfaceNames = true;
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-      "2620:fe::fe"
-      "2620:fe::9"
-    ];
+
+    # Point to systemd-resolved stub
+    nameservers = [ "127.0.0.53" ];
+
+    # Keep search domains for local resolution
     search = [
-      "xilain.dev"
-      "xilain.xilain.dev"
+      "dev.sarw.dev"
     ];
   };
 }
