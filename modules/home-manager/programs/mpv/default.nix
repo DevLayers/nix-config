@@ -50,13 +50,12 @@ in
           "deband-range" = 16;
 
           # Adaptive sharpening
-          "sigmoid-upscaling" = true;
+          "sigmoid-upscaling" = false;
 
           # =========================
           # PLAYBACK SMOOTHNESS
           # =========================
-          # Use the audio clock for best A/V pacing.
-          # (This matters a lot when some audio backends fail.)
+          # Keep stable frame pacing (avoid extra sync/processing load).
           "video-sync" = "audio";
           interpolation = false;
           tscale = "oversample";
@@ -72,7 +71,9 @@ in
           # STREAMING (BEST QUALITY)
           # =========================
           "ytdl-format" = "bestvideo[height<=2160]+bestaudio/best";
-          "ytdl-raw-options" = "yes-playlist=,format-sort=res,codec:h264";
+          # Keep this simple and valid for mpv/yt-dlp (avoids parse errors).
+          # Your `ytdl-format` already picks the best video+audio.
+          "ytdl-raw-options" = "yes-playlist=yes,format-sort=res";
 
           # =========================
           # UI
@@ -111,20 +112,14 @@ in
           # Toggle interpolation (SVP-like)
           I = "cycle interpolation";
 
-          # Toggle shaders manually
-          A = "change-list glsl-shaders toggle ${shaderDir}/Anime4K_Restore_CNN.glsl";
+          # Toggle lightweight Anime4K clamp shader (safe enhancement)
+          A = "change-list glsl-shaders toggle ${shaderDir}/Anime4K_Clamp_Highlights.glsl";
+
+          # Toggle heavy Anime4K CNN restore (can drop frames at 4K)
+          N = "change-list glsl-shaders toggle ${shaderDir}/Anime4K_Restore_CNN.glsl";
         };
 
         profiles = {
-          # General high-res visuals (clamp-only; safe/perf-friendly)
-          # Applies to all content so you still get better visuals on non-anime videos.
-          shaders-hq = {
-            "profile-cond" = "width >= 1920";
-            "glsl-shaders" = [
-              "${shaderDir}/Anime4K_Clamp_Highlights.glsl"
-            ];
-          };
-
           # 4K / high quality
           highquality = {
             "profile-cond" = "width >= 2560";
