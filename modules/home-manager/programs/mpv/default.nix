@@ -3,6 +3,11 @@ let
   # Keep shader paths aligned with Home-Manager's configured XDG base dir
   # (usually ~/.config, but this avoids relying on "~" expansion inside mpv).
   shaderDir = "${config.xdg.configHome}/mpv/shaders";
+  mpvScripts =
+    if lib.hasAttr "mpvScripts" pkgs then
+      pkgs.mpvScripts
+    else
+      {};
 in
 {
   config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
@@ -111,9 +116,10 @@ in
         };
 
         profiles = {
-          # Anime (auto)
-          anime = {
-            "profile-cond" = "string.match(path, 'anime') or (width <= 1920 and height <= 1080)";
+          # General high-res visuals (clamp-only; safe/perf-friendly)
+          # Applies to all content so you still get better visuals on non-anime videos.
+          shaders-hq = {
+            "profile-cond" = "width >= 1920";
             "glsl-shaders" = [
               "${shaderDir}/Anime4K_Clamp_Highlights.glsl"
             ];
@@ -141,16 +147,16 @@ in
           };
         };
       }
-      // lib.optionalAttrs (lib.hasAttr "mpvScripts" pkgs) {
-        # Only set mpv scripts if available in this pkgs set.
-        scripts = with pkgs.mpvScripts; [
-          uosc
-          thumbfast
-          sponsorblock
-          mpris
-          quality-menu
-          autoload # playlist auto loading
-        ];
+      // {
+        # Make mpvScripts usage robust across nixpkgs versions.
+        # If a script isn't available, we just skip it.
+        scripts =
+          (lib.optionals (mpvScripts ? uosc) [ mpvScripts.uosc ])
+          ++ (lib.optionals (mpvScripts ? thumbfast) [ mpvScripts.thumbfast ])
+          ++ (lib.optionals (mpvScripts ? sponsorblock) [ mpvScripts.sponsorblock ])
+          ++ (lib.optionals (mpvScripts ? mpris) [ mpvScripts.mpris ])
+          ++ (lib.optionals (mpvScripts ? quality-menu) [ mpvScripts."quality-menu" ])
+          ++ (lib.optionals (mpvScripts ? autoload) [ mpvScripts.autoload ]);
       };
 
     # Make sure ytdl-raw-options targets work.
