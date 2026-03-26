@@ -1,0 +1,179 @@
+{ pkgs, lib, config, ... }:
+let
+  # Keep shader paths aligned with Home-Manager's configured XDG base dir
+  # (usually ~/.config, but this avoids relying on "~" expansion inside mpv).
+  shaderDir = "${config.xdg.configHome}/mpv/shaders";
+in
+{
+  config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+    programs.mpv =
+      {
+        enable = true;
+
+        config = {
+          # =========================
+          # RENDERING CORE
+          # =========================
+          vo = "gpu-next";
+          hwdec = "auto-safe";
+          "gpu-api" = "auto";
+          # Your NixOS host enables PipeWire's PulseAudio compatibility, so
+          # force mpv to use `ao=pulse` (most mpv builds support this).
+          ao = "pulse";
+
+          # =========================
+          # HDR / COLOR (TOP-TIER)
+          # =========================
+          "tone-mapping" = "bt.2446a"; # BEST modern algo
+          "hdr-compute-peak" = true;
+          "target-peak" = "auto";
+          "gamut-mapping-mode" = "perceptual";
+
+          # =========================
+          # SCALING (MAX QUALITY)
+          # =========================
+          scale = "ewa_lanczossharp";
+          cscale = "ewa_lanczossharp";
+          dscale = "mitchell";
+
+          # =========================
+          # IMAGE QUALITY
+          # =========================
+          deband = true;
+          "deband-iterations" = 2;
+          "deband-threshold" = 30;
+          "deband-range" = 16;
+
+          # Adaptive sharpening
+          "sigmoid-upscaling" = true;
+
+          # =========================
+          # PLAYBACK SMOOTHNESS
+          # =========================
+          # Use the audio clock for best A/V pacing.
+          # (This matters a lot when some audio backends fail.)
+          "video-sync" = "audio";
+          interpolation = false;
+          tscale = "oversample";
+
+          # =========================
+          # CACHE / NETWORK
+          # =========================
+          cache = true;
+          "demuxer-max-bytes" = "768MiB";
+          "demuxer-max-back-bytes" = "384MiB";
+
+          # =========================
+          # STREAMING (BEST QUALITY)
+          # =========================
+          "ytdl-format" = "bestvideo[height<=2160]+bestaudio/best";
+          "ytdl-raw-options" = "yes-playlist=,format-sort=res,codec:h264";
+
+          # =========================
+          # UI
+          # =========================
+          osc = false;
+          "osd-bar" = false;
+        };
+
+        bindings = {
+          # Volume
+          UP = "add volume 5";
+          DOWN = "add volume -5";
+
+          # Seek
+          RIGHT = "seek 5";
+          LEFT = "seek -5";
+
+          # Playback
+          SPACE = "cycle pause";
+          F = "cycle fullscreen";
+
+          # Frame
+          "." = "frame-step";
+          "," = "frame-back-step";
+
+          # Screenshot
+          S = "screenshot";
+
+          # Subtitles
+          W = "cycle sub";
+
+          # Speed
+          "]" = "add speed 0.1";
+          "[" = "add speed -0.1";
+
+          # Toggle interpolation (SVP-like)
+          I = "cycle interpolation";
+
+          # Toggle shaders manually
+          A = "change-list glsl-shaders toggle ${shaderDir}/Anime4K_Restore_CNN.glsl";
+        };
+
+        profiles = {
+          # Anime (auto)
+          anime = {
+            "profile-cond" = "string.match(path, 'anime') or (width <= 1920 and height <= 1080)";
+            "glsl-shaders" = [
+              "${shaderDir}/Anime4K_Clamp_Highlights.glsl"
+            ];
+          };
+
+          # 4K / high quality
+          highquality = {
+            "profile-cond" = "width >= 2560";
+            "deband-iterations" = 1;
+            "deband-threshold" = 20;
+            sharpen = 0.2;
+          };
+
+          # HDR
+          hdr = {
+            "profile-cond" = "p['video-params/primaries'] == 'bt.2020'";
+            "tone-mapping" = "bt.2446a";
+          };
+
+          # Low res
+          lowres = {
+            "profile-cond" = "width <= 1280";
+            sharpen = 0.5;
+            deband = true;
+          };
+        };
+      }
+      // lib.optionalAttrs (lib.hasAttr "mpvScripts" pkgs) {
+        # Only set mpv scripts if available in this pkgs set.
+        scripts = with pkgs.mpvScripts; [
+          uosc
+          thumbfast
+          sponsorblock
+          mpris
+          quality-menu
+          autoload # playlist auto loading
+        ];
+      };
+
+    # Make sure ytdl-raw-options targets work.
+    home.packages = with pkgs; [
+      yt-dlp
+      ffmpeg
+    ];
+
+    # uosc script UI configuration.
+    xdg.configFile."mpv/script-opts/uosc.conf".text = ''
+      # =========================
+      # UI LOOK
+      # =========================
+      theme=dark
+      scale=1.0
+      border=2
+      corner_radius=12
+      shadow=yes
+      # 
+    '';
+
+    # Ensure the shader directory exists.
+    # (Your actual Anime4K .glsl files must still be present in this folder.)
+    xdg.configFile."mpv/shaders/.keep".text = "";
+  };
+}

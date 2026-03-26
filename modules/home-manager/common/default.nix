@@ -21,6 +21,7 @@
     ../programs/go
     ../programs/gpg
     ../programs/k8s
+    ../programs/mpv
     ../programs/keychain
     ../programs/lazygit
     ../programs/neovim
