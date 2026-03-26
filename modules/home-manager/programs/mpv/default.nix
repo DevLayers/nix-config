@@ -46,7 +46,9 @@ in
           # =========================
           deband = true;
           "deband-iterations" = 2;
-          "deband-threshold" = 30;
+          # Higher threshold reduces more banding; primarily affects quality,
+          # not shader complexity, so it's usually safe for smooth playback.
+          "deband-threshold" = 64;
           "deband-range" = 16;
 
           # Adaptive sharpening
@@ -123,8 +125,6 @@ in
           # 4K / high quality
           highquality = {
             "profile-cond" = "width >= 2560";
-            "deband-iterations" = 1;
-            "deband-threshold" = 20;
             sharpen = 0.2;
           };
 
