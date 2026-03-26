@@ -31,7 +31,7 @@
     loupe # image viewer
     nautilus # file manager
     seahorse # keyring manager
-    totem # Video player
+    # totem (GNOME Videos) removed; use mpv as default video player
 
     # Wayland utilities
     brightnessctl
