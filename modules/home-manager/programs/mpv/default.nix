@@ -50,7 +50,7 @@ in
           "deband-range" = 16;
 
           # Adaptive sharpening
-          "sigmoid-upscaling" = false;
+          "sigmoid-upscaling" = true;
 
           # =========================
           # PLAYBACK SMOOTHNESS
