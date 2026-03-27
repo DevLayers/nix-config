@@ -12,24 +12,45 @@ in
       vo = "gpu-next";
       "gpu-api" = "auto";
       hwdec = "auto-safe";
-      ao = "pulse";
 
+      # SYNC & MOTION
       "video-sync" = "audio";
       interpolation = false;
       tscale = "oversample";
+      tscale-window = "sphinx";
+      tscale-clamp = 0.0;
+      tscale-antiring = 0.01;
+
+      # SCALING
       scale = "jinc";
       cscale = "jinc";
       dscale = "spline36";
       "sigmoid-upscaling" = true;
+      scale-clamp = 0.0;
+      scale-antiring = 0.0009;
+      correct-downscaling = true;
+      linear-downscaling = true;
+
+      # DEBANDING
       deband = true;
       "deband-iterations" = 2;
       "deband-threshold" = 32;
       "deband-range" = 16;
+      "deband-grain" = 6;
+
+      # DITHERING
+      dither = "fruit";
+      "dither-depth" = 16;
+      "dither-size-fruit" = 8;
+      temporal-dither = true;
+      "temporal-dither-period" = 4;
+
+      # CACHE
       cache = true;
       "demuxer-max-bytes" = "512MiB";
       "demuxer-max-back-bytes" = "256MiB";
 
-      # BT.2390 HDR + ACES-like filmic intent
+      # HDR & ACES-like filmic
       "hdr-compute-peak" = true;
       "hdr-peak-percentile" = 99.95;
       "hdr-contrast-recovery" = 0.98;
@@ -39,19 +60,52 @@ in
       "gamut-mapping-mode" = "perceptual";
       "target-peak" = "auto";
 
+      # AUDIO
+      ao = "pulse";
+      "audio-exclusive" = false;
+      "audio-channels" = "auto";
+      "volume-max" = 130;
+      "gapless-audio" = true;
+      "audio-pitch-correction" = true;
+      "audio-normalize-downmix" = true;
+      "audio-buffer" = 0.4;
+
+      # YTDL
       "ytdl-format" = "bestvideo[height<=2160]+bestaudio/best";
       "ytdl-raw-options" = "yes-playlist=yes,format-sort=res";
 
+      # OSC & UI
       osc = false;
       "osd-bar" = false;
 
+      # PLAYBACK
       "save-position-on-quit" = true;
       "keep-open" = true;
       "slang" = "eng,en";
       "alang" = "jpn,jp,eng,en";
       "sub-auto" = "fuzzy";
+
+      # SEEKING
+      hr-seek = true;
+      "hr-seek-framedrop" = false;
+      force-seekable = true;
+
+      # SUBTITLE DEFAULTS
+      "sub-font" = "Segoe UI Light";
+      "sub-font-size" = 60;
+      "sub-color" = "#ffff00";
+      "sub-border-size" = 1.0;
+      "sub-outline-color" = "#ff0000";
+      "sub-shadow-color" = "#000000";
+      "sub-shadow-offset" = 0.5;
+      "sub-blur" = 0.0;
+      "sub-back-color" = "#00000000";
+      "sub-fix-timing" = true;
+      "blend-subtitles" = true;
+      "sub-clear-on-seek" = true;
     };
 
+    # KEY BINDINGS
     bindings = {
       UP = "add volume 5";
       DOWN = "add volume -5";
@@ -67,7 +121,7 @@ in
       "[" = "add speed -0.1";
       I = "cycle interpolation";
 
-      # uosc UI controls
+      # uosc UI
       O = "script-binding uosc/open-file";
       K = "script-binding uosc/keybinds";
       A = "script-binding uosc/audio-device";
@@ -76,9 +130,6 @@ in
 
       "Ctrl+f" = "script-binding quality_menu/video_formats_toggle";
       "Alt+f" = "script-binding quality_menu/audio_formats_toggle";
-
-      N = "change-list glsl-shaders toggle ${shaderDir}/Anime4K_Restore_CNN.glsl";
-      R = "change-list glsl-shaders clear";
 
       "Ctrl+UP" = "add video-zoom 0.2";
       "Ctrl+DOWN" = "add video-zoom -0.2";
@@ -91,6 +142,7 @@ in
       MBTN_RIGHT = "script-binding uosc/menu";
     };
 
+    # SCRIPTS
     scripts =
       (lib.optionals (mpvScripts ? uosc) [ mpvScripts.uosc ])
       ++ (lib.optionals (mpvScripts ? thumbfast) [ mpvScripts.thumbfast ])
@@ -100,6 +152,7 @@ in
       ++ (lib.optionals (mpvScripts ? autoload) [ mpvScripts.autoload ]);
   };
 
+  # uosc config
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
     controls=command:menu:script-binding uosc/menu?Menu,gap,stream-quality,video,audio,subtitles,space,speed:1.0,gap,playlist,chapters,audio-device,fullscreen
     controls_size=38
