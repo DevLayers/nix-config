@@ -3,17 +3,6 @@
 let
   shaderDir = "${config.xdg.configHome}/mpv/shaders";
   mpvScripts = if lib.hasAttr "mpvScripts" pkgs then pkgs.mpvScripts else {};
-  modernzScript =
-    if mpvScripts ? modernz then
-      mpvScripts.modernz.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace modernz.lua \
-            --replace-fail "if subtitle_track and user_opts.subtitles_button then" "if user_opts.subtitles_button then" \
-            --replace-fail "elements.sub_track.visible = user_opts.subtitles_button and sub_track_count > 0 and osc_geo.w >= 600" "elements.sub_track.visible = user_opts.subtitles_button and osc_geo.w >= 600"
-        '';
-      })
-    else
-      null;
 in
 {
   programs.mpv = {
@@ -78,9 +67,12 @@ in
       "[" = "add speed -0.1";
       I = "cycle interpolation";
 
-      # ModernZ UI controls
-      X = "script-message-to modernz osc-show";
-      Y = "script-message-to modernz osc-visibility cycle";
+      # uosc UI controls
+      O = "script-binding uosc/open-file";
+      K = "script-binding uosc/keybinds";
+      A = "script-binding uosc/audio-device";
+      Y = "script-binding quality_menu/video_formats_toggle";
+      U = "script-binding quality_menu/audio_formats_toggle";
 
       "Ctrl+f" = "script-binding quality_menu/video_formats_toggle";
       "Alt+f" = "script-binding quality_menu/audio_formats_toggle";
@@ -96,11 +88,11 @@ in
       "Alt+DOWN" = "add video-pan-y 0.05";
       "Shift+RIGHT" = "playlist-next";
       "Shift+LEFT" = "playlist-prev";
-      MBTN_RIGHT = "cycle pause";
+      MBTN_RIGHT = "script-binding uosc/menu";
     };
 
     scripts =
-      (lib.optionals (modernzScript != null) [ modernzScript ])
+      (lib.optionals (mpvScripts ? uosc) [ mpvScripts.uosc ])
       ++ (lib.optionals (mpvScripts ? thumbfast) [ mpvScripts.thumbfast ])
       ++ (lib.optionals (mpvScripts ? sponsorblock) [ mpvScripts.sponsorblock ])
       ++ (lib.optionals (mpvScripts ? mpris) [ mpvScripts.mpris ])
@@ -108,43 +100,52 @@ in
       ++ (lib.optionals (mpvScripts ? autoload) [ mpvScripts.autoload ]);
   };
 
-  xdg.configFile."mpv/script-opts/modernz.conf".text = ''
-    layout=modern
-    icon_theme=fluent
-    icon_style=filled
-    title=''${media-title}
-    window_top_bar=auto
-    show_title=yes
-    cache_info=yes
-    jump_amount=5
-    speed_button=yes
-    speed_button_scroll=0.25
-    volume_control=yes
-    playlist_button=yes
-    info_button=yes
-    screenshot_button=yes
-    tooltip_hints=yes
-    osc_color=#000000
-    seekbarfg_color=#7AA2F7
-    seekbarbg_color=#3B4261
-    seekbar_cache_color=#565F89
-    side_buttons_color=#C0CAF5
-    middle_buttons_color=#C0CAF5
-    playpause_color=#FFFFFF
-    hover_effect=size,glow,color
-    hover_effect_color=#7DCFFF
-    fade_alpha=0
-    fade_blur_strength=0
-    fade_transparency_strength=0
-    window_fade_alpha=0
-    window_fade_blur_strength=0
-    window_fade_transparency_strength=0
-    seek_handle_size=0.9
-    slider_rounded_corners=yes
-    nibbles_style=single-bar
-    persistent_progress=yes
-    persistent_progress_height=14
-    visibility=auto
+  xdg.configFile."mpv/script-opts/uosc.conf".text = ''
+    controls=command:menu:script-binding uosc/menu?Menu,gap,command:high_quality:script-binding quality_menu/video_formats_toggle?Stream quality,video,audio,subtitles,space,speed:1,gap,playlist,chapters,gap,audio-device,fullscreen
+    controls_size=36
+    controls_margin=8
+    controls_spacing=2
+
+    top_bar=no-border
+    top_bar_size=40
+    top_bar_controls=right
+    top_bar_title=''${media-title}
+    top_bar_alt_title=''${filename}
+    top_bar_alt_title_place=toggle
+
+    volume=left
+    volume_size=38
+    volume_border=1
+    volume_step=2
+
+    timeline_style=line
+    timeline_line_width=2
+    timeline_size=32
+    timeline_step=5
+    timeline_cache=yes
+    timeline_heatmap=overlay
+    progress=never
+    progress_size=2
+    progress_line_width=20
+
+    menu_item_height=35
+    menu_min_width=380
+    menu_padding=4
+    menu_type_to_search=yes
+
+    scale=1
+    scale_fullscreen=1
+    font_scale=1
+    text_border=1.1
+    border_radius=8
+    color=foreground=ffffff,background=000000,match=7aa2f7,heatmap=7dcfff
+    opacity=timeline=0.80,chapters=0.72,slider=0.80,speed=0.15,menu=0.82,submenu=0.72,title=0,tooltip=0.82,curtain=0,idle_indicator=0.7,audio_indicator=0.7,buffering_indicator=0.7,playlist_position=0.35,heatmap=0.68
+    animation_duration=100
+    flash_duration=900
+
+    autoload=no
+    shuffle=no
+    disable_elements=window_border,pause_indicator
   '';
 
   xdg.configFile."mpv/script-opts/evafast.conf".text = ''
