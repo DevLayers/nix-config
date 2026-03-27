@@ -119,12 +119,12 @@ in
       "Shift+RIGHT" = "playlist-next";
       "Shift+LEFT" = "playlist-prev";
       
-      # Map the uosc menu to Right Click for easy access
-      MBTN_RIGHT = "script-binding uosc/menu";
+      # Map the ModernZ menu to Right Click
+      MBTN_RIGHT = "script-binding select/menu";
     };
 
     scripts =
-      (lib.optionals (mpvScripts ? uosc) [ mpvScripts.uosc ])
+      (lib.optionals (mpvScripts ? modernz) [ mpvScripts.modernz ])
       ++ (lib.optionals (mpvScripts ? sponsorblock) [ mpvScripts.sponsorblock ])
       ++ (lib.optionals (mpvScripts ? mpris) [ mpvScripts.mpris ])
       ++ (lib.optionals (mpvScripts ? "quality-menu") [ mpvScripts."quality-menu" ])
@@ -135,13 +135,20 @@ in
   # XDG FILES (UI & Script Tuning)
   # =========================
   
-  # Your original uosc styling
-  xdg.configFile."mpv/script-opts/uosc.conf".text = ''
-    theme=dark
-    scale=1.0
-    border=2
-    corner_radius=12
-    shadow=yes
+  # ModernZ OSC styling (visual-only defaults)
+  xdg.configFile."mpv/script-opts/modernz.conf".text = ''
+    layout=modern
+    icon_theme=fluent
+    icon_style=mixed
+
+    show_title=true
+    show_chapter_title=true
+    cache_info=false
+
+    seekbarfg_color=#FB8C00
+    seekbarbg_color=#94754F
+    osc_color=#000000
+    fade_alpha=130
   '';
 
   
