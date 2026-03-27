@@ -161,7 +161,7 @@ in
     controls_persistency=
 
     top_bar=no-border
-    top_bar_size=36
+    top_bar_size=44
     top_bar_controls=right
     top_bar_title=''${media-title}
     top_bar_alt_title=''${filename}
@@ -192,11 +192,11 @@ in
     speed_step_is_factor=no
     scale=1
     scale_fullscreen=1.03
-    font_scale=1.03
+    font_scale=1.08
     text_border=0.8
     border_radius=14
     color=foreground=f5f7ff,foreground_text=0b0f18,background=0b0f18,background_text=eef1f8,match=8aadf4,heatmap=f5a97f
-    opacity=timeline=0.95,chapters=0.85,slider=0.95,slider_gauge=1,speed=0.22,menu=0.94,submenu=0.88,border=1,title=0,tooltip=0.95,curtain=0,idle_indicator=0.9,audio_indicator=0.66,buffering_indicator=0.66,playlist_position=0.38,heatmap=0
+    opacity=timeline=0.95,chapters=0.85,slider=0.95,slider_gauge=1,speed=0.22,menu=0.94,submenu=0.88,border=1,title=0.98,tooltip=0.95,curtain=0,idle_indicator=0.9,audio_indicator=0.66,buffering_indicator=0.66,playlist_position=0.38,heatmap=0
     animation_duration=160
     flash_duration=700
     autohide=yes
