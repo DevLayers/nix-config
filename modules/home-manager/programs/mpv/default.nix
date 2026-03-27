@@ -3,13 +3,6 @@
 let
   shaderDir = "${config.xdg.configHome}/mpv/shaders";
   mpvScripts = if lib.hasAttr "mpvScripts" pkgs then pkgs.mpvScripts else {};
-
-  ulyssesRepo = pkgs.fetchFromGitHub {
-    owner = "PopeyeURS";
-    repo = "ulyssescaballes-mpv.config";
-    rev = "7a52eb6956d35ad4376bd7345445bbd3de951b8c";
-    hash = "sha256-zjcuaJaPeug4F8zm5RssufnV8Hn9ErVNglLa7GpGQ/c=";
-  };
 in
 {
   programs.mpv = {
@@ -108,16 +101,6 @@ in
       ++ (lib.optionals (mpvScripts ? "quality-menu") [ mpvScripts."quality-menu" ])
       ++ (lib.optionals (mpvScripts ? autoload) [ mpvScripts.autoload ]);
   };
-
-  xdg.configFile."mpv/scripts/uosc_youtube_search.lua".source = "${ulyssesRepo}/portable_config/scripts/uosc_youtube_search.lua";
-  xdg.configFile."mpv/scripts/memo.lua".source = "${ulyssesRepo}/portable_config/scripts/memo.lua";
-  xdg.configFile."mpv/scripts/uosc_video_settings.lua".source = "${ulyssesRepo}/portable_config/scripts/uosc_video_settings.lua";
-  xdg.configFile."mpv/scripts/uosc_subtitle_settings.lua".source = "${ulyssesRepo}/portable_config/scripts/uosc_subtitle_settings.lua";
-  xdg.configFile."mpv/scripts/uosc_screenshot.lua".source = "${ulyssesRepo}/portable_config/scripts/uosc_screenshot.lua";
-
-  xdg.configFile."mpv/script-opts/memo.conf".source = "${ulyssesRepo}/portable_config/script-opts/memo.conf";
-  xdg.configFile."mpv/script-opts/uosc_video_settings.conf".source = "${ulyssesRepo}/portable_config/script-opts/uosc_video_settings.conf";
-  xdg.configFile."mpv/script-opts/uosc_subtitle_settings.conf".source = "${ulyssesRepo}/portable_config/script-opts/uosc_subtitle_settings.conf";
 
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
     theme=dark
