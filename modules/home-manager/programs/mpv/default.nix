@@ -172,16 +172,16 @@ in
     volume_border=1
     volume_step=2
 
-    timeline_style=line
-    timeline_line_width=3
-    timeline_size=36
+    timeline_style=bar
+    timeline_line_width=6
+    timeline_size=32
     timeline_step=5
     timeline_border=0
-    timeline_cache=yes
-    timeline_heatmap=overlay
+    timeline_cache=no
+    timeline_heatmap=no
     progress=always
-    progress_size=3
-    progress_line_width=20
+    progress_size=4
+    progress_line_width=10
 
     menu_item_height=36
     menu_min_width=420
