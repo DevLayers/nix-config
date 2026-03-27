@@ -17,9 +17,9 @@ in
       "video-sync" = "audio";
       interpolation = false;
       tscale = "oversample";
-      scale = "ewa_lanczossharp";
-      cscale = "ewa_lanczossharp";
-      dscale = "mitchell";
+      scale = "jinc";
+      cscale = "jinc";
+      dscale = "spline36";
       "sigmoid-upscaling" = true;
       deband = true;
       "deband-iterations" = 2;
