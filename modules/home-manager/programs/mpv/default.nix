@@ -161,11 +161,12 @@ in
     controls_persistency=
 
     top_bar=no-border
-    top_bar_size=52
+    top_bar_size=58
     top_bar_controls=right
     top_bar_title=''${media-title}
     top_bar_alt_title=''${filename}
-    top_bar_alt_title_place=toggle
+    top_bar_alt_title_place=below
+    top_bar_flash_on=video,audio
 
     volume=left
     volume_size=34
@@ -192,7 +193,7 @@ in
     speed_step_is_factor=no
     scale=1
     scale_fullscreen=1.03
-    font_scale=1.16
+    font_scale=1.18
     text_border=0.8
     border_radius=14
     color=foreground=f5f7ff,foreground_text=0b0f18,background=0b0f18,background_text=eef1f8,match=8aadf4,heatmap=f5a97f
