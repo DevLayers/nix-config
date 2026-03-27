@@ -155,35 +155,35 @@ in
   # uosc config
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
     controls=command:menu:script-binding uosc/menu?Menu,gap,stream-quality,video,audio,subtitles,space,speed:1.0,gap,playlist,chapters,audio-device,fullscreen
-    controls_size=38
-    controls_margin=10
-    controls_spacing=3
+    controls_size=40
+    controls_margin=12
+    controls_spacing=4
     controls_persistency=
 
     top_bar=no-border
-    top_bar_size=42
+    top_bar_size=40
     top_bar_controls=right
     top_bar_title=''${media-title}
     top_bar_alt_title=''${filename}
     top_bar_alt_title_place=toggle
 
     volume=left
-    volume_size=40
+    volume_size=38
     volume_border=1
     volume_step=2
 
     timeline_style=bar
-    timeline_line_width=6
-    timeline_size=32
+    timeline_line_width=7
+    timeline_size=34
     timeline_step=5
     timeline_border=0
     timeline_cache=no
     timeline_heatmap=no
-    progress=always
-    progress_size=4
-    progress_line_width=10
+    progress=hover
+    progress_size=3
+    progress_line_width=8
 
-    menu_item_height=36
+    menu_item_height=34
     menu_min_width=420
     menu_padding=4
     menu_type_to_search=yes
@@ -193,10 +193,10 @@ in
     scale=1
     scale_fullscreen=1
     font_scale=1
-    text_border=1.2
-    border_radius=10
+    text_border=1.0
+    border_radius=12
     color=foreground=e6e8ef,foreground_text=11121a,background=0f1117,background_text=e6e8ef,match=7aa2f7,heatmap=7dcfff
-    opacity=timeline=0.86,chapters=0.78,slider=0.86,slider_gauge=1,speed=0.22,menu=0.90,submenu=0.78,border=1,title=0,tooltip=0.9,curtain=0,idle_indicator=0.72,audio_indicator=0.72,buffering_indicator=0.72,playlist_position=0.45,heatmap=0.72
+    opacity=timeline=0.90,chapters=0.82,slider=0.92,slider_gauge=1,speed=0.22,menu=0.92,submenu=0.84,border=1,title=0,tooltip=0.92,curtain=0,idle_indicator=0,audio_indicator=0.68,buffering_indicator=0.68,playlist_position=0.40,heatmap=0
     animation_duration=110
     flash_duration=1000
     autohide=yes
