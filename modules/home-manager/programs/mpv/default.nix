@@ -50,7 +50,7 @@ in
       "demuxer-max-bytes" = "512MiB";
       "demuxer-max-back-bytes" = "256MiB";
 
-      # HDR & ACES-like filmic
+      #BT.2390 HDR & ACES-like filmic
       "hdr-compute-peak" = true;
       "hdr-peak-percentile" = 99.95;
       "hdr-contrast-recovery" = 0.98;
