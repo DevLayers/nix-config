@@ -3,6 +3,17 @@
 let
   shaderDir = "${config.xdg.configHome}/mpv/shaders";
   mpvScripts = if lib.hasAttr "mpvScripts" pkgs then pkgs.mpvScripts else {};
+  modernzScript =
+    if mpvScripts ? modernz then
+      mpvScripts.modernz.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace modernz.lua \
+            --replace-fail "if subtitle_track and user_opts.subtitles_button then" "if user_opts.subtitles_button then" \
+            --replace-fail "elements.sub_track.visible = user_opts.subtitles_button and sub_track_count > 0 and osc_geo.w >= 600" "elements.sub_track.visible = user_opts.subtitles_button and osc_geo.w >= 600"
+        '';
+      })
+    else
+      null;
 in
 {
   programs.mpv = {
@@ -89,7 +100,7 @@ in
     };
 
     scripts =
-      (lib.optionals (mpvScripts ? modernz) [ mpvScripts.modernz ])
+      (lib.optionals (modernzScript != null) [ modernzScript ])
       ++ (lib.optionals (mpvScripts ? thumbfast) [ mpvScripts.thumbfast ])
       ++ (lib.optionals (mpvScripts ? sponsorblock) [ mpvScripts.sponsorblock ])
       ++ (lib.optionals (mpvScripts ? mpris) [ mpvScripts.mpris ])
