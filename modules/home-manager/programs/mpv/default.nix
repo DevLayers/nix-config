@@ -101,51 +101,57 @@ in
   };
 
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
-    controls=command:menu:script-binding uosc/menu?Menu,gap,command:high_quality:script-binding quality_menu/video_formats_toggle?Stream quality,video,audio,subtitles,space,speed:1,gap,playlist,chapters,gap,audio-device,fullscreen
-    controls_size=36
-    controls_margin=8
-    controls_spacing=2
+    controls=command:menu:script-binding uosc/menu?Menu,gap,stream-quality,video,audio,subtitles,space,speed:1.0,gap,playlist,chapters,audio-device,fullscreen
+    controls_size=38
+    controls_margin=10
+    controls_spacing=3
+    controls_persistency=
 
     top_bar=no-border
-    top_bar_size=40
+    top_bar_size=42
     top_bar_controls=right
     top_bar_title=''${media-title}
     top_bar_alt_title=''${filename}
     top_bar_alt_title_place=toggle
 
     volume=left
-    volume_size=38
+    volume_size=40
     volume_border=1
     volume_step=2
 
     timeline_style=line
-    timeline_line_width=2
-    timeline_size=32
+    timeline_line_width=3
+    timeline_size=36
     timeline_step=5
+    timeline_border=0
     timeline_cache=yes
     timeline_heatmap=overlay
-    progress=never
-    progress_size=2
+    progress=always
+    progress_size=3
     progress_line_width=20
 
-    menu_item_height=35
-    menu_min_width=380
+    menu_item_height=36
+    menu_min_width=420
     menu_padding=4
     menu_type_to_search=yes
 
+    speed_step=0.05
+    speed_step_is_factor=no
     scale=1
     scale_fullscreen=1
     font_scale=1
-    text_border=1.1
-    border_radius=8
-    color=foreground=ffffff,background=000000,match=7aa2f7,heatmap=7dcfff
-    opacity=timeline=0.80,chapters=0.72,slider=0.80,speed=0.15,menu=0.82,submenu=0.72,title=0,tooltip=0.82,curtain=0,idle_indicator=0.7,audio_indicator=0.7,buffering_indicator=0.7,playlist_position=0.35,heatmap=0.68
-    animation_duration=100
-    flash_duration=900
+    text_border=1.2
+    border_radius=10
+    color=foreground=e6e8ef,foreground_text=11121a,background=0f1117,background_text=e6e8ef,match=7aa2f7,heatmap=7dcfff
+    opacity=timeline=0.86,chapters=0.78,slider=0.86,slider_gauge=1,speed=0.22,menu=0.90,submenu=0.78,border=1,title=0,tooltip=0.9,curtain=0,idle_indicator=0.72,audio_indicator=0.72,buffering_indicator=0.72,playlist_position=0.45,heatmap=0.72
+    animation_duration=110
+    flash_duration=1000
+    autohide=yes
+    pause_indicator=flash
 
     autoload=no
     shuffle=no
-    disable_elements=window_border,pause_indicator
+    disable_elements=window_border
   '';
 
   xdg.configFile."mpv/script-opts/evafast.conf".text = ''
