@@ -36,7 +36,7 @@ in
       "deband-iterations" = 2;
       "deband-threshold" = 32;
       "deband-range" = 16;
-      "deband-grain" = 6;
+      "deband-grain" = 0;
 
       # DITHERING
       dither = "fruit";
