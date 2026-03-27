@@ -103,12 +103,21 @@ in
   };
 
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
+    timeline_line_width=2
     controls_size=35
     controls_margin=8
     controls_spacing=2
+    controls=command:menu:script-binding uosc/menu?Menu,gap,command:high_quality:script-binding quality_menu/video_formats_toggle?Stream quality,editions,video,audio,command:auto_stories:script-binding uosc/chapters#chapters>0?Chapters,subtitles,space,speed:1,gap,command:replay:no-osd ab-loop?A-B loop,loop-file,loop-playlist,toggle:read_more:autoload@uosc?Autoload,shuffle,gap,command:history:script-binding memo-history?History,prev,items,next,gap,toggle:move_up:ontop?Ontop,fullscreen
     volume=left
     volume_size=37
+    volume_border=1
     volume_step=2
+    speed_step=0.05
+    speed_step_is_factor=no
+    menu_item_height=35
+    menu_min_width=360
+    menu_padding=4
+    menu_type_to_search=yes
     top_bar=no-border
     top_bar_size=40
     top_bar_controls=right
@@ -117,14 +126,22 @@ in
     top_bar_alt_title_place=toggle
     timeline_style=line
     timeline_size=30
+    timeline_step=5
     timeline_cache=yes
+    timeline_heatmap=overlay
     progress=never
+    progress_size=2
+    progress_line_width=20
     scale=1
     scale_fullscreen=1
     font_scale=1
+    text_border=1.2
     border_radius=4
     color=heatmap=ffffff
     opacity=timeline=0.775,chapters=0.675,slider=0.775,speed=0,menu=0.775,submenu=0.675,title=0,tooltip=0.775,curtain=0,idle_indicator=0.675,audio_indicator=0.675,buffering_indicator=0.675,playlist_position=0.3,heatmap=0.675
+    animation_duration=100
+    flash_duration=1000
+    pause_indicator=flash
     autoload=no
     shuffle=no
     disable_elements=window_border,pause_indicator
