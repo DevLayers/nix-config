@@ -155,35 +155,35 @@ in
   # uosc config
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
     controls=command:menu:script-binding uosc/menu?Menu,gap,stream-quality,video,audio,subtitles,space,speed:1.0,gap,playlist,chapters,audio-device,fullscreen
-    controls_size=40
-    controls_margin=12
-    controls_spacing=4
+    controls_size=36
+    controls_margin=14
+    controls_spacing=5
     controls_persistency=
 
     top_bar=no-border
-    top_bar_size=40
+    top_bar_size=36
     top_bar_controls=right
     top_bar_title=''${media-title}
     top_bar_alt_title=''${filename}
     top_bar_alt_title_place=toggle
 
     volume=left
-    volume_size=38
-    volume_border=1
+    volume_size=34
+    volume_border=0
     volume_step=2
 
-    timeline_style=bar
-    timeline_line_width=7
-    timeline_size=34
-    timeline_step=5
+    timeline_style=line
+    timeline_line_width=1
+    timeline_size=20
+    timeline_step=2
     timeline_border=0
     timeline_cache=no
     timeline_heatmap=no
     progress=hover
-    progress_size=3
-    progress_line_width=8
+    progress_size=1
+    progress_line_width=1
 
-    menu_item_height=34
+    menu_item_height=35
     menu_min_width=420
     menu_padding=4
     menu_type_to_search=yes
@@ -191,14 +191,14 @@ in
     speed_step=0.05
     speed_step_is_factor=no
     scale=1
-    scale_fullscreen=1
-    font_scale=1
-    text_border=1.0
-    border_radius=12
-    color=foreground=e6e8ef,foreground_text=11121a,background=0f1117,background_text=e6e8ef,match=7aa2f7,heatmap=7dcfff
-    opacity=timeline=0.90,chapters=0.82,slider=0.92,slider_gauge=1,speed=0.22,menu=0.92,submenu=0.84,border=1,title=0,tooltip=0.92,curtain=0,idle_indicator=0,audio_indicator=0.68,buffering_indicator=0.68,playlist_position=0.40,heatmap=0
-    animation_duration=110
-    flash_duration=1000
+    scale_fullscreen=1.03
+    font_scale=1.03
+    text_border=0.8
+    border_radius=14
+    color=foreground=f5f7ff,foreground_text=0b0f18,background=0b0f18,background_text=eef1f8,match=8aadf4,heatmap=f5a97f
+    opacity=timeline=0.95,chapters=0.85,slider=0.95,slider_gauge=1,speed=0.22,menu=0.94,submenu=0.88,border=1,title=0,tooltip=0.95,curtain=0,idle_indicator=0,audio_indicator=0.66,buffering_indicator=0.66,playlist_position=0.38,heatmap=0
+    animation_duration=160
+    flash_duration=700
     autohide=yes
     pause_indicator=flash
 
