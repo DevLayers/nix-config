@@ -31,10 +31,10 @@ in
 
       # BT.2390 HDR + ACES-like filmic intent
       "hdr-compute-peak" = true;
-      "hdr-peak-percentile" = 99.995;
-      "hdr-contrast-recovery" = 0.10;
+      "hdr-peak-percentile" = 99.95;
+      "hdr-contrast-recovery" = 0.98;
       "tone-mapping" = "bt.2390";
-      "tone-mapping-param" = 1.25;
+      "tone-mapping-param" = 1.39;
       "target-colorspace-hint" = true;
       "gamut-mapping-mode" = "perceptual";
       "target-peak" = "auto";
@@ -103,15 +103,42 @@ in
   };
 
   xdg.configFile."mpv/script-opts/uosc.conf".text = ''
-    theme=dark
-    scale=1.0
-    border=2
-    corner_radius=14
-    shadow=yes
+    controls_size=35
+    controls_margin=8
+    controls_spacing=2
+    volume=left
+    volume_size=37
+    volume_step=2
+    top_bar=no-border
+    top_bar_size=40
+    top_bar_controls=right
+    top_bar_title=''${media-title}
+    top_bar_alt_title=''${filename}
+    top_bar_alt_title_place=toggle
     timeline_style=line
-    timeline_size=34
+    timeline_size=30
     timeline_cache=yes
-    progress=always
+    progress=never
+    scale=1
+    scale_fullscreen=1
+    font_scale=1
+    border_radius=4
+    color=heatmap=ffffff
+    opacity=timeline=0.775,chapters=0.675,slider=0.775,speed=0,menu=0.775,submenu=0.675,title=0,tooltip=0.775,curtain=0,idle_indicator=0.675,audio_indicator=0.675,buffering_indicator=0.675,playlist_position=0.3,heatmap=0.675
+    autoload=no
+    shuffle=no
+    disable_elements=window_border,pause_indicator
+  '';
+
+  xdg.configFile."mpv/script-opts/evafast.conf".text = ''
+    seek_distance=5
+    speed_increase=0.1
+    speed_decrease=0.1
+    speed_interval=0.05
+    speed_cap=2
+    subs_speed_cap=2
+    multiply_modifier=no
+    subs_lookahead=yes
   '';
 
   xdg.configFile."mpv/shaders/.keep".text = "";
