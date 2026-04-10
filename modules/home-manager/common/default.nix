@@ -24,7 +24,6 @@
     ../programs/mpv
     ../programs/keychain
     ../programs/lazygit
-    ../programs/localsend
     ../programs/neovim
     ../programs/saml2aws
     ../programs/starship

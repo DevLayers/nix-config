@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib) entryBefore entryBetween entryAfter entryAnywhere;
+  localsendEnabled = config.modules.services.localsend.enable;
 in {
   networking.nftables.rules = {
     inet = {
@@ -87,6 +88,27 @@ in {
 
           default = entryAfter ["loopback" "established-locally" "basic-icmp6" "basic-icmp" "ping6" "ping"] {
             policy = lib.mkDefault "drop";
+          };
+        } // lib.optionalAttrs localsendEnabled {
+          localsend-tcp = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
+            protocol = "tcp";
+            field = "dport";
+            value = 53317;
+            policy = "accept";
+          };
+
+          localsend-udp = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
+            protocol = "udp";
+            field = "dport";
+            value = 53317;
+            policy = "accept";
+          };
+
+          mdns-udp = entryBetween ["basic-icmp6" "basic-icmp"] ["default"] {
+            protocol = "udp";
+            field = "dport";
+            value = 5353;
+            policy = "accept";
           };
         };
 

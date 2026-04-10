@@ -26,6 +26,8 @@
     diffGenerations = true;   # Show package changes between generations
   };
 
+  modules.services.localsend.enable = true;
+
   # Set hostname
   networking.hostName = hostname;
 
