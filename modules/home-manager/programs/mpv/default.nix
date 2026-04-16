@@ -22,21 +22,22 @@ in
       tscale-antiring = 0.01;
 
       # SCALING
-      scale = "jinc";
-      cscale = "jinc";
+      scale = "ewa_lanczossharp";
+      cscale = "ewa_lanczossharp";
       dscale = "spline36";
       "sigmoid-upscaling" = true;
       scale-clamp = 0.0;
-      scale-antiring = 0.0009;
+      scale-antiring = 0.7;
+      cscale-antiring = 0.7;
       correct-downscaling = true;
       linear-downscaling = true;
 
       # DEBANDING
       deband = true;
-      "deband-iterations" = 2;
-      "deband-threshold" = 32;
+      "deband-iterations" = 1;
+      "deband-threshold" = 28;
       "deband-range" = 16;
-      "deband-grain" = 0;
+      "deband-grain" = 32;
 
       # DITHERING
       dither = "fruit";
@@ -52,10 +53,10 @@ in
 
       #BT.2390 HDR & ACES-like filmic
       "hdr-compute-peak" = true;
-      "hdr-peak-percentile" = 99.95;
-      "hdr-contrast-recovery" = 0.98;
-      "tone-mapping" = "bt.2390";
-      "tone-mapping-param" = 1.39;
+      "hdr-peak-percentile" = 99.8;
+      "hdr-contrast-recovery" = 0.0;
+      "tone-mapping" = "spline";
+      "tone-mapping-param" = 0.0;
       "target-colorspace-hint" = true;
       "gamut-mapping-mode" = "perceptual";
       "target-peak" = "auto";
