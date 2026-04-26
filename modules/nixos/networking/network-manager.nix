@@ -33,7 +33,9 @@ in {
     # enable IPV6 support
     enableIPv6 = true;
   };
-  environment.systemPackages = with pkgs; [networkmanagerapplet];
+  environment.systemPackages = with pkgs; [
+    networkmanagerapplet
+  ];
 
   systemd.services = {
     NetworkManager-wait-online.enable = false;

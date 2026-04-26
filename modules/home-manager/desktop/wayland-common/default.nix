@@ -2,6 +2,7 @@
   config,
   lib,
   nhModules,
+  pkgs,
   ...
 }:
 {
@@ -68,4 +69,19 @@
       "view-type" = "list";
     };
   };
+
+  systemd.user.services.polkit-gnome-authentication-agent = {
+    Unit = {
+      Description = "Polkit authentication agent";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
 }
