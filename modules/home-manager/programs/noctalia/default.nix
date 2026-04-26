@@ -174,6 +174,12 @@ in
               id = "plugin:screen-recorder";
             }
             {
+              id = "plugin:dns-switcher";
+            }
+            {
+              id = "plugin:network-manager-vpn";
+            }
+            {
               blacklist = [ ];
               colorizeIcons = false;
               drawerEnabled = true;
