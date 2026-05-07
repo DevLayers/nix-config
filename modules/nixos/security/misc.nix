@@ -82,9 +82,7 @@ in
   # Don't store coredumps from systemd-coredump.
   # Coredumps can contain sensitive information (passwords, keys, etc.)
   # and consume disk space unnecessarily.
-  systemd.coredump.extraConfig = l.mkDefault ''
-    Storage=none
-  '';
+  systemd.coredump.settings.Coredump.Storage = l.mkDefault "none";
 
   systemd.tmpfiles.settings = {
     # Restrict permissions of /home/$USER so that only the owner of the
