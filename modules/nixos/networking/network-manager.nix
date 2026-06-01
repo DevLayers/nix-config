@@ -25,7 +25,7 @@ in {
       wifi = {
         backend = "wpa_supplicant";
         macAddress = "random";
-        powersave = true;
+        powersave = false;
         scanRandMacAddress = true;
       };
     };
