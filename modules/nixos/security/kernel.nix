@@ -67,29 +67,29 @@
         "net.ipv6.icmp_echo_ignore_all" = "1";
 
         # TCP performance: re-enable selective acknowledgements (disabled for hardening)
-        "net.ipv4.tcp_dsack" = "1";
-        "net.ipv4.tcp_fack" = "1";
-        "net.ipv4.tcp_sack" = "1";
-        "net.ipv4.tcp_rfc1337" = "1";
-        "net.ipv4.tcp_syncookies" = "1";
+        "net.ipv4.tcp_dsack" = 1;
+        "net.ipv4.tcp_fack" = 1;
+        "net.ipv4.tcp_sack" = 1;
+        "net.ipv4.tcp_rfc1337" = 1;
+        "net.ipv4.tcp_syncookies" = 1;
 
         # TCP congestion control: BBR for higher throughput and lower latency
         "net.core.default_qdisc" = "fq";
         "net.ipv4.tcp_congestion_control" = "bbr";
 
         # TCP Fast Open: reduce connection establishment latency
-        "net.ipv4.tcp_fastopen" = "3";
+        "net.ipv4.tcp_fastopen" = 3;
 
         # TCP buffer tuning for high-BDP links
-        "net.core.rmem_max" = "67108864";
-        "net.core.wmem_max" = "67108864";
+        "net.core.rmem_max" = 67108864;
+        "net.core.wmem_max" = 67108864;
         "net.ipv4.tcp_rmem" = "4096 87380 33554432";
         "net.ipv4.tcp_wmem" = "4096 65536 33554432";
-        "net.core.netdev_max_backlog" = "16384";
-        "net.core.somaxconn" = "8192";
-        "net.ipv4.tcp_window_scaling" = "1";
-        "net.ipv4.tcp_no_metrics_save" = "1";
-        "net.ipv4.tcp_mtu_probing" = "1";
+        "net.core.netdev_max_backlog" = 16384;
+        "net.core.somaxconn" = 8192;
+        "net.ipv4.tcp_window_scaling" = 1;
+        "net.ipv4.tcp_no_metrics_save" = 1;
+        "net.ipv4.tcp_mtu_probing" = 1;
         "net.ipv6.conf.all.accept_ra" = "0";
         "net.ipv6.conf.all.accept_redirects" = "0";
         "net.ipv6.conf.all.accept_source_route" = "0";
