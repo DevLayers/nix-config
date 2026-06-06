@@ -20,6 +20,10 @@
     ../secrets       # Agenix secrets management
   ];
 
+  options.modules.video.virtualCamera.enable = lib.mkEnableOption "Virtual camera support via v4l2loopback";
+
+  config = {
+
 
   # Register flake inputs for nix commands
   nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
@@ -54,12 +58,12 @@
     loader.timeout = 0;
     plymouth.enable = true;
 
-    # v4l (virtual camera) module settings
-    kernelModules = [ "v4l2loopback" ];
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    extraModprobeConfig = ''
+    kernelModules = lib.optionals config.modules.video.virtualCamera.enable [ "v4l2loopback" ];
+    extraModulePackages = lib.optionals config.modules.video.virtualCamera.enable (with config.boot.kernelPackages; [ v4l2loopback ]);
+    extraModprobeConfig = lib.optionalString config.modules.video.virtualCamera.enable ''
       options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
     '';
+
   };
 
   # Networking
@@ -256,4 +260,5 @@ i18n.extraLocaleSettings = {
     noto-fonts-color-emoji
     lohit-fonts.bengali
   ];
+  };
 }

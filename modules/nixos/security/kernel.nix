@@ -305,13 +305,6 @@
         "firewire-core"
       ]
 
-      # you might possibly want your webcam to work
-      # we whitelsit the module if the system wants
-      # webcam to work
-      [
-        "uvcvideo" # this is why your webcam no worky
-      ]
-
       # if bluetooth is enabled, whitelist the module
       # necessary for bluetooth dongles to work
       (lib.optionals (!config.hardware.bluetooth.enable) [
