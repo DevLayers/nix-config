@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   hostname,
   nixosModules,
   ...
@@ -27,6 +28,10 @@
   };
 
   modules.services.localsend.enable = true;
+
+  # Allow rootless Podman/Docker Compose on this host.
+  # The global security module disables unprivileged user namespaces.
+  boot.kernel.sysctl."kernel.unprivileged_userns_clone" = lib.mkForce 1;
 
   # Set hostname
   networking.hostName = hostname;
