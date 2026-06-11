@@ -398,3 +398,8 @@ binds {
     Ctrl+Alt+Q { quit; }
     Mod+Shift+P { power-off-monitors; }
 }
+
+// Autostart
+spawn-at-startup {
+    command "noctalia-shell"
+}
