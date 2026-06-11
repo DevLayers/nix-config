@@ -19,6 +19,7 @@
     ../programs/fzf
     ../programs/git
     ../programs/go
+    ../programs/google-chrome
     ../programs/gpg
     ../programs/k8s
     ../programs/mpv
