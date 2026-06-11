@@ -79,6 +79,7 @@ in
         removeMargins = true;
       };
     };
+    systemd.enable = true;
     settings = {
       appLauncher = {
         autoPasteClipboard = false;
