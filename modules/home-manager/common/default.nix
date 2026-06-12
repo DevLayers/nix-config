@@ -68,6 +68,7 @@
       python3
       ripgrep
       terraform
+      distrobox
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       anki-bin
