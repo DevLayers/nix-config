@@ -68,6 +68,7 @@
       python3
       ripgrep
       terraform
+      antigravity-fhs
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       anki-bin
